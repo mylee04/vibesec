@@ -1,5 +1,5 @@
 import type { Language } from "./i18n.js"
-import { languageOptions } from "./i18n.js"
+import { languageOptions, parseLanguage } from "./i18n.js"
 
 type LanguageSelectorProps = {
   readonly language: Language
@@ -8,17 +8,22 @@ type LanguageSelectorProps = {
 }
 
 export const LanguageSelector = ({ language, label, onChange }: LanguageSelectorProps) => (
-  <fieldset className="language-bar">
-    <legend>{label}</legend>
-    {languageOptions.map((option) => (
-      <button
-        className={option.code === language ? "language-button active" : "language-button"}
-        type="button"
-        key={option.code}
-        onClick={() => onChange(option.code)}
-      >
-        {option.label}
-      </button>
-    ))}
-  </fieldset>
+  <label className="language-select">
+    <span>{label}</span>
+    <select
+      value={language}
+      onChange={(event) => {
+        const nextLanguage = parseLanguage(event.currentTarget.value)
+        if (nextLanguage !== undefined) {
+          onChange(nextLanguage)
+        }
+      }}
+    >
+      {languageOptions.map((option) => (
+        <option value={option.code} key={option.code}>
+          {option.label}
+        </option>
+      ))}
+    </select>
+  </label>
 )

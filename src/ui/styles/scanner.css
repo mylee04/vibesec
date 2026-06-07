@@ -2,17 +2,18 @@
   padding: 24px;
 }
 
-.language-bar {
+.language-select {
   display: flex;
-  flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 8px;
-  border: 0;
+  align-items: center;
+  gap: 9px;
   margin-bottom: 12px;
-  padding: 0;
+  color: #8fa39e;
+  font-size: 0.78rem;
+  font-weight: 800;
 }
 
-.language-bar legend {
+.language-select span {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -21,19 +22,15 @@
   white-space: nowrap;
 }
 
-.language-button {
+.language-select select {
   min-height: 32px;
   border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
   padding: 0 10px;
   background: rgba(255, 255, 255, 0.05);
   color: #c4d2ce;
   font-size: 0.78rem;
-}
-
-.language-button.active {
-  border-color: rgba(114, 224, 202, 0.45);
-  background: rgba(114, 224, 202, 0.14);
-  color: #f6fbfa;
+  font-weight: 850;
 }
 
 .brand-block {
