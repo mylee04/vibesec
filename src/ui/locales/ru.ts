@@ -4,24 +4,24 @@ export const ruCopy = {
   language: "Язык",
   scanner: {
     eyebrow: "Проверка запуска VibeSec",
-    title: "Скан. Score. Витрина.",
-    subtitle: "Проверьте риски и получите score для публикации.",
+    title: "Скан. Оценка. Витрина.",
+    subtitle: "Проверьте риски и получите оценку для публикации.",
     urlLabel: "URL сайта",
     placeholder: "https://your-app.vercel.app",
-    runScan: "Получить score",
+    runScan: "Получить оценку",
     scanning: "Сканирование",
   },
   home: {
     eyebrow: "Витрина VibeSec",
-    title: "Хотите app здесь?",
-    pitch: "Добавьте app. Хотите первое место? Получите featured.",
-    submitCta: "Добавить app",
-    featureCta: "Featured",
+    title: "Хотите приложение здесь?",
+    pitch: "Добавьте приложение. Хотите первое место? Разместитесь выше.",
+    submitCta: "Добавить",
+    featureCta: "В топ",
     viewAll: "Смотреть все",
     beta: "Публичная бета",
   },
   showcase: {
-    title: "Хотите app здесь? Получите featured.",
+    title: "Хотите приложение здесь? Разместитесь выше.",
     scanYourApp: "Проверить приложение",
     loading: "Загрузка витрины.",
     noPublic: "Публичных запусков пока нет.",
@@ -70,6 +70,96 @@ export const ruCopy = {
     fixesTitle: "Готовые исправления",
     copied: "Скопировано",
     copy: "Копировать",
+    issueCopy: {
+      "cookie-missing-secure": {
+        title: "Cookie без Secure",
+        evidence: "В заголовке Set-Cookie нет Secure",
+        recommendation: "Перед запуском включите Secure для session и auth cookie.",
+      },
+      "cookie-missing-httponly": {
+        title: "Cookie без HttpOnly",
+        evidence: "В заголовке Set-Cookie нет HttpOnly",
+        recommendation: "Включите HttpOnly для cookie, которым не нужен доступ из JavaScript.",
+      },
+      "cookie-missing-samesite": {
+        title: "Cookie без SameSite",
+        evidence: "В заголовке Set-Cookie нет SameSite",
+        recommendation: "Для session cookie используйте SameSite=Lax или SameSite=Strict.",
+      },
+      "missing-csp": {
+        title: "Нет Content-Security-Policy",
+        evidence: "Нет заголовка Content-Security-Policy",
+        recommendation: "Добавьте CSP перед публичным запуском.",
+      },
+      "missing-hsts": {
+        title: "Нет HSTS",
+        evidence: "Нет заголовка Strict-Transport-Security",
+        recommendation: "Добавьте HSTS после проверки HTTPS на всех subdomain.",
+      },
+      "wildcard-cors": {
+        title: "CORS разрешает любой origin",
+        evidence: "Access-Control-Allow-Origin: *",
+        recommendation: "Замените wildcard CORS на небольшой allowlist production origin.",
+      },
+      "missing-frame-policy": {
+        title: "Нет защиты от frame",
+        evidence: "Не найден X-Frame-Options или CSP frame-ancestors",
+        recommendation:
+          "Настройте CSP frame-ancestors или X-Frame-Options для чувствительных страниц.",
+      },
+      "missing-referrer-policy": {
+        title: "Нет Referrer-Policy",
+        evidence: "Нет заголовка Referrer-Policy",
+        recommendation: "Установите Referrer-Policy на strict-origin-when-cross-origin или строже.",
+      },
+      "missing-permissions-policy": {
+        title: "Нет Permissions-Policy",
+        evidence: "Нет заголовка Permissions-Policy",
+        recommendation: "Отключите неиспользуемые возможности браузера через Permissions-Policy.",
+      },
+      "public-env": {
+        title: "Публичный .env доступен",
+        evidence: "Чувствительный файл вернул HTTP-ответ",
+        recommendation: "Удалите файл из публичного хостинга и сразу замените раскрытые secrets.",
+      },
+      "public-git-config": {
+        title: "Публичный .git/config доступен",
+        evidence: "Конфиг репозитория вернул HTTP-ответ",
+        recommendation: "Заблокируйте dotfiles на edge и redeploy без директории репозитория.",
+      },
+      "public-sourcemap": {
+        title: "Публичный source map доступен",
+        evidence: "Source map вернул HTTP-ответ",
+        recommendation:
+          "Отключите публичные production source maps или загружайте их только в error tracker.",
+      },
+      "robots-sensitive-routes": {
+        title: "robots.txt раскрывает чувствительные routes",
+        evidence: "robots.txt вернул HTTP-ответ",
+        recommendation: "Не публикуйте admin, debug, dev или staging routes в robots.txt.",
+      },
+      "sitemap-sensitive-routes": {
+        title: "sitemap.xml раскрывает чувствительные routes",
+        evidence: "sitemap.xml вернул HTTP-ответ",
+        recommendation: "Уберите приватные и операционные routes из public sitemap.",
+      },
+      "provider-hints": {
+        title: "Видны следы Cloud/AI провайдеров",
+        evidence: "В публичных ответах найдены следы провайдеров",
+        recommendation: "Проверьте, что у каждого найденного сервиса минимальные права.",
+      },
+    },
+    providerEvidence: (providers: string) => `В публичных ответах найдено: ${providers}`,
+    exposureEvidence: (path: string, status: string) => `${path} вернул HTTP ${status}`,
+    fixNotes: {
+      next: "Используйте как стартовую точку, затем настройте CSP domains под реальное приложение.",
+      supabaseDetected:
+        "Обнаружен Supabase. Anon key может быть нормой, но RLS должен быть включен.",
+      supabaseDefault: "Используйте это, если приложение подключается к Supabase из браузера.",
+      firebase:
+        "Firebase config может быть публичным, но Database и Storage rules не должны быть открыты.",
+      aiApi: "Защитите chat, generate, upload и webhook routes от неконтролируемого расхода.",
+    },
   },
   publish: {
     title: "Добавить в витрину VibeSec",
@@ -82,6 +172,9 @@ export const ruCopy = {
     publish: "Опубликовать",
     viewPublicPage: "Открыть публичную страницу",
     defaultCategory: "AI-инструменты",
+    lockedTitle: "Витрина открывается с 75+",
+    lockedText:
+      "Исправьте риски, пересканируйте, затем публикуйте приложение или просите место в топе.",
   },
   dateLocale: "ru-RU",
 } satisfies UiCopy

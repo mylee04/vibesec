@@ -69,6 +69,93 @@ export const koCopy = {
     fixesTitle: "복사해서 쓰는 수정 코드",
     copied: "복사됨",
     copy: "복사",
+    issueCopy: {
+      "cookie-missing-secure": {
+        title: "쿠키에 Secure 없음",
+        evidence: "Set-Cookie 헤더에 Secure가 없습니다",
+        recommendation: "런치 전에 세션/인증 쿠키에 Secure를 설정하세요.",
+      },
+      "cookie-missing-httponly": {
+        title: "쿠키에 HttpOnly 없음",
+        evidence: "Set-Cookie 헤더에 HttpOnly가 없습니다",
+        recommendation: "브라우저 JavaScript 접근이 필요 없는 쿠키에는 HttpOnly를 설정하세요.",
+      },
+      "cookie-missing-samesite": {
+        title: "쿠키에 SameSite 없음",
+        evidence: "Set-Cookie 헤더에 SameSite가 없습니다",
+        recommendation: "세션 쿠키에는 SameSite=Lax 또는 SameSite=Strict를 설정하세요.",
+      },
+      "missing-csp": {
+        title: "Content-Security-Policy 없음",
+        evidence: "Content-Security-Policy 헤더가 없습니다",
+        recommendation: "공개 런치 전에 CSP 헤더를 추가하세요.",
+      },
+      "missing-hsts": {
+        title: "HSTS 없음",
+        evidence: "Strict-Transport-Security 헤더가 없습니다",
+        recommendation: "모든 서브도메인이 HTTPS를 지원하는지 확인한 뒤 HSTS를 추가하세요.",
+      },
+      "wildcard-cors": {
+        title: "CORS가 모든 origin을 허용",
+        evidence: "Access-Control-Allow-Origin: *",
+        recommendation: "와일드카드 CORS를 실제 운영 origin allowlist로 바꾸세요.",
+      },
+      "missing-frame-policy": {
+        title: "프레임 보호 없음",
+        evidence: "X-Frame-Options 또는 CSP frame-ancestors가 감지되지 않았습니다",
+        recommendation: "민감한 페이지에는 CSP frame-ancestors 또는 X-Frame-Options를 설정하세요.",
+      },
+      "missing-referrer-policy": {
+        title: "Referrer-Policy 없음",
+        evidence: "Referrer-Policy 헤더가 없습니다",
+        recommendation: "Referrer-Policy를 strict-origin-when-cross-origin 이상으로 설정하세요.",
+      },
+      "missing-permissions-policy": {
+        title: "Permissions-Policy 없음",
+        evidence: "Permissions-Policy 헤더가 없습니다",
+        recommendation: "사용하지 않는 브라우저 기능을 Permissions-Policy로 비활성화하세요.",
+      },
+      "public-env": {
+        title: "공개 .env 파일 접근 가능",
+        evidence: "민감 파일이 HTTP 응답을 반환했습니다",
+        recommendation: "공개 호스팅에서 파일을 제거하고 노출된 secret을 즉시 교체하세요.",
+      },
+      "public-git-config": {
+        title: "공개 .git/config 접근 가능",
+        evidence: "저장소 설정 파일이 HTTP 응답을 반환했습니다",
+        recommendation: "edge에서 dotfile을 차단하고 저장소 디렉터리 없이 다시 배포하세요.",
+      },
+      "public-sourcemap": {
+        title: "공개 source map 접근 가능",
+        evidence: "source map이 HTTP 응답을 반환했습니다",
+        recommendation: "운영 source map 공개를 끄거나 에러 추적 도구에만 업로드하세요.",
+      },
+      "robots-sensitive-routes": {
+        title: "robots.txt가 민감 경로를 노출",
+        evidence: "robots.txt가 HTTP 응답을 반환했습니다",
+        recommendation: "admin, debug, dev, staging 경로를 robots.txt에 노출하지 마세요.",
+      },
+      "sitemap-sensitive-routes": {
+        title: "sitemap.xml이 민감 경로를 노출",
+        evidence: "sitemap.xml이 HTTP 응답을 반환했습니다",
+        recommendation: "비공개/운영 경로는 public sitemap에서 제외하세요.",
+      },
+      "provider-hints": {
+        title: "Cloud/AI 제공자 흔적이 공개됨",
+        evidence: "공개 응답에서 제공자 흔적이 감지되었습니다",
+        recommendation: "감지된 서비스마다 최소 권한 설정이 되어 있는지 확인하세요.",
+      },
+    },
+    providerEvidence: (providers: string) => `공개 응답에서 ${providers} 감지`,
+    exposureEvidence: (path: string, status: string) => `${path}가 HTTP ${status}를 반환`,
+    fixNotes: {
+      next: "이 코드를 시작점으로 쓰고, 실제 앱 도메인에 맞게 CSP를 조정하세요.",
+      supabaseDetected:
+        "Supabase 흔적이 감지되었습니다. anon key는 정상일 수 있지만 RLS는 반드시 켜야 합니다.",
+      supabaseDefault: "브라우저에서 Supabase에 연결하는 앱이라면 이 설정을 확인하세요.",
+      firebase: "Firebase config는 공개될 수 있지만 Database/Storage 규칙은 열려 있으면 안 됩니다.",
+      aiApi: "chat, generate, upload, webhook 경로가 과금 폭주를 일으키지 않도록 보호하세요.",
+    },
   },
   publish: {
     title: "VibeSec 쇼케이스에 추가",
@@ -81,6 +168,8 @@ export const koCopy = {
     publish: "게시",
     viewPublicPage: "공개 페이지 보기",
     defaultCategory: "AI 도구",
+    lockedTitle: "쇼케이스는 75점 이상부터",
+    lockedText: "런치 위험을 고치고 다시 스캔한 뒤 앱을 공개하거나 상단 노출을 요청하세요.",
   },
   dateLocale: "ko-KR",
 } satisfies UiCopy

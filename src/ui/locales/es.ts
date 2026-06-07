@@ -70,6 +70,98 @@ export const esCopy = {
     fixesTitle: "Arreglos para copiar y pegar",
     copied: "Copiado",
     copy: "Copiar",
+    issueCopy: {
+      "cookie-missing-secure": {
+        title: "La cookie no tiene Secure",
+        evidence: "Falta Secure en el header Set-Cookie",
+        recommendation: "Activa Secure en cookies de sesión y auth antes del lanzamiento.",
+      },
+      "cookie-missing-httponly": {
+        title: "La cookie no tiene HttpOnly",
+        evidence: "Falta HttpOnly en el header Set-Cookie",
+        recommendation: "Usa HttpOnly en cookies que no necesiten acceso desde JavaScript.",
+      },
+      "cookie-missing-samesite": {
+        title: "La cookie no tiene SameSite",
+        evidence: "Falta SameSite en el header Set-Cookie",
+        recommendation: "Usa SameSite=Lax o SameSite=Strict en cookies de sesión.",
+      },
+      "missing-csp": {
+        title: "Falta Content-Security-Policy",
+        evidence: "Falta el header Content-Security-Policy",
+        recommendation: "Añade un header CSP antes del lanzamiento público.",
+      },
+      "missing-hsts": {
+        title: "Falta HSTS",
+        evidence: "Falta el header Strict-Transport-Security",
+        recommendation: "Añade HSTS después de confirmar HTTPS en todos los subdominios.",
+      },
+      "wildcard-cors": {
+        title: "CORS permite cualquier origin",
+        evidence: "Access-Control-Allow-Origin: *",
+        recommendation:
+          "Cambia el wildcard CORS por una allowlist pequeña de origins de producción.",
+      },
+      "missing-frame-policy": {
+        title: "Falta protección contra frames",
+        evidence: "No se detectó X-Frame-Options ni CSP frame-ancestors",
+        recommendation: "Configura CSP frame-ancestors o X-Frame-Options en páginas sensibles.",
+      },
+      "missing-referrer-policy": {
+        title: "Falta Referrer-Policy",
+        evidence: "Falta el header Referrer-Policy",
+        recommendation:
+          "Configura Referrer-Policy como strict-origin-when-cross-origin o más estricto.",
+      },
+      "missing-permissions-policy": {
+        title: "Falta Permissions-Policy",
+        evidence: "Falta el header Permissions-Policy",
+        recommendation: "Desactiva capacidades del navegador que no uses con Permissions-Policy.",
+      },
+      "public-env": {
+        title: "Archivo .env público accesible",
+        evidence: "Un archivo sensible devolvió respuesta HTTP",
+        recommendation: "Elimina el archivo del hosting público y rota los secretos expuestos.",
+      },
+      "public-git-config": {
+        title: ".git/config público accesible",
+        evidence: "La configuración del repositorio devolvió respuesta HTTP",
+        recommendation:
+          "Bloquea dotfiles en el edge y redespliega sin el directorio del repositorio.",
+      },
+      "public-sourcemap": {
+        title: "Source map público accesible",
+        evidence: "El source map devolvió respuesta HTTP",
+        recommendation:
+          "Desactiva source maps públicos o súbelos solo a tu herramienta de errores.",
+      },
+      "robots-sensitive-routes": {
+        title: "robots.txt revela rutas sensibles",
+        evidence: "robots.txt devolvió respuesta HTTP",
+        recommendation: "No publiques rutas admin, debug, dev o staging en robots.txt.",
+      },
+      "sitemap-sensitive-routes": {
+        title: "sitemap.xml revela rutas sensibles",
+        evidence: "sitemap.xml devolvió respuesta HTTP",
+        recommendation: "Mantén rutas privadas y operativas fuera del sitemap público.",
+      },
+      "provider-hints": {
+        title: "Huellas de proveedores Cloud/AI visibles",
+        evidence: "Se detectaron huellas de proveedores en respuestas públicas",
+        recommendation: "Verifica que cada servicio detectado tenga permisos mínimos.",
+      },
+    },
+    providerEvidence: (providers: string) => `Se detectó ${providers} en respuestas públicas`,
+    exposureEvidence: (path: string, status: string) => `${path} devolvió HTTP ${status}`,
+    fixNotes: {
+      next: "Úsalo como punto de partida y ajusta los dominios CSP de tu app real.",
+      supabaseDetected:
+        "Se detectó Supabase. La anon key puede ser normal, pero RLS debe estar activo.",
+      supabaseDefault: "Úsalo cuando tu app se conecte a Supabase desde el navegador.",
+      firebase:
+        "La config de Firebase puede ser pública, pero Database y Storage no deben estar abiertos.",
+      aiApi: "Protege rutas chat, generate, upload y webhook contra uso descontrolado.",
+    },
   },
   publish: {
     title: "Añadir al Showcase de VibeSec",
@@ -82,6 +174,9 @@ export const esCopy = {
     publish: "Publicar",
     viewPublicPage: "Ver página pública",
     defaultCategory: "Herramientas AI",
+    lockedTitle: "Showcase se desbloquea con 75+",
+    lockedText:
+      "Corrige los riesgos, vuelve a escanear y luego publica tu app o pide un lugar destacado.",
   },
   dateLocale: "es",
 } satisfies UiCopy

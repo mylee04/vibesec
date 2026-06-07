@@ -68,6 +68,95 @@ export const enCopy = {
     fixesTitle: "Copy-paste Fixes",
     copied: "Copied",
     copy: "Copy",
+    issueCopy: {
+      "cookie-missing-secure": {
+        title: "Cookie lacks Secure",
+        evidence: "Set-Cookie header lacks Secure",
+        recommendation: "Set Secure on session and auth cookies before launch.",
+      },
+      "cookie-missing-httponly": {
+        title: "Cookie lacks HttpOnly",
+        evidence: "Set-Cookie header lacks HttpOnly",
+        recommendation: "Set HttpOnly on cookies that do not need browser JavaScript access.",
+      },
+      "cookie-missing-samesite": {
+        title: "Cookie lacks SameSite",
+        evidence: "Set-Cookie header lacks SameSite",
+        recommendation: "Set SameSite=Lax or SameSite=Strict for session cookies.",
+      },
+      "missing-csp": {
+        title: "Missing Content-Security-Policy",
+        evidence: "Content-Security-Policy header missing",
+        recommendation: "Add a CSP header before public launch.",
+      },
+      "missing-hsts": {
+        title: "Missing HSTS",
+        evidence: "Strict-Transport-Security header missing",
+        recommendation: "Add HSTS after confirming every subdomain supports HTTPS.",
+      },
+      "wildcard-cors": {
+        title: "CORS allows every origin",
+        evidence: "Access-Control-Allow-Origin: *",
+        recommendation: "Replace wildcard CORS with a small allowlist of production origins.",
+      },
+      "missing-frame-policy": {
+        title: "Missing frame protection",
+        evidence: "No X-Frame-Options or CSP frame-ancestors detected",
+        recommendation: "Set CSP frame-ancestors or X-Frame-Options for sensitive pages.",
+      },
+      "missing-referrer-policy": {
+        title: "Missing Referrer-Policy",
+        evidence: "Referrer-Policy header missing",
+        recommendation: "Set Referrer-Policy to strict-origin-when-cross-origin or stricter.",
+      },
+      "missing-permissions-policy": {
+        title: "Missing Permissions-Policy",
+        evidence: "Permissions-Policy header missing",
+        recommendation: "Disable unused browser capabilities with a Permissions-Policy header.",
+      },
+      "public-env": {
+        title: "Public .env file is reachable",
+        evidence: "Sensitive file returned HTTP response",
+        recommendation:
+          "Remove the file from public hosting and rotate exposed secrets immediately.",
+      },
+      "public-git-config": {
+        title: "Public .git/config is reachable",
+        evidence: "Repository config returned HTTP response",
+        recommendation: "Block dotfiles at the edge and redeploy without the repository directory.",
+      },
+      "public-sourcemap": {
+        title: "Public source map is reachable",
+        evidence: "Source map returned HTTP response",
+        recommendation:
+          "Disable public production source maps or upload them only to your error tracker.",
+      },
+      "robots-sensitive-routes": {
+        title: "robots.txt reveals sensitive routes",
+        evidence: "robots.txt returned HTTP response",
+        recommendation: "Do not advertise admin, debug, dev, or staging paths in robots.txt.",
+      },
+      "sitemap-sensitive-routes": {
+        title: "sitemap.xml reveals sensitive routes",
+        evidence: "sitemap.xml returned HTTP response",
+        recommendation: "Keep private and operational routes out of public sitemaps.",
+      },
+      "provider-hints": {
+        title: "Cloud and AI provider fingerprints are visible",
+        evidence: "Detected provider fingerprints in public responses",
+        recommendation: "Verify each detected service has least-privilege configuration.",
+      },
+    },
+    providerEvidence: (providers: string) => `Detected ${providers} in public responses`,
+    exposureEvidence: (path: string, status: string) => `${path} returned HTTP ${status}`,
+    fixNotes: {
+      next: "Use this as a starting point, then tune CSP domains for your real app.",
+      supabaseDetected:
+        "Supabase patterns were detected. The anon key is normal, but RLS must be enabled.",
+      supabaseDefault: "Use this when your app connects to Supabase from the browser.",
+      firebase: "Firebase config can be public, but database and storage rules must not be open.",
+      aiApi: "Protect chat, generate, upload, and webhook routes from runaway usage.",
+    },
   },
   publish: {
     title: "Add to VibeSec Showcase",
@@ -80,6 +169,8 @@ export const enCopy = {
     publish: "Publish",
     viewPublicPage: "View public page",
     defaultCategory: "AI Tools",
+    lockedTitle: "Showcase unlocks at 75+",
+    lockedText: "Fix the launch risks, rescan, then publish your app or request a featured spot.",
   },
   dateLocale: "en",
 } as const

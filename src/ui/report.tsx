@@ -13,6 +13,7 @@ import type { ReportViewModel } from "../reporting/view-model.js"
 import type { ScanReport, SecurityIssue } from "../scanner/types.js"
 import type { UiCopy } from "./i18n.js"
 import { riskLabel, scanSummary, severityLabel } from "./i18n.js"
+import { fixNoteFor, issueTextFor } from "./report-text.js"
 import { ShowcasePublish } from "./showcase-publish.js"
 
 const severityOrder: readonly SecurityIssue["severity"][] = [
@@ -125,14 +126,7 @@ const IssuesPanel = ({
           </h3>
           <ul>
             {model.groupedIssues[severity].map((issue) => (
-              <li key={issue.id}>
-                <div className="issue-title-row">
-                  <span>{issue.title}</span>
-                  <strong>-{issue.penalty}</strong>
-                </div>
-                <small>{issue.evidence}</small>
-                <p>{issue.recommendation}</p>
-              </li>
+              <IssueRow issue={issue} labels={labels} key={issue.id} />
             ))}
             {model.groupedIssues[severity].length === 0 ? (
               <li className="muted">{labels.report.noGroupFindings}</li>
@@ -143,6 +137,26 @@ const IssuesPanel = ({
     })}
   </div>
 )
+
+const IssueRow = ({
+  issue,
+  labels,
+}: {
+  readonly issue: SecurityIssue
+  readonly labels: UiCopy
+}) => {
+  const text = issueTextFor(issue, labels)
+  return (
+    <li>
+      <div className="issue-title-row">
+        <span>{text.title}</span>
+        <strong>-{issue.penalty}</strong>
+      </div>
+      <small>{text.evidence}</small>
+      <p>{text.recommendation}</p>
+    </li>
+  )
+}
 
 const ChecklistPanel = ({ labels }: { readonly labels: UiCopy }) => (
   <div className="checklist-panel">
@@ -188,7 +202,7 @@ const FixesPanel = ({
             <div className="fix-heading">
               <div>
                 <h3>{fix.provider}</h3>
-                <p>{fix.note}</p>
+                <p>{fixNoteFor(fix, labels)}</p>
               </div>
               <button
                 className="icon-button"

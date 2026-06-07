@@ -51,11 +51,19 @@ export const ShowcasePublish = ({
   }
 
   if (report.score < 75) {
-    return null
+    return (
+      <section className="showcase-publish" id="showcase-publish">
+        <div className="panel-heading">
+          <LockKeyhole size={19} aria-hidden="true" />
+          <span>{labels.publish.lockedTitle}</span>
+        </div>
+        <p className="publish-note">{labels.publish.lockedText}</p>
+      </section>
+    )
   }
 
   return (
-    <section className="showcase-publish">
+    <section className="showcase-publish" id="showcase-publish">
       <div className="panel-heading">
         <Megaphone size={19} aria-hidden="true" />
         <span>{labels.publish.title}</span>

@@ -69,6 +69,99 @@ export const jaCopy = {
     fixesTitle: "コピーして使える修正",
     copied: "コピー済み",
     copy: "コピー",
+    issueCopy: {
+      "cookie-missing-secure": {
+        title: "Cookie に Secure がありません",
+        evidence: "Set-Cookie ヘッダーに Secure がありません",
+        recommendation: "公開前にセッション/認証 Cookie に Secure を設定してください。",
+      },
+      "cookie-missing-httponly": {
+        title: "Cookie に HttpOnly がありません",
+        evidence: "Set-Cookie ヘッダーに HttpOnly がありません",
+        recommendation: "JavaScript アクセスが不要な Cookie には HttpOnly を設定してください。",
+      },
+      "cookie-missing-samesite": {
+        title: "Cookie に SameSite がありません",
+        evidence: "Set-Cookie ヘッダーに SameSite がありません",
+        recommendation: "セッション Cookie には SameSite=Lax または Strict を設定してください。",
+      },
+      "missing-csp": {
+        title: "Content-Security-Policy がありません",
+        evidence: "Content-Security-Policy ヘッダーがありません",
+        recommendation: "公開前に CSP ヘッダーを追加してください。",
+      },
+      "missing-hsts": {
+        title: "HSTS がありません",
+        evidence: "Strict-Transport-Security ヘッダーがありません",
+        recommendation: "全サブドメインの HTTPS を確認してから HSTS を追加してください。",
+      },
+      "wildcard-cors": {
+        title: "CORS がすべての origin を許可",
+        evidence: "Access-Control-Allow-Origin: *",
+        recommendation: "ワイルドカード CORS を本番 origin の allowlist に変更してください。",
+      },
+      "missing-frame-policy": {
+        title: "フレーム保護がありません",
+        evidence: "X-Frame-Options または CSP frame-ancestors が検出されません",
+        recommendation:
+          "機密ページには CSP frame-ancestors または X-Frame-Options を設定してください。",
+      },
+      "missing-referrer-policy": {
+        title: "Referrer-Policy がありません",
+        evidence: "Referrer-Policy ヘッダーがありません",
+        recommendation:
+          "Referrer-Policy を strict-origin-when-cross-origin 以上に設定してください。",
+      },
+      "missing-permissions-policy": {
+        title: "Permissions-Policy がありません",
+        evidence: "Permissions-Policy ヘッダーがありません",
+        recommendation: "不要なブラウザ機能を Permissions-Policy で無効化してください。",
+      },
+      "public-env": {
+        title: "公開 .env ファイルにアクセス可能",
+        evidence: "機密ファイルが HTTP レスポンスを返しました",
+        recommendation:
+          "公開ホスティングから削除し、漏えいした secret をすぐにローテーションしてください。",
+      },
+      "public-git-config": {
+        title: "公開 .git/config にアクセス可能",
+        evidence: "リポジトリ設定が HTTP レスポンスを返しました",
+        recommendation:
+          "edge で dotfile をブロックし、リポジトリディレクトリなしで再デプロイしてください。",
+      },
+      "public-sourcemap": {
+        title: "公開 source map にアクセス可能",
+        evidence: "source map が HTTP レスポンスを返しました",
+        recommendation:
+          "本番 source map の公開を無効化するか、エラートラッカーのみにアップロードしてください。",
+      },
+      "robots-sensitive-routes": {
+        title: "robots.txt が機密ルートを公開",
+        evidence: "robots.txt が HTTP レスポンスを返しました",
+        recommendation: "admin、debug、dev、staging ルートを robots.txt に載せないでください。",
+      },
+      "sitemap-sensitive-routes": {
+        title: "sitemap.xml が機密ルートを公開",
+        evidence: "sitemap.xml が HTTP レスポンスを返しました",
+        recommendation: "非公開/運用ルートは public sitemap から外してください。",
+      },
+      "provider-hints": {
+        title: "Cloud/AI プロバイダーの痕跡が公開されています",
+        evidence: "公開レスポンスでプロバイダーの痕跡を検出しました",
+        recommendation: "検出された各サービスが最小権限になっているか確認してください。",
+      },
+    },
+    providerEvidence: (providers: string) => `公開レスポンスで ${providers} を検出`,
+    exposureEvidence: (path: string, status: string) => `${path} が HTTP ${status} を返しました`,
+    fixNotes: {
+      next: "このコードを出発点にして、実際のアプリに合わせて CSP ドメインを調整してください。",
+      supabaseDetected:
+        "Supabase の痕跡を検出しました。anon key は通常でも、RLS は必ず有効にしてください。",
+      supabaseDefault: "ブラウザから Supabase に接続するアプリで確認してください。",
+      firebase:
+        "Firebase config は公開されてもよい場合がありますが、Database/Storage ルールは開けないでください。",
+      aiApi: "chat、generate、upload、webhook ルートを過剰利用から保護してください。",
+    },
   },
   publish: {
     title: "VibeSec ショーケースに追加",
@@ -81,6 +174,8 @@ export const jaCopy = {
     publish: "公開",
     viewPublicPage: "公開ページを見る",
     defaultCategory: "AIツール",
+    lockedTitle: "ショーケースは75点以上で解放",
+    lockedText: "リスクを修正して再スキャン後、アプリ公開または上位掲載を申請できます。",
   },
   dateLocale: "ja-JP",
 } satisfies UiCopy

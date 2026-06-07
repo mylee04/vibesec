@@ -10,7 +10,13 @@ type ShowcasePreviewState = {
   readonly status: "fallback" | "live"
 }
 
-export const HomeShowcase = ({ labels }: { readonly labels: UiCopy }) => {
+export const HomeShowcase = ({
+  ctaHref,
+  labels,
+}: {
+  readonly ctaHref: string
+  readonly labels: UiCopy
+}) => {
   const [state, setState] = useState<ShowcasePreviewState>({
     entries: selectHomeShowcaseEntries([]),
     status: "fallback",
@@ -47,8 +53,8 @@ export const HomeShowcase = ({ labels }: { readonly labels: UiCopy }) => {
             <h2 id="home-showcase-title">{labels.home.title}</h2>
             <p>{labels.home.pitch}</p>
             <div className="home-showcase-cta">
-              <a href="/#scan-url">{labels.home.submitCta}</a>
-              <a href="/#scan-url">{labels.home.featureCta}</a>
+              <a href={ctaHref}>{labels.home.submitCta}</a>
+              <a href={ctaHref}>{labels.home.featureCta}</a>
             </div>
           </div>
         </div>

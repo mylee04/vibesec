@@ -152,6 +152,10 @@ dd {
   gap: 10px;
 }
 
+.publish-note {
+  margin: 8px 0 0;
+}
+
 .showcase-form > input {
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;

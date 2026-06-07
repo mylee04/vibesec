@@ -31,6 +31,7 @@ export const App = () => {
     }
     return buildReportViewModel(state.report)
   }, [state])
+  const showcaseCtaHref = state.kind === "ready" ? "#showcase-publish" : "#scan-url"
 
   useEffect(() => {
     persistLanguage(language)
@@ -86,9 +87,9 @@ export const App = () => {
 
       {state.kind === "ready" && reportModel !== undefined ? (
         <Report report={state.report} model={reportModel} labels={labels} />
-      ) : (
-        <HomeShowcase labels={labels} />
-      )}
+      ) : null}
+
+      <HomeShowcase labels={labels} ctaHref={showcaseCtaHref} />
     </main>
   )
 }
