@@ -178,6 +178,32 @@
   margin: 6px 0 0;
 }
 
+.home-showcase-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.home-showcase-cta a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 34px;
+  border: 1px solid rgba(114, 224, 202, 0.28);
+  border-radius: 8px;
+  padding: 0 12px;
+  color: #72e0ca;
+  background: rgba(114, 224, 202, 0.08);
+  font-size: 0.84rem;
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.home-showcase-cta a:first-child {
+  color: #07100f;
+  background: #72e0ca;
+}
+
 .home-showcase-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

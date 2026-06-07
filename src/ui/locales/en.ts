@@ -11,13 +11,15 @@ export const enCopy = {
   },
   home: {
     eyebrow: "VibeSec Showcase",
-    title: "Promote your app here",
-    pitch: "Publish your score. Get discovered.",
+    title: "Want your app here?",
+    pitch: "Submit your app. Want the first spot? Get featured.",
+    submitCta: "Submit app",
+    featureCta: "Get featured",
     viewAll: "View all",
     beta: "Public beta launch",
   },
   showcase: {
-    title: "Advertise your web app right here",
+    title: "Want your app here? Get featured.",
     scanYourApp: "Scan your app",
     loading: "Loading showcase.",
     noPublic: "No public launches yet.",

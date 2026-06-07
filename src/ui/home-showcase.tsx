@@ -46,6 +46,10 @@ export const HomeShowcase = ({ labels }: { readonly labels: UiCopy }) => {
             <p className="eyebrow">{labels.home.eyebrow}</p>
             <h2 id="home-showcase-title">{labels.home.title}</h2>
             <p>{labels.home.pitch}</p>
+            <div className="home-showcase-cta">
+              <a href="/#scan-url">{labels.home.submitCta}</a>
+              <a href="/#scan-url">{labels.home.featureCta}</a>
+            </div>
           </div>
         </div>
         <a className="showcase-link" href="/showcase">

@@ -13,13 +13,15 @@ export const ruCopy = {
   },
   home: {
     eyebrow: "Витрина VibeSec",
-    title: "Продвигайте app здесь",
-    pitch: "Опубликуйте score. Получите внимание.",
+    title: "Хотите app здесь?",
+    pitch: "Добавьте app. Хотите первое место? Получите featured.",
+    submitCta: "Добавить app",
+    featureCta: "Featured",
     viewAll: "Смотреть все",
     beta: "Публичная бета",
   },
   showcase: {
-    title: "Рекламируйте свое веб-приложение прямо здесь",
+    title: "Хотите app здесь? Получите featured.",
     scanYourApp: "Проверить приложение",
     loading: "Загрузка витрины.",
     noPublic: "Публичных запусков пока нет.",
