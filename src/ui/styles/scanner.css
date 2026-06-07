@@ -158,18 +158,19 @@ input {
 
   .brand-block {
     display: grid;
-    grid-template-columns: 46px minmax(0, 1fr);
+    grid-template-columns: 1fr;
     align-items: flex-start;
-    gap: 14px;
+    gap: 12px;
   }
 
   .mark {
-    width: 46px;
-    height: 46px;
+    width: 40px;
+    height: 40px;
   }
 
   .hero-subtitle {
-    font-size: 0.98rem;
-    line-height: 1.42;
+    margin-top: 8px;
+    font-size: 0.94rem;
+    line-height: 1.38;
   }
 }
