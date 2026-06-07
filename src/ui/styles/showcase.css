@@ -173,6 +173,11 @@
   margin-bottom: 0;
 }
 
+.home-showcase-title p:not(.eyebrow) {
+  max-width: 640px;
+  margin: 8px 0 0;
+}
+
 .home-showcase-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));

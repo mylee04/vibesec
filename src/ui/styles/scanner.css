@@ -58,7 +58,15 @@
 }
 
 .scan-form {
-  margin-top: 28px;
+  margin-top: 24px;
+}
+
+.hero-subtitle {
+  max-width: 680px;
+  margin: 14px 0 0;
+  color: #c4d2ce;
+  font-size: 1.05rem;
+  line-height: 1.5;
 }
 
 .scan-form label {
@@ -71,6 +79,14 @@
 .input-row {
   gap: 10px;
   align-items: stretch;
+}
+
+.scanner-secondary-link {
+  display: inline-flex;
+  margin-top: 14px;
+  color: #72e0ca;
+  font-weight: 850;
+  text-decoration: none;
 }
 
 .input-shell {

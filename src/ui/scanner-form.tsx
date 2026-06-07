@@ -25,6 +25,7 @@ export const ScannerForm = ({
       <div>
         <p className="eyebrow">{labels.scanner.eyebrow}</p>
         <h1>{labels.scanner.title}</h1>
+        <p className="hero-subtitle">{labels.scanner.subtitle}</p>
       </div>
     </div>
 
@@ -49,5 +50,8 @@ export const ScannerForm = ({
         </button>
       </div>
     </form>
+    <a className="scanner-secondary-link" href="/showcase">
+      {labels.scanner.secondaryCta}
+    </a>
   </section>
 )
