@@ -2,6 +2,10 @@
 
 VibeSec is a launch security checker for AI-built web apps. Paste a deployed URL and get a passive security score, launch-readiness report, and practical fixes for common web app risks.
 
+Live site: https://vibesec.bymyleslee.com
+
+Repository: https://github.com/mylee04/vibesec
+
 ## What It Checks
 
 - HTTPS and security headers
