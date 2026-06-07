@@ -1,5 +1,5 @@
 .scan-surface {
-  padding: 24px;
+  padding: 22px;
 }
 
 .language-select {
@@ -58,12 +58,12 @@
 }
 
 .scan-form {
-  margin-top: 24px;
+  margin-top: 22px;
 }
 
 .hero-subtitle {
   max-width: 680px;
-  margin: 14px 0 0;
+  margin: 10px 0 0;
   color: #c4d2ce;
   font-size: 1.05rem;
   line-height: 1.5;
@@ -79,14 +79,6 @@
 .input-row {
   gap: 10px;
   align-items: stretch;
-}
-
-.scanner-secondary-link {
-  display: inline-flex;
-  margin-top: 14px;
-  color: #72e0ca;
-  font-weight: 850;
-  text-decoration: none;
 }
 
 .input-shell {
@@ -165,6 +157,19 @@ input {
   }
 
   .brand-block {
+    display: grid;
+    grid-template-columns: 46px minmax(0, 1fr);
     align-items: flex-start;
+    gap: 14px;
+  }
+
+  .mark {
+    width: 46px;
+    height: 46px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.98rem;
+    line-height: 1.42;
   }
 }

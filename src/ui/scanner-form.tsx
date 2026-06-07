@@ -50,8 +50,5 @@ export const ScannerForm = ({
         </button>
       </div>
     </form>
-    <a className="scanner-secondary-link" href="/showcase">
-      {labels.scanner.secondaryCta}
-    </a>
   </section>
 )
