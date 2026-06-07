@@ -2,11 +2,6 @@ import { ArrowRight, Globe, ShieldCheck } from "lucide-react"
 import type { FormEvent } from "react"
 import type { UiCopy } from "./i18n.js"
 
-const sampleTargets: readonly string[] = [
-  "https://vibesec.bymyleslee.com/",
-  "https://bymyleslee.com/",
-]
-
 type ScannerFormProps = {
   readonly url: string
   readonly isLoading: boolean
@@ -54,18 +49,5 @@ export const ScannerForm = ({
         </button>
       </div>
     </form>
-
-    <div className="sample-row">
-      {sampleTargets.map((target) => (
-        <button
-          className="sample-button"
-          type="button"
-          key={target}
-          onClick={() => onUrlChange(target)}
-        >
-          {target.replace("https://", "")}
-        </button>
-      ))}
-    </div>
   </section>
 )

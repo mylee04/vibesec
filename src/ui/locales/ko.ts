@@ -12,12 +12,12 @@ export const koCopy = {
   },
   home: {
     eyebrow: "VibeSec 쇼케이스",
-    title: "참고할 만한 안전한 런치",
+    title: "여기서 당신의 웹앱을 대놓고 홍보하세요",
     viewAll: "전체 보기",
     beta: "공개 베타 런치",
   },
   showcase: {
-    title: "참고할 만한 안전한 AI 웹앱",
+    title: "여기서 당신의 웹앱을 대놓고 홍보하세요",
     scanYourApp: "내 앱 스캔",
     loading: "쇼케이스 불러오는 중.",
     noPublic: "아직 공개 런치가 없습니다.",

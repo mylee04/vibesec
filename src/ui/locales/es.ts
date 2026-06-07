@@ -12,12 +12,12 @@ export const esCopy = {
   },
   home: {
     eyebrow: "Showcase de VibeSec",
-    title: "Lanzamientos seguros para estudiar",
+    title: "Anuncia tu app web aquí mismo",
     viewAll: "Ver todo",
     beta: "Beta pública",
   },
   showcase: {
-    title: "Apps AI seguras que vale la pena estudiar",
+    title: "Anuncia tu app web aquí mismo",
     scanYourApp: "Escanear mi app",
     loading: "Cargando showcase.",
     noPublic: "Aún no hay lanzamientos públicos.",

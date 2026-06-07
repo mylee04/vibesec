@@ -12,12 +12,12 @@ export const jaCopy = {
   },
   home: {
     eyebrow: "VibeSec ショーケース",
-    title: "参考になる安全なローンチ",
+    title: "あなたのWebアプリをここで堂々と宣伝",
     viewAll: "すべて表示",
     beta: "公開ベータ",
   },
   showcase: {
-    title: "参考になる安全なAI Webアプリ",
+    title: "あなたのWebアプリをここで堂々と宣伝",
     scanYourApp: "自分のアプリをスキャン",
     loading: "ショーケースを読み込み中。",
     noPublic: "公開ローンチはまだありません。",

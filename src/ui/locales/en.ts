@@ -10,12 +10,12 @@ export const enCopy = {
   },
   home: {
     eyebrow: "VibeSec Showcase",
-    title: "Secure launches people can study",
+    title: "Advertise your web app right here",
     viewAll: "View all",
     beta: "Public beta launch",
   },
   showcase: {
-    title: "Secure AI-built apps worth studying",
+    title: "Advertise your web app right here",
     scanYourApp: "Scan your app",
     loading: "Loading showcase.",
     noPublic: "No public launches yet.",
