@@ -25,13 +25,14 @@
 .showcase-detail {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  gap: 22px;
+  gap: 18px;
   margin-top: 16px;
-  padding: 26px;
+  padding: 22px;
 }
 
 .showcase-score {
   display: grid;
+  align-self: start;
   width: 86px;
   min-height: 76px;
   place-items: center;
@@ -42,12 +43,12 @@
 }
 
 .showcase-score.large {
-  width: 138px;
-  min-height: 126px;
+  width: 112px;
+  min-height: 104px;
 }
 
 .showcase-detail:has(.showcase-score) {
-  grid-template-columns: 150px minmax(0, 1fr);
+  grid-template-columns: 124px minmax(0, 1fr);
 }
 
 .showcase-score span {
@@ -57,13 +58,23 @@
 }
 
 .showcase-score.large span {
-  font-size: 3.2rem;
+  font-size: 2.35rem;
 }
 
 .showcase-score strong {
   color: var(--accent);
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   text-align: center;
+}
+
+.showcase-detail .eyebrow {
+  margin-bottom: 8px;
+  font-size: 0.78rem;
+}
+
+.showcase-detail h1 {
+  font-size: clamp(1.95rem, 4vw, 3.05rem);
+  line-height: 1.02;
 }
 
 .showcase-score-pill {
@@ -122,6 +133,9 @@
 
 .showcase-body {
   max-width: 760px;
+  margin: 6px 0 14px;
+  font-size: 1rem;
+  line-height: 1.42;
   white-space: pre-wrap;
 }
 
@@ -147,7 +161,8 @@
 }
 
 .badge-line {
-  margin-top: 18px;
+  margin-top: 14px;
+  font-size: 0.96rem;
 }
 
 .badge-line svg {
@@ -267,6 +282,24 @@
   .showcase-grid,
   .showcase-detail {
     grid-template-columns: 1fr;
+  }
+
+  .showcase-detail {
+    gap: 16px;
+    padding: 18px;
+  }
+
+  .showcase-detail h1 {
+    font-size: clamp(1.7rem, 8vw, 2.15rem);
+  }
+
+  .showcase-score.large {
+    width: 88px;
+    min-height: 78px;
+  }
+
+  .showcase-score.large span {
+    font-size: 1.85rem;
   }
 
   .home-showcase-head,

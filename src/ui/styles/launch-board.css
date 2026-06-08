@@ -282,11 +282,11 @@
 
 .launch-board-comments {
   display: grid;
-  gap: 14px;
+  gap: 12px;
   margin-top: 16px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 18px;
+  padding: 16px;
   background: var(--surface);
 }
 
@@ -302,14 +302,15 @@
   min-width: 0;
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 11px 12px;
+  padding: 10px 11px;
   color: var(--text-strong);
   background: var(--surface-field);
   font: inherit;
+  font-size: 0.95rem;
 }
 
 .launch-board-comment-form textarea {
-  min-height: 44px;
+  min-height: 40px;
   resize: vertical;
 }
 
@@ -318,10 +319,11 @@
   align-items: center;
   justify-content: center;
   gap: 7px;
-  min-height: 44px;
-  padding: 0 14px;
+  min-height: 40px;
+  padding: 0 13px;
   color: var(--accent-text);
   background: var(--accent);
+  font-size: 0.94rem;
 }
 
 .launch-board-comment-list {
