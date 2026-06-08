@@ -31,7 +31,7 @@ export const enCopy = {
     notFound: "Public report not found.",
     publicReport: "Public report",
     visitApp: "Visit app",
-    hot: "Hot",
+    hot: "Trending",
     latest: "Latest",
     popular: "Popular",
     upvote: "Upvote",

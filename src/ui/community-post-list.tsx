@@ -77,8 +77,6 @@ const CommunityPostRow = ({
         </div>
         <div className="community-meta">
           <a href={entry.appUrl}>{formatShowcaseHost(entry.appUrl)}</a>
-          <span>{entry.score}/100</span>
-          <span>{entry.grade}</span>
           {state === "error" ? <span>{labels.showcase.voteError}</span> : null}
         </div>
       </div>
