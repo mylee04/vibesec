@@ -1,4 +1,5 @@
 import { describe, expect, it } from "bun:test"
+import type { ShowcaseEntry } from "../src/showcase/types.js"
 import { formatShowcaseHost, selectHomeShowcaseEntries } from "../src/ui/home-showcase-data.js"
 import {
   detectLanguageFromPreferences,
@@ -20,6 +21,34 @@ describe("home showcase preview", () => {
     expect(selected).toHaveLength(1)
     expect(selected[0]?.appName).toBe("VibeSec")
     expect(selected[0]?.appUrl).toBe("https://vibesec.bymyleslee.com/")
+  })
+
+  it("keeps the VibeSec launch when public entries are available", () => {
+    // Given: a user has posted a service to the launch board.
+    const entries: ShowcaseEntry[] = [
+      {
+        id: "personal-website",
+        appName: "personal-website",
+        appUrl: "https://bymyleslee.com/",
+        tagline: "Personal website.",
+        category: "Other",
+        stack: [],
+        score: 90,
+        grade: "A",
+        risk: "Low",
+        upvotes: 0,
+        comments: [],
+        createdAt: "2026-06-08T20:00:00.000Z",
+        lastScannedAt: "2026-06-08T20:00:00.000Z",
+      },
+    ]
+
+    // When: the home page chooses preview entries.
+    const selected = selectHomeShowcaseEntries(entries)
+
+    // Then: the default VibeSec launch remains alongside user posts.
+    expect(selected.map((entry) => entry.id)).toContain("vibesec-vibesec-bymyleslee-com")
+    expect(selected.map((entry) => entry.id)).toContain("personal-website")
   })
 
   it("formats the app domain for promotional cards", () => {

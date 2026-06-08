@@ -21,10 +21,15 @@ export const fallbackShowcaseEntries = [
 export const selectHomeShowcaseEntries = (
   entries: readonly ShowcaseEntry[],
 ): readonly ShowcaseEntry[] => {
-  if (entries.length === 0) {
-    return fallbackShowcaseEntries
-  }
-  return entries.slice(0, 3)
+  return withFallbackShowcaseEntries(entries).slice(0, 3)
+}
+
+export const withFallbackShowcaseEntries = (
+  entries: readonly ShowcaseEntry[],
+): readonly ShowcaseEntry[] => {
+  const entryIds = new Set(entries.map((entry) => entry.id))
+  const missingFallbackEntries = fallbackShowcaseEntries.filter((entry) => !entryIds.has(entry.id))
+  return [...missingFallbackEntries, ...entries]
 }
 
 export const formatShowcaseHost = (appUrl: string): string => {
