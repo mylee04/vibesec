@@ -11,6 +11,10 @@ export const jaCopy = {
     runScan: "スコア取得",
     scanning: "スキャン中",
   },
+  nav: {
+    scan: "スキャン",
+    community: "コミュニティ",
+  },
   home: {
     eyebrow: "VibeSec Launch Board",
     title: "あなたのサービスを紹介",
@@ -29,6 +33,7 @@ export const jaCopy = {
     notFound: "公開レポートが見つかりません。",
     publicReport: "公開レポート",
     visitApp: "アプリを見る",
+    hot: "話題順",
     latest: "最新順",
     popular: "人気順",
     upvote: "アップボート",

@@ -11,6 +11,10 @@ export const ruCopy = {
     runScan: "Получить оценку",
     scanning: "Сканирование",
   },
+  nav: {
+    scan: "Скан",
+    community: "Сообщество",
+  },
   home: {
     eyebrow: "VibeSec Launch Board",
     title: "Представьте свой сервис",
@@ -29,6 +33,7 @@ export const ruCopy = {
     notFound: "Публичный отчет не найден.",
     publicReport: "Публичный отчет",
     visitApp: "Открыть приложение",
+    hot: "Горячее",
     latest: "Новые",
     popular: "Популярные",
     upvote: "Апвоут",

@@ -11,6 +11,10 @@ export const esCopy = {
     runScan: "Obtener score",
     scanning: "Escaneando",
   },
+  nav: {
+    scan: "Escanear",
+    community: "Comunidad",
+  },
   home: {
     eyebrow: "Launch Board de VibeSec",
     title: "Presenta tu servicio",
@@ -29,6 +33,7 @@ export const esCopy = {
     notFound: "Reporte público no encontrado.",
     publicReport: "Reporte público",
     visitApp: "Visitar app",
+    hot: "Tendencia",
     latest: "Recientes",
     popular: "Popular",
     upvote: "Votar",

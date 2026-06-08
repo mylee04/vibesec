@@ -3,13 +3,8 @@ import { useEffect, useMemo, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { fallbackShowcaseEntries } from "./home-showcase-data.js"
 import type { Language, UiCopy } from "./i18n.js"
-import { LanguageSelector } from "./language-selector.js"
-import {
-  CommentPanel,
-  type LaunchBoardSort,
-  LaunchBoardTabs,
-  sortLaunchBoardEntries,
-} from "./launch-board-actions.js"
+import { CommentPanel, LaunchBoardTabs } from "./launch-board-actions.js"
+import { type LaunchBoardSort, sortLaunchBoardEntries } from "./launch-board-sort.js"
 import { listShowcaseEntries } from "./showcase-api.js"
 import { ShowcaseCard, ShowcaseHeader, ShowcaseHero } from "./showcase-cards.js"
 
@@ -63,20 +58,17 @@ const useShowcaseEntries = (): {
 
 type ShowcasePageProps = {
   readonly labels: UiCopy
-  readonly language: Language
-  readonly onLanguageChange: (language: Language) => void
 }
 
-export const ShowcasePage = ({ labels, language, onLanguageChange }: ShowcasePageProps) => {
+export const ShowcasePage = ({ labels }: ShowcasePageProps) => {
   const { state, updateEntry } = useShowcaseEntries()
-  const [sort, setSort] = useState<LaunchBoardSort>("popular")
+  const [sort, setSort] = useState<LaunchBoardSort>("hot")
   const entries = useMemo(
     () => (state.kind === "ready" ? sortLaunchBoardEntries(state.entries, sort) : []),
     [sort, state],
   )
   return (
-    <main className="shell">
-      <LanguageSelector language={language} label={labels.language} onChange={onLanguageChange} />
+    <>
       <ShowcaseHeader labels={labels} />
       <LaunchBoardTabs labels={labels} sort={sort} onSortChange={setSort} />
       {state.kind === "loading" ? (
@@ -98,20 +90,16 @@ export const ShowcasePage = ({ labels, language, onLanguageChange }: ShowcasePag
           ) : null}
         </section>
       ) : null}
-    </main>
+    </>
   )
 }
 
 type ShowcaseDetailPageProps = ShowcasePageProps & {
   readonly entryId: string
+  readonly language: Language
 }
 
-export const ShowcaseDetailPage = ({
-  entryId,
-  labels,
-  language,
-  onLanguageChange,
-}: ShowcaseDetailPageProps) => {
+export const ShowcaseDetailPage = ({ entryId, labels, language }: ShowcaseDetailPageProps) => {
   const { state, updateEntry } = useShowcaseEntries()
   const entry = useMemo(() => {
     if (state.kind !== "ready") {
@@ -121,9 +109,8 @@ export const ShowcaseDetailPage = ({
   }, [entryId, state])
 
   return (
-    <main className="shell">
-      <LanguageSelector language={language} label={labels.language} onChange={onLanguageChange} />
-      <a className="showcase-link" href="/showcase">
+    <>
+      <a className="showcase-link" href="/community">
         <ArrowLeft size={16} aria-hidden="true" />
         {labels.showcase.back}
       </a>
@@ -144,6 +131,6 @@ export const ShowcaseDetailPage = ({
           <CommentPanel entry={entry} labels={labels} onEntryUpdate={updateEntry} />
         </>
       ) : null}
-    </main>
+    </>
   )
 }

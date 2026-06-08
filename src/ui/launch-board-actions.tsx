@@ -2,27 +2,8 @@ import { ArrowBigUp, MessageCircle, Send } from "lucide-react"
 import { type FormEvent, useMemo, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import type { UiCopy } from "./i18n.js"
+import type { LaunchBoardSort } from "./launch-board-sort.js"
 import { commentShowcaseEntry, upvoteShowcaseEntry } from "./showcase-api.js"
-
-export type LaunchBoardSort = "popular" | "latest"
-
-export const sortLaunchBoardEntries = (
-  entries: readonly ShowcaseEntry[],
-  sort: LaunchBoardSort,
-): readonly ShowcaseEntry[] =>
-  [...entries].sort((left, right) => {
-    if (sort === "popular") {
-      const voteDelta = right.upvotes - left.upvotes
-      if (voteDelta !== 0) {
-        return voteDelta
-      }
-      const commentDelta = right.comments.length - left.comments.length
-      if (commentDelta !== 0) {
-        return commentDelta
-      }
-    }
-    return right.createdAt.localeCompare(left.createdAt)
-  })
 
 export const LaunchBoardTabs = ({
   labels,
@@ -34,6 +15,13 @@ export const LaunchBoardTabs = ({
   readonly onSortChange: (sort: LaunchBoardSort) => void
 }) => (
   <div className="launch-board-tabs" role="tablist" aria-label={labels.showcase.title}>
+    <button
+      type="button"
+      className={sort === "hot" ? "active" : ""}
+      onClick={() => onSortChange("hot")}
+    >
+      {labels.showcase.hot}
+    </button>
     <button
       type="button"
       className={sort === "popular" ? "active" : ""}

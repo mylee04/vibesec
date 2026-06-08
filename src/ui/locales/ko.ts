@@ -11,6 +11,10 @@ export const koCopy = {
     runScan: "점수 받기",
     scanning: "스캔 중",
   },
+  nav: {
+    scan: "스캔",
+    community: "커뮤니티",
+  },
   home: {
     eyebrow: "VibeSec 런치 보드",
     title: "여러분의 서비스를 소개해주세요",
@@ -29,6 +33,7 @@ export const koCopy = {
     notFound: "공개 리포트를 찾을 수 없습니다.",
     publicReport: "공개 리포트",
     visitApp: "앱 방문",
+    hot: "화제순",
     latest: "최신순",
     popular: "인기순",
     upvote: "업보트",

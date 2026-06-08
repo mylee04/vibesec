@@ -58,7 +58,7 @@ export const HomeShowcase = ({
             </div>
           </div>
         </div>
-        <a className="showcase-link" href="/showcase">
+        <a className="showcase-link" href="/community">
           {labels.home.viewAll}
           <ExternalLink size={16} aria-hidden="true" />
         </a>

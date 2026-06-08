@@ -9,6 +9,10 @@ export const enCopy = {
     runScan: "Get score",
     scanning: "Scanning",
   },
+  nav: {
+    scan: "Scan",
+    community: "Community",
+  },
   home: {
     eyebrow: "VibeSec Launch Board",
     title: "Introduce your app",
@@ -27,6 +31,7 @@ export const enCopy = {
     notFound: "Public report not found.",
     publicReport: "Public report",
     visitApp: "Visit app",
+    hot: "Hot",
     latest: "Latest",
     popular: "Popular",
     upvote: "Upvote",
