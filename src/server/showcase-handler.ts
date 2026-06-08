@@ -24,6 +24,13 @@ export type ShowcaseHandlerOptions = {
 
 const defaultStore = createConfiguredShowcaseStore()
 
+const prohibitedShowcasePatterns: readonly RegExp[] = [
+  /\b(?:betting|blackjack|casino|gambling|poker|roulette|slots?|sportsbook|wagering)\b/i,
+  /\b(?:adult|escort|erotic|hookup|nude|nsfw|onlyfans|porn|porno|sex|webcam|xxx)\b/i,
+  /(?:18\+|바카라|배팅|베팅|카지노|도박|사설토토|성인|섹스|스포츠토토|슬롯|야동|유흥|포커|포르노|홀덤)/i,
+  /(?:안마|오피|키스방|룸살롱|룸싸롱)/i,
+]
+
 const schemelessDomainPattern =
   /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+(?:[/?#].*)?$/iu
 
@@ -53,6 +60,21 @@ const ShowcaseRequestSchema = z.object({
   category: z.string().trim().min(2).max(40),
   stack: z.array(z.string().trim().min(1).max(32)).max(8),
 })
+
+const isProhibitedShowcaseInput = (input: z.infer<typeof ShowcaseRequestSchema>): boolean => {
+  const hostname = new URL(input.appUrl).hostname
+  const searchText = [
+    input.appName,
+    input.appUrl,
+    hostname,
+    input.tagline,
+    input.category,
+    ...input.stack,
+  ]
+    .join(" ")
+    .normalize("NFKC")
+  return prohibitedShowcasePatterns.some((pattern) => pattern.test(searchText))
+}
 
 const ShowcaseUpvoteRequestSchema = z.object({
   entryId: z.string().trim().min(1).max(120),
@@ -120,6 +142,17 @@ export const createShowcaseEntry = async (
   const parsed = ShowcaseRequestSchema.safeParse(payload)
   if (!parsed.success) {
     return { status: 400, body: { error: { code: "invalid_showcase_entry" } } }
+  }
+  if (isProhibitedShowcaseInput(parsed.data)) {
+    return {
+      status: 403,
+      body: {
+        error: {
+          code: "prohibited_showcase_content",
+          message: "Gambling, adult, and nightlife services cannot be posted.",
+        },
+      },
+    }
   }
   const store = options.store ?? defaultStore
   const scanner = options.scanner ?? { scanTarget }

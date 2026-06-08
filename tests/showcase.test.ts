@@ -98,6 +98,48 @@ describe("showcase entries", () => {
     expect(await store.listEntries()).toHaveLength(0)
   })
 
+  it("blocks gambling adult and nightlife submissions before scanning", async () => {
+    // Given: prohibited community submissions.
+    const store = createMemoryShowcaseStore()
+    let scanCalls = 0
+    const scanner = {
+      scanTarget: () => {
+        scanCalls += 1
+        return reportWithScore(91)
+      },
+    }
+
+    // When: users try to publish prohibited links or copy.
+    const gamblingResult = await createShowcaseEntry(
+      {
+        ...validPayload,
+        appName: "Best casino bonus",
+      },
+      { store, scanner },
+    )
+    const adultResult = await createShowcaseEntry(
+      {
+        ...validPayload,
+        appUrl: "adult-example.com",
+      },
+      { store, scanner },
+    )
+    const nightlifeResult = await createShowcaseEntry(
+      {
+        ...validPayload,
+        tagline: "서울 유흥 정보를 모아 보여주는 서비스입니다.",
+      },
+      { store, scanner },
+    )
+
+    // Then: none are scanned or stored.
+    expect(gamblingResult.status).toBe(403)
+    expect(adultResult.status).toBe(403)
+    expect(nightlifeResult.status).toBe(403)
+    expect(scanCalls).toBe(0)
+    expect(await store.listEntries()).toHaveLength(0)
+  })
+
   it("keeps Korean post titles readable in public URLs", async () => {
     // Given: a Korean community post title.
     const store = createMemoryShowcaseStore()
