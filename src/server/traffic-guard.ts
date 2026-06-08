@@ -1,7 +1,6 @@
-import { env } from "node:process"
-import { Redis } from "@upstash/redis"
 import type { ScanReport } from "../scanner/types.js"
 import { ScanReportSchema } from "../scanner/types.js"
+import { createConfiguredRedis, type VibeSecRedis } from "./redis-runtime.js"
 
 type CacheEntry = {
   readonly expiresAt: number
@@ -110,7 +109,10 @@ export const createInMemoryScanGuard = (options: ScanGuardOptions = {}): ScanGua
   }
 }
 
-export const createRedisScanGuard = (redis: Redis, options: ScanGuardOptions = {}): ScanGuard => {
+export const createRedisScanGuard = (
+  redis: VibeSecRedis,
+  options: ScanGuardOptions = {},
+): ScanGuard => {
   const cacheTtlMs = options.cacheTtlMs ?? defaultCacheTtlMs
   const windowMs = options.windowMs ?? defaultWindowMs
   const maxRequestsPerWindow = options.maxRequestsPerWindow ?? defaultMaxRequestsPerWindow
@@ -118,7 +120,7 @@ export const createRedisScanGuard = (redis: Redis, options: ScanGuardOptions = {
 
   return {
     async getCachedReport(cacheKey) {
-      const payload = await redis.get<unknown>(cacheKeyFor(cacheKey))
+      const payload = await redis.getJson(cacheKeyFor(cacheKey))
       const parsed = ScanReportSchema.safeParse(payload)
       return parsed.success ? parsed.data : undefined
     },
@@ -126,7 +128,7 @@ export const createRedisScanGuard = (redis: Redis, options: ScanGuardOptions = {
       if (cacheTtlMs <= 0) {
         return
       }
-      await redis.set(cacheKeyFor(cacheKey), report, { ex: Math.ceil(cacheTtlMs / 1000) })
+      await redis.setJson(cacheKeyFor(cacheKey), report, { ex: Math.ceil(cacheTtlMs / 1000) })
     },
     async consumeRateLimit(clientKey) {
       const key = rateLimitKeyFor(clientKey)
@@ -164,17 +166,8 @@ export const createRedisScanGuard = (redis: Redis, options: ScanGuardOptions = {
   }
 }
 
-const redisFromEnv = (): Redis | undefined => {
-  const url = env["UPSTASH_REDIS_REST_URL"] ?? env["KV_REST_API_URL"]
-  const token = env["UPSTASH_REDIS_REST_TOKEN"] ?? env["KV_REST_API_TOKEN"]
-  if (url === undefined || token === undefined) {
-    return undefined
-  }
-  return new Redis({ url, token })
-}
-
 export const createConfiguredScanGuard = (): ScanGuard => {
-  const redis = redisFromEnv()
+  const redis = createConfiguredRedis()
   if (redis !== undefined) {
     return createRedisScanGuard(redis)
   }

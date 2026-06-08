@@ -36,9 +36,9 @@ VibeSec focuses on safe, passive checks and clear next steps instead of exploit 
 - Launch-readiness report
 - Prioritized findings grouped by severity
 - Copy-paste fixes for common launch issues
-- Paid-code gated showcase publishing
-- Public app showcase for teams that want to advertise their web app
-- Optional Redis-backed rate limiting and cache through Upstash or Vercel KV-compatible variables
+- Free launch board posts after a successful passive scan
+- Public app community board with upvotes, comments, and post pages
+- Redis-backed rate limiting, scan cache, launch board storage, and vote dedupe
 
 ## Safety Model
 
@@ -71,8 +71,26 @@ bun run build
 
 Do not commit real secrets. Configure these only in the deployment environment when needed:
 
+- `REDIS_URL`
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
 - `VIBESEC_ALERT_WEBHOOK_URL`
 
-Without Redis variables, VibeSec falls back to in-memory rate limiting and showcase storage.
+On the Oracle VPS, prefer local Redis:
+
+```bash
+REDIS_URL=redis://127.0.0.1:6379
+```
+
+`REDIS_URL` takes priority over Upstash-compatible variables. Without Redis variables, VibeSec falls back to in-memory rate limiting and launch board storage.
+
+## Oracle VPS Deployment
+
+VibeSec can run without Vercel as a Bun service behind nginx on an ARM64 Ubuntu VPS.
+
+Deployment assets live in [`deploy/oracle`](deploy/oracle):
+
+- `vibesec.service` for systemd
+- `nginx-vibesec.conf` for nginx reverse proxy
+- `vibesec.env.example` for server-only environment variables
+- `scripts/deploy-oracle.sh` for validated rsync deployment

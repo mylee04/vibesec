@@ -1,10 +1,9 @@
-import { env } from "node:process"
-import { Redis } from "@upstash/redis"
 import {
   type ShowcaseComment,
   type ShowcaseEntry,
   ShowcaseEntryListSchema,
 } from "../showcase/types.js"
+import { createConfiguredRedis, type VibeSecRedis } from "./redis-runtime.js"
 
 export type ShowcaseStore = {
   readonly listEntries: () => Promise<readonly ShowcaseEntry[]>
@@ -88,9 +87,9 @@ export const createMemoryShowcaseStore = (): ShowcaseStore => {
   }
 }
 
-export const createRedisShowcaseStore = (redis: Redis): ShowcaseStore => {
+export const createRedisShowcaseStore = (redis: VibeSecRedis): ShowcaseStore => {
   const listEntries = async (): Promise<readonly ShowcaseEntry[]> => {
-    const payload = await redis.get<unknown>(redisKey)
+    const payload = await redis.getJson(redisKey)
     const parsed = ShowcaseEntryListSchema.safeParse(payload)
     return parsed.success ? sortEntries(parsed.data) : []
   }
@@ -99,7 +98,7 @@ export const createRedisShowcaseStore = (redis: Redis): ShowcaseStore => {
     async saveEntry(entry) {
       const existing = await listEntries()
       const nextEntries = [...existing.filter((item) => item.id !== entry.id), entry]
-      await redis.set(redisKey, nextEntries)
+      await redis.setJson(redisKey, nextEntries)
       await redis.del(redisVoteKeyFor(entry.id))
     },
     async upvoteEntry(entryId, visitorId) {
@@ -109,12 +108,12 @@ export const createRedisShowcaseStore = (redis: Redis): ShowcaseStore => {
         return undefined
       }
       const voteKey = redisVoteKeyFor(entryId)
-      const voteAdded = await redis.sadd(voteKey, visitorId)
+      const voteAdded = await redis.sAdd(voteKey, visitorId)
       if (voteAdded === 0) {
         return { entry: nextEntry, counted: false }
       }
       const updatedEntry = upvotedEntry(nextEntry)
-      await redis.set(
+      await redis.setJson(
         redisKey,
         existing.map((entry) => (entry.id === entryId ? updatedEntry : entry)),
       )
@@ -127,7 +126,7 @@ export const createRedisShowcaseStore = (redis: Redis): ShowcaseStore => {
         return undefined
       }
       const updatedEntry = entryWithComment(nextEntry, comment)
-      await redis.set(
+      await redis.setJson(
         redisKey,
         existing.map((entry) => (entry.id === entryId ? updatedEntry : entry)),
       )
@@ -136,16 +135,7 @@ export const createRedisShowcaseStore = (redis: Redis): ShowcaseStore => {
   }
 }
 
-const redisFromEnv = (): Redis | undefined => {
-  const url = env["UPSTASH_REDIS_REST_URL"] ?? env["KV_REST_API_URL"]
-  const token = env["UPSTASH_REDIS_REST_TOKEN"] ?? env["KV_REST_API_TOKEN"]
-  if (url === undefined || token === undefined) {
-    return undefined
-  }
-  return new Redis({ url, token })
-}
-
 export const createConfiguredShowcaseStore = (): ShowcaseStore => {
-  const redis = redisFromEnv()
+  const redis = createConfiguredRedis()
   return redis === undefined ? createMemoryShowcaseStore() : createRedisShowcaseStore(redis)
 }

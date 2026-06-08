@@ -1,0 +1,23 @@
+[Unit]
+Description=VibeSec web app
+After=network-online.target redis-server.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=vibesec
+Group=vibesec
+WorkingDirectory=/srv/vibesec/app
+EnvironmentFile=/etc/vibesec/vibesec.env
+Environment=NODE_ENV=production
+ExecStart=/home/vibesec/.bun/bin/bun run start
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ReadWritePaths=/srv/vibesec /etc/vibesec
+
+[Install]
+WantedBy=multi-user.target
