@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="vibesec-logo-accent" x1="58" y1="32" x2="206" y2="224" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#f4b27a" />
+      <stop offset="0.48" stop-color="#72e0ca" />
+      <stop offset="1" stop-color="#4d63bd" />
+    </linearGradient>
+  </defs>
+  <rect width="256" height="256" rx="56" fill="#0d1113" />
+  <path
+    d="M128 34 198 62v60c0 50-29 83-70 96-41-13-70-46-70-96V62l70-28Z"
+    fill="url(#vibesec-logo-accent)"
+  />
+  <path
+    d="M128 62 173 80v43c0 31-18 52-45 62-27-10-45-31-45-62V80l45-18Z"
+    fill="#0d1113"
+    opacity="0.92"
+  />
+  <path
+    d="M98 124 119 145l40-43"
+    fill="none"
+    stroke="url(#vibesec-logo-accent)"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="20"
+  />
+</svg>

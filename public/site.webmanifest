@@ -1,0 +1,22 @@
+{
+  "name": "VibeSec",
+  "short_name": "VibeSec",
+  "description": "Launch security checker for AI-built web apps.",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "/logo.svg",
+      "sizes": "256x256",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "theme_color": "#0d1113",
+  "background_color": "#0d1113",
+  "display": "standalone"
+}
