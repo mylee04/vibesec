@@ -29,9 +29,9 @@ describe("home showcase preview", () => {
     expect(parseLanguage("ko")).toBe("ko")
     expect(parseLanguage("es")).toBe("es")
     expect(parseLanguage("ja")).toBe("ja")
-    expect(getCopy("ko").scanner.runScan).toBe("점수 확인하기")
-    expect(getCopy("es").scanner.runScan).toBe("Ver puntuación")
-    expect(getCopy("ja").scanner.runScan).toBe("スコアを確認")
+    expect(getCopy("ko").scanner.runScan).toBe("무료로 검사하기")
+    expect(getCopy("es").scanner.runScan).toBe("Revisar gratis")
+    expect(getCopy("ja").scanner.runScan).toBe("無料でチェック")
     expect(publicRiskLabel("Low", getCopy("ru"))).toBe("Низкий риск")
   })
 

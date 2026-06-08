@@ -4,11 +4,11 @@ export const jaCopy = {
   language: "言語",
   scanner: {
     eyebrow: "VibeSec 公開前チェック",
-    title: "検査。評価。公開。",
-    subtitle: "公開前のリスクを確認し、共有できるスコアを取得できます。",
+    title: "AIアプリはすぐ作れる。公開前にチェック。",
+    subtitle: "URLを貼るだけで、公開前のリスクを1分以内に確認できます。",
     urlLabel: "WebサイトURL",
     placeholder: "your-app.com または https://your-app.vercel.app",
-    runScan: "スコアを確認",
+    runScan: "無料でチェック",
     scanning: "スキャン中",
   },
   nav: {

@@ -4,11 +4,11 @@ export const ruCopy = {
   language: "Язык",
   scanner: {
     eyebrow: "Проверка перед публикацией VibeSec",
-    title: "Проверка. Оценка. Публикация.",
-    subtitle: "Найдите риски перед публикацией и получите оценку, которой можно поделиться.",
+    title: "AI-приложения запускаются быстро. Проверьте их до релиза.",
+    subtitle: "Вставьте URL и найдите риски запуска меньше чем за минуту.",
     urlLabel: "URL сайта",
     placeholder: "your-app.com или https://your-app.vercel.app",
-    runScan: "Проверить оценку",
+    runScan: "Проверить бесплатно",
     scanning: "Сканирование",
   },
   nav: {

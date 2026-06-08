@@ -22,11 +22,9 @@ type ScanState =
   | { readonly kind: "error"; readonly message: string }
   | { readonly kind: "ready"; readonly report: ScanReport }
 
-const exampleUrl = "https://vibesec.bymyleslee.com/"
-
 export const App = () => {
   const pathname = window.location.pathname
-  const [url, setUrl] = useState(exampleUrl)
+  const [url, setUrl] = useState("")
   const [state, setState] = useState<ScanState>({ kind: "idle" })
   const [language, setLanguage] = useState<Language>(getInitialLanguage)
   const labels = getCopy(language)

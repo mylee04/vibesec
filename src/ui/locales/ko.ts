@@ -4,11 +4,11 @@ export const koCopy = {
   language: "언어",
   scanner: {
     eyebrow: "VibeSec 출시 전 점검",
-    title: "검사. 점수. 공개.",
-    subtitle: "공개 전에 위험 요소를 확인하고 공유 가능한 점수를 받아보세요.",
+    title: "AI 웹앱, 배포 전 1분 점검",
+    subtitle: "하루 만에 만든 앱도 공개하면 공격 표면이 생깁니다.",
     urlLabel: "웹사이트 URL",
     placeholder: "your-app.com 또는 https://your-app.vercel.app",
-    runScan: "점수 확인하기",
+    runScan: "무료로 검사하기",
     scanning: "검사 중",
   },
   nav: {

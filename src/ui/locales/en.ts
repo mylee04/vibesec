@@ -2,11 +2,11 @@ export const enCopy = {
   language: "Language",
   scanner: {
     eyebrow: "VibeSec launch checker",
-    title: "Scan. Score. Launch.",
-    subtitle: "Check launch risks and earn a shareable score.",
+    title: "AI apps ship fast. Check before launch.",
+    subtitle: "Paste a URL and find launch risks in under a minute.",
     urlLabel: "Website URL",
     placeholder: "your-app.com or https://your-app.vercel.app",
-    runScan: "Get score",
+    runScan: "Run free check",
     scanning: "Scanning",
   },
   nav: {

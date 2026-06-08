@@ -4,11 +4,11 @@ export const esCopy = {
   language: "Idioma",
   scanner: {
     eyebrow: "Verificador de lanzamiento VibeSec",
-    title: "Escanea. Evalúa. Publica.",
-    subtitle: "Detecta riesgos antes de publicar y obtén una puntuación para compartir.",
+    title: "Las apps con IA salen rápido. Revísalas antes de lanzar.",
+    subtitle: "Pega una URL y encuentra riesgos de lanzamiento en menos de un minuto.",
     urlLabel: "URL del sitio web",
     placeholder: "your-app.com o https://your-app.vercel.app",
-    runScan: "Ver puntuación",
+    runScan: "Revisar gratis",
     scanning: "Escaneando",
   },
   nav: {

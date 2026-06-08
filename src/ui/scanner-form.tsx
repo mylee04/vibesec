@@ -39,6 +39,7 @@ export const ScannerForm = ({
             name="url"
             type="text"
             inputMode="url"
+            autoComplete="off"
             autoCapitalize="none"
             value={url}
             placeholder={labels.scanner.placeholder}
