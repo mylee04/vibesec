@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test"
 import { buildReportViewModel } from "../src/reporting/view-model.js"
 import type { ScanReport } from "../src/scanner/types.js"
 import { getCopy } from "../src/ui/i18n.js"
+import { buildAgentRepairPrompt } from "../src/ui/report-prompt.js"
 import { fixNoteFor, issueTextFor } from "../src/ui/report-text.js"
 
 describe("buildReportViewModel", () => {
@@ -90,5 +91,50 @@ describe("buildReportViewModel", () => {
     expect(fixNoteFor(fix, labels)).toBe(
       "이 코드를 시작점으로 쓰고, 실제 앱 도메인에 맞게 CSP를 조정하세요.",
     )
+  })
+
+  it("builds a copy-paste repair prompt for coding agents", () => {
+    // Given: a scan report with concrete evidence and a framework fix.
+    const report: ScanReport = {
+      targetUrl: "https://demo.example",
+      scannedAt: "2026-06-06T00:00:00.000Z",
+      score: 54,
+      grade: "D",
+      risk: "High",
+      summary: "High risk launch posture",
+      issues: [
+        {
+          id: "wildcard-cors",
+          title: "CORS allows every origin",
+          severity: "Dangerous",
+          evidence: "Access-Control-Allow-Origin: *",
+          recommendation: "Restrict CORS to your production origin.",
+          penalty: 20,
+        },
+      ],
+      checks: [],
+      fixes: [
+        {
+          provider: "Next.js / Vercel",
+          title: "Add launch security headers",
+          code: "export async function headers() {}",
+          note: "Apply before launch.",
+        },
+      ],
+      detected: ["Vercel"],
+    }
+
+    // When: the report is transformed into an agent-facing prompt.
+    const prompt = buildAgentRepairPrompt(report, getCopy("en"))
+
+    // Then: it includes the actionable context an AI coding assistant needs.
+    expect(prompt).toContain("You are helping fix launch security issues from a VibeSec scan.")
+    expect(prompt).toContain("Target: https://demo.example")
+    expect(prompt).toContain("Score: 54/100 (D)")
+    expect(prompt).toContain("[Dangerous] CORS allows every origin (-20)")
+    expect(prompt).toContain("Evidence: Access-Control-Allow-Origin: *")
+    expect(prompt).toContain("Fix guidance: Replace wildcard CORS")
+    expect(prompt).toContain("```ts\nexport async function headers() {}\n```")
+    expect(prompt).toContain("Do not expose, print, or commit secrets.")
   })
 })

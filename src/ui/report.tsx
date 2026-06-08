@@ -11,6 +11,7 @@ import {
 import { useState } from "react"
 import type { ReportViewModel } from "../reporting/view-model.js"
 import type { ScanReport, SecurityIssue } from "../scanner/types.js"
+import { AgentPromptPanel } from "./agent-prompt-panel.js"
 import type { UiCopy } from "./i18n.js"
 import { riskLabel, scanSummary, severityLabel } from "./i18n.js"
 import { fixNoteFor, issueTextFor } from "./report-text.js"
@@ -55,6 +56,7 @@ const formatScanTime = (value: string, labels: UiCopy): string => {
 export const Report = ({ report, model, labels }: ReportProps) => (
   <section className="report-grid" aria-live="polite">
     <ScorePanel report={report} model={model} labels={labels} />
+    <AgentPromptPanel report={report} labels={labels} />
     <IssuesPanel model={model} labels={labels} />
     <ChecklistPanel labels={labels} />
     <ShowcasePublish report={report} labels={labels} />

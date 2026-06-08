@@ -84,6 +84,10 @@ export const ruCopy = {
       "Добавить rate limit для AI, auth, upload и webhook endpoint",
     ],
     fixesTitle: "Готовые исправления",
+    agentPromptTitle: "Отправить в Claude или Codex",
+    agentPromptDescription:
+      "Скопируйте brief с URL, находками, доказательствами и snippets исправлений.",
+    copyAgentPrompt: "Скопировать brief",
     copied: "Скопировано",
     copy: "Копировать",
     issueCopy: {

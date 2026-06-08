@@ -6,6 +6,19 @@
 }
 
 .score-panel,
+.agent-prompt-panel,
+.checklist-panel,
+.showcase-publish {
+  grid-column: 1;
+}
+
+.issues-panel,
+.fix-panel {
+  grid-column: 2;
+}
+
+.score-panel,
+.agent-prompt-panel,
 .issues-panel,
 .checklist-panel,
 .fix-panel {
@@ -73,6 +86,19 @@
 
 .report-meta div {
   min-width: 0;
+}
+
+.agent-prompt-panel {
+  display: grid;
+  gap: 14px;
+}
+
+.agent-prompt-panel p {
+  margin-bottom: 0;
+}
+
+.agent-prompt-panel button {
+  width: 100%;
 }
 
 dt {
@@ -214,7 +240,15 @@ pre {
 
   .issues-panel,
   .fix-panel {
+    grid-column: auto;
     grid-row: auto;
+  }
+
+  .score-panel,
+  .agent-prompt-panel,
+  .checklist-panel,
+  .showcase-publish {
+    grid-column: auto;
   }
 
   .score {

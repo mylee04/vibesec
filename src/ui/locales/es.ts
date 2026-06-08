@@ -84,6 +84,10 @@ export const esCopy = {
       "Aplicar rate limit a endpoints de AI, auth, upload y webhook",
     ],
     fixesTitle: "Arreglos para copiar y pegar",
+    agentPromptTitle: "Enviar a Claude o Codex",
+    agentPromptDescription:
+      "Copia un brief con URL, hallazgos, evidencia y snippets de corrección.",
+    copyAgentPrompt: "Copiar brief de reparación",
     copied: "Copiado",
     copy: "Copiar",
     issueCopy: {

@@ -82,6 +82,10 @@ export const enCopy = {
       "Rate limit AI, auth, upload, and webhook endpoints",
     ],
     fixesTitle: "Copy-paste Fixes",
+    agentPromptTitle: "Send this to Claude or Codex",
+    agentPromptDescription:
+      "Copy a clean repair brief with the URL, findings, evidence, and fix snippets.",
+    copyAgentPrompt: "Copy repair brief",
     copied: "Copied",
     copy: "Copy",
     issueCopy: {

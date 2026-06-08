@@ -83,6 +83,9 @@ export const jaCopy = {
       "AI、auth、upload、webhook エンドポイントに rate limit を適用する",
     ],
     fixesTitle: "コピーして使える修正",
+    agentPromptTitle: "Claude / Codex に渡す",
+    agentPromptDescription: "URL、検出事項、根拠、修正コードをまとめた作業指示をコピーできます。",
+    copyAgentPrompt: "修正指示をコピー",
     copied: "コピー済み",
     copy: "コピー",
     issueCopy: {

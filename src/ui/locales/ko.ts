@@ -83,6 +83,10 @@ export const koCopy = {
       "AI, 인증, 업로드, 웹훅 엔드포인트 rate limit 적용",
     ],
     fixesTitle: "복사해서 쓰는 수정 코드",
+    agentPromptTitle: "Claude나 Codex에 보내기",
+    agentPromptDescription:
+      "URL, 발견 사항, 증거, 수정 코드를 한 번에 정리한 작업 지시서를 복사하세요.",
+    copyAgentPrompt: "수정 지시서 복사",
     copied: "복사됨",
     copy: "복사",
     issueCopy: {
