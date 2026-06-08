@@ -29,9 +29,9 @@ describe("home showcase preview", () => {
     expect(parseLanguage("ko")).toBe("ko")
     expect(parseLanguage("es")).toBe("es")
     expect(parseLanguage("ja")).toBe("ja")
-    expect(getCopy("ko").scanner.runScan).toBe("점수 받기")
-    expect(getCopy("es").scanner.runScan).toBe("Obtener score")
-    expect(getCopy("ja").scanner.runScan).toBe("スコア取得")
+    expect(getCopy("ko").scanner.runScan).toBe("점수 확인하기")
+    expect(getCopy("es").scanner.runScan).toBe("Ver puntuación")
+    expect(getCopy("ja").scanner.runScan).toBe("スコアを確認")
     expect(publicRiskLabel("Low", getCopy("ru"))).toBe("Низкий риск")
   })
 
