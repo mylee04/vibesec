@@ -5,7 +5,13 @@ import { buildReportViewModel } from "../reporting/view-model.js"
 import type { ScanReport } from "../scanner/types.js"
 import { scanUrl } from "./api.js"
 import { HomeShowcase } from "./home-showcase.js"
-import { getCopy, getInitialLanguage, type Language, persistLanguage } from "./i18n.js"
+import {
+  applyLanguage,
+  getCopy,
+  getInitialLanguage,
+  type Language,
+  persistLanguage,
+} from "./i18n.js"
 import { LanguageSelector } from "./language-selector.js"
 import { Report } from "./report.js"
 import { ScannerForm } from "./scanner-form.js"
@@ -34,8 +40,13 @@ export const App = () => {
   const showcaseCtaHref = state.kind === "ready" ? "#showcase-publish" : "#scan-url"
 
   useEffect(() => {
-    persistLanguage(language)
+    applyLanguage(language)
   }, [language])
+
+  const changeLanguage = (nextLanguage: Language) => {
+    persistLanguage(nextLanguage)
+    setLanguage(nextLanguage)
+  }
 
   const submitScan = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -53,7 +64,7 @@ export const App = () => {
   }
 
   if (pathname === "/showcase") {
-    return <ShowcasePage labels={labels} language={language} onLanguageChange={setLanguage} />
+    return <ShowcasePage labels={labels} language={language} onLanguageChange={changeLanguage} />
   }
 
   if (pathname.startsWith("/s/")) {
@@ -62,14 +73,14 @@ export const App = () => {
         entryId={decodeURIComponent(pathname.replace("/s/", ""))}
         labels={labels}
         language={language}
-        onLanguageChange={setLanguage}
+        onLanguageChange={changeLanguage}
       />
     )
   }
 
   return (
     <main className="shell">
-      <LanguageSelector language={language} label={labels.language} onChange={setLanguage} />
+      <LanguageSelector language={language} label={labels.language} onChange={changeLanguage} />
       <ScannerForm
         url={url}
         isLoading={state.kind === "loading"}

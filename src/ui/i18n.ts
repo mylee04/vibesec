@@ -24,6 +24,9 @@ const copies: Record<Language, UiCopy> = {
   ru: ruCopy,
 }
 
+const languageStorageKey = "vibesec-language"
+const languageSourceStorageKey = "vibesec-language-source"
+
 export const parseLanguage = (value: string | null | undefined): Language | undefined => {
   switch (value) {
     case "en":
@@ -37,30 +40,42 @@ export const parseLanguage = (value: string | null | undefined): Language | unde
   }
 }
 
-export const getInitialLanguage = (): Language => {
-  const saved = parseLanguage(window.localStorage.getItem("vibesec-language"))
-  if (saved !== undefined) {
-    return saved
-  }
-  const browserLanguage = window.navigator.language.toLowerCase()
-  if (browserLanguage.startsWith("ko")) {
-    return "ko"
-  }
-  if (browserLanguage.startsWith("ja")) {
-    return "ja"
-  }
-  if (browserLanguage.startsWith("es")) {
-    return "es"
-  }
-  if (browserLanguage.startsWith("ru")) {
-    return "ru"
+const languageFromBrowserTag = (value: string): Language | undefined => {
+  const primaryLanguage = value.toLowerCase().split("-")[0]
+  return parseLanguage(primaryLanguage)
+}
+
+export const detectLanguageFromPreferences = (
+  preferences: readonly string[] | undefined,
+): Language => {
+  for (const preference of preferences ?? []) {
+    const language = languageFromBrowserTag(preference)
+    if (language !== undefined) {
+      return language
+    }
   }
   return "en"
 }
 
-export const persistLanguage = (language: Language): void => {
-  window.localStorage.setItem("vibesec-language", language)
+export const getInitialLanguage = (): Language => {
+  const saved = parseLanguage(window.localStorage.getItem(languageStorageKey))
+  const source = window.localStorage.getItem(languageSourceStorageKey)
+  if (source === "manual" && saved !== undefined) {
+    return saved
+  }
+  const browserLanguages =
+    window.navigator.languages.length > 0 ? window.navigator.languages : [window.navigator.language]
+  return detectLanguageFromPreferences(browserLanguages)
+}
+
+export const applyLanguage = (language: Language): void => {
   document.documentElement.lang = language
+}
+
+export const persistLanguage = (language: Language): void => {
+  window.localStorage.setItem(languageStorageKey, language)
+  window.localStorage.setItem(languageSourceStorageKey, "manual")
+  applyLanguage(language)
 }
 
 export const getCopy = (language: Language): UiCopy => copies[language]
