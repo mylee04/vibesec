@@ -1,10 +1,11 @@
+import { randomUUID } from "node:crypto"
 import { z } from "zod"
 import { scanTarget } from "../scanner/scan.js"
 import type { ScanReport } from "../scanner/types.js"
-import type { ShowcaseEntry } from "../showcase/types.js"
+import type { ShowcaseComment, ShowcaseEntry } from "../showcase/types.js"
 import { createConfiguredShowcaseStore, type ShowcaseStore } from "./showcase-store.js"
 
-export type ShowcaseHttpStatus = 200 | 201 | 400 | 502
+export type ShowcaseHttpStatus = 200 | 201 | 400 | 404 | 502
 
 export type ShowcaseHttpResult = {
   readonly status: ShowcaseHttpStatus
@@ -28,6 +29,16 @@ const ShowcaseRequestSchema = z.object({
   tagline: z.string().trim().min(8).max(160),
   category: z.string().trim().min(2).max(40),
   stack: z.array(z.string().trim().min(1).max(32)).max(8),
+})
+
+const ShowcaseUpvoteRequestSchema = z.object({
+  entryId: z.string().trim().min(1).max(120),
+})
+
+const ShowcaseCommentRequestSchema = z.object({
+  entryId: z.string().trim().min(1).max(120),
+  authorName: z.string().trim().min(2).max(40),
+  body: z.string().trim().min(2).max(280),
 })
 
 const slugFor = (value: string): string =>
@@ -55,8 +66,17 @@ const publicEntryFrom = (
   score: report.score,
   grade: report.grade,
   risk: report.risk,
+  upvotes: 0,
+  comments: [],
   createdAt: new Date().toISOString(),
   lastScannedAt: report.scannedAt,
+})
+
+const commentFrom = (input: z.infer<typeof ShowcaseCommentRequestSchema>): ShowcaseComment => ({
+  id: randomUUID(),
+  authorName: input.authorName,
+  body: input.body,
+  createdAt: new Date().toISOString(),
 })
 
 export const listShowcaseEntries = async (
@@ -80,4 +100,34 @@ export const createShowcaseEntry = async (
   const entry = publicEntryFrom(parsed.data, report)
   await store.saveEntry(entry)
   return { status: 201, body: { entry } }
+}
+
+export const upvoteShowcaseEntry = async (
+  payload: unknown,
+  store: ShowcaseStore = defaultStore,
+): Promise<ShowcaseHttpResult> => {
+  const parsed = ShowcaseUpvoteRequestSchema.safeParse(payload)
+  if (!parsed.success) {
+    return { status: 400, body: { error: { code: "invalid_showcase_upvote" } } }
+  }
+  const entry = await store.upvoteEntry(parsed.data.entryId)
+  if (entry === undefined) {
+    return { status: 404, body: { error: { code: "showcase_entry_not_found" } } }
+  }
+  return { status: 200, body: { entry } }
+}
+
+export const addShowcaseComment = async (
+  payload: unknown,
+  store: ShowcaseStore = defaultStore,
+): Promise<ShowcaseHttpResult> => {
+  const parsed = ShowcaseCommentRequestSchema.safeParse(payload)
+  if (!parsed.success) {
+    return { status: 400, body: { error: { code: "invalid_showcase_comment" } } }
+  }
+  const entry = await store.addComment(parsed.data.entryId, commentFrom(parsed.data))
+  if (entry === undefined) {
+    return { status: 404, body: { error: { code: "showcase_entry_not_found" } } }
+  }
+  return { status: 200, body: { entry } }
 }

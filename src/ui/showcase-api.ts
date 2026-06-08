@@ -3,6 +3,7 @@ import {
   ShowcaseCreateResponseSchema,
   type ShowcaseEntry,
   ShowcaseListResponseSchema,
+  ShowcaseMutationResponseSchema,
 } from "../showcase/types.js"
 
 export type ShowcaseSubmission = {
@@ -28,4 +29,28 @@ export const publishShowcaseEntry = async (
     })
     .json()
   return ShowcaseCreateResponseSchema.parse(payload).entry
+}
+
+export const upvoteShowcaseEntry = async (entryId: string): Promise<ShowcaseEntry> => {
+  const payload = await ky
+    .post("/api/showcase-upvote", {
+      json: { entryId },
+      timeout: 10_000,
+    })
+    .json()
+  return ShowcaseMutationResponseSchema.parse(payload).entry
+}
+
+export const commentShowcaseEntry = async (input: {
+  readonly entryId: string
+  readonly authorName: string
+  readonly body: string
+}): Promise<ShowcaseEntry> => {
+  const payload = await ky
+    .post("/api/showcase-comment", {
+      json: input,
+      timeout: 10_000,
+    })
+    .json()
+  return ShowcaseMutationResponseSchema.parse(payload).entry
 }

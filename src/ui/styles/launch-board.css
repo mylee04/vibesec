@@ -1,0 +1,154 @@
+.launch-board-tabs {
+  display: inline-flex;
+  gap: 6px;
+  align-self: flex-start;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 5px;
+  background: rgba(14, 19, 21, 0.9);
+}
+
+.launch-board-tabs button,
+.launch-board-vote button,
+.launch-board-comment-form button {
+  border: 0;
+  border-radius: 7px;
+  font: inherit;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.launch-board-tabs button {
+  min-height: 34px;
+  padding: 0 14px;
+  color: #c4d2ce;
+  background: transparent;
+}
+
+.launch-board-tabs button.active {
+  color: #07100f;
+  background: #72e0ca;
+}
+
+.launch-board-stats,
+.launch-board-vote,
+.launch-board-vote button {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.launch-board-stats {
+  margin: 12px 0 2px;
+  color: #c4d2ce;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.launch-board-stats span,
+.launch-board-vote button {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.launch-board-stats svg,
+.launch-board-vote svg {
+  color: #72e0ca;
+}
+
+.launch-board-vote button {
+  min-height: 30px;
+  padding: 0 10px;
+  color: #72e0ca;
+  background: rgba(114, 224, 202, 0.09);
+}
+
+.launch-board-vote button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.launch-board-vote span,
+.launch-board-error {
+  color: #ff9d9d;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.launch-board-comments {
+  display: grid;
+  gap: 14px;
+  margin-top: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 18px;
+  background: rgba(14, 19, 21, 0.9);
+}
+
+.launch-board-comment-form {
+  display: grid;
+  grid-template-columns: minmax(120px, 0.4fr) minmax(180px, 1fr) auto;
+  gap: 10px;
+}
+
+.launch-board-comment-form input,
+.launch-board-comment-form textarea {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  padding: 11px 12px;
+  color: #f6fbfa;
+  background: rgba(0, 0, 0, 0.25);
+  font: inherit;
+}
+
+.launch-board-comment-form textarea {
+  min-height: 44px;
+  resize: vertical;
+}
+
+.launch-board-comment-form button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 14px;
+  color: #07100f;
+  background: #72e0ca;
+}
+
+.launch-board-comment-list {
+  display: grid;
+  gap: 10px;
+}
+
+.launch-board-comment-list article {
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  padding-top: 10px;
+}
+
+.launch-board-comment-list strong {
+  color: #f6fbfa;
+}
+
+.launch-board-comment-list p {
+  margin: 4px 0 0;
+}
+
+@media (max-width: 720px) {
+  .launch-board-tabs {
+    width: 100%;
+  }
+
+  .launch-board-tabs button {
+    flex: 1 1 0;
+  }
+
+  .launch-board-comment-form {
+    grid-template-columns: 1fr;
+  }
+}

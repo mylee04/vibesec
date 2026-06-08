@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { formatShowcaseHost, selectHomeShowcaseEntries } from "./home-showcase-data.js"
 import type { UiCopy } from "./i18n.js"
+import { LaunchBoardStats } from "./launch-board-actions.js"
 import { listShowcaseEntries } from "./showcase-api.js"
 
 type ShowcasePreviewState = {
@@ -106,6 +107,7 @@ const HomeShowcaseCard = ({
           ? labels.showcase.vibesecTagline
           : entry.tagline}
       </p>
+      <LaunchBoardStats entry={entry} labels={labels} />
       <div className="tag-row">
         {entry.stack.slice(0, 3).map((item) => (
           <span key={item}>{item}</span>

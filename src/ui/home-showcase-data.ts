@@ -11,6 +11,8 @@ export const fallbackShowcaseEntries = [
     score: 97,
     grade: "A",
     risk: "Low",
+    upvotes: 0,
+    comments: [],
     createdAt: "2026-06-06T22:47:24.414Z",
     lastScannedAt: "2026-06-06T22:47:24.413Z",
   },
