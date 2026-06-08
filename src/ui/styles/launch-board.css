@@ -30,6 +30,107 @@
   background: #72e0ca;
 }
 
+.community-board {
+  margin-top: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  background: rgba(14, 19, 21, 0.9);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+}
+
+.community-post {
+  display: grid;
+  grid-template-columns: 74px minmax(0, 1fr);
+  gap: 8px;
+  align-items: center;
+  min-height: 54px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 12px;
+}
+
+.community-post:last-child {
+  border-bottom: 0;
+}
+
+.community-vote {
+  display: grid;
+  min-height: 38px;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 4px;
+  justify-content: start;
+  padding: 0;
+  color: #aebfbb;
+  background: transparent;
+  font-size: 0.84rem;
+  font-weight: 900;
+}
+
+.community-vote svg {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.community-post-main {
+  min-width: 0;
+}
+
+.community-post-line,
+.community-meta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.community-post-line {
+  white-space: nowrap;
+}
+
+.community-badge {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  padding: 3px 7px;
+  color: #07100f;
+  background: #72e0ca;
+  font-size: 0.76rem;
+  font-weight: 950;
+}
+
+.community-title {
+  min-width: 0;
+  overflow: hidden;
+  color: #7ea7ff;
+  font-size: 1.02rem;
+  font-weight: 950;
+  text-decoration: none;
+  text-overflow: ellipsis;
+}
+
+.community-title:hover,
+.community-meta a:hover,
+.community-comments:hover {
+  text-decoration: underline;
+}
+
+.community-comments {
+  flex: 0 0 auto;
+  color: #7ea7ff;
+  font-weight: 950;
+  text-decoration: none;
+}
+
+.community-meta {
+  margin-top: 3px;
+  color: #aebfbb;
+  font-size: 0.82rem;
+}
+
+.community-meta a {
+  color: #72e0ca;
+  font-weight: 800;
+  text-decoration: none;
+}
+
 .launch-board-stats,
 .launch-board-vote,
 .launch-board-vote button {
@@ -150,5 +251,19 @@
 
   .launch-board-comment-form {
     grid-template-columns: 1fr;
+  }
+
+  .community-post {
+    grid-template-columns: 48px minmax(0, 1fr);
+    padding: 8px 9px;
+  }
+
+  .community-title {
+    font-size: 0.94rem;
+  }
+
+  .community-meta {
+    flex-wrap: wrap;
+    row-gap: 2px;
   }
 }

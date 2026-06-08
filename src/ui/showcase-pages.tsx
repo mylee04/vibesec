@@ -1,12 +1,13 @@
 import { ArrowLeft } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
+import { CommunityPostList } from "./community-post-list.js"
 import { fallbackShowcaseEntries } from "./home-showcase-data.js"
 import type { Language, UiCopy } from "./i18n.js"
 import { CommentPanel, LaunchBoardTabs } from "./launch-board-actions.js"
 import { type LaunchBoardSort, sortLaunchBoardEntries } from "./launch-board-sort.js"
 import { listShowcaseEntries } from "./showcase-api.js"
-import { ShowcaseCard, ShowcaseHeader, ShowcaseHero } from "./showcase-cards.js"
+import { ShowcaseHeader, ShowcaseHero } from "./showcase-cards.js"
 
 type ShowcaseState =
   | { readonly kind: "loading" }
@@ -76,19 +77,12 @@ export const ShowcasePage = ({ labels }: ShowcasePageProps) => {
       ) : null}
       {state.kind === "error" ? <section className="error-box">{state.message}</section> : null}
       {state.kind === "ready" ? (
-        <section className="showcase-grid">
-          {entries.map((entry) => (
-            <ShowcaseCard
-              entry={entry}
-              labels={labels}
-              key={entry.id}
-              onEntryUpdate={updateEntry}
-            />
-          ))}
+        <>
+          <CommunityPostList entries={entries} labels={labels} onEntryUpdate={updateEntry} />
           {entries.length === 0 ? (
             <div className="empty-report">{labels.showcase.noPublic}</div>
           ) : null}
-        </section>
+        </>
       ) : null}
     </>
   )
