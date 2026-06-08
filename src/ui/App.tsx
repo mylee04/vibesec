@@ -5,7 +5,6 @@ import { buildReportViewModel } from "../reporting/view-model.js"
 import type { ScanReport } from "../scanner/types.js"
 import { scanUrl } from "./api.js"
 import { AppNav } from "./app-nav.js"
-import { HomeShowcase } from "./home-showcase.js"
 import {
   applyLanguage,
   getCopy,
@@ -37,7 +36,6 @@ export const App = () => {
     }
     return buildReportViewModel(state.report)
   }, [state])
-  const showcaseCtaHref = state.kind === "ready" ? "#showcase-publish" : "#scan-url"
 
   useEffect(() => {
     applyLanguage(language)
@@ -98,8 +96,6 @@ export const App = () => {
         {state.kind === "ready" && reportModel !== undefined ? (
           <Report report={state.report} model={reportModel} labels={labels} />
         ) : null}
-
-        <HomeShowcase labels={labels} ctaHref={showcaseCtaHref} />
       </>
     )
   })()
