@@ -15,6 +15,12 @@ import {
 import { Report } from "./report.js"
 import { ScannerForm } from "./scanner-form.js"
 import { ShowcaseDetailPage, ShowcasePage } from "./showcase-pages.js"
+import {
+  applyThemePreference,
+  getInitialThemePreference,
+  persistThemePreference,
+  type ThemePreference,
+} from "./theme.js"
 
 type ScanState =
   | { readonly kind: "idle" }
@@ -27,6 +33,7 @@ export const App = () => {
   const [url, setUrl] = useState("")
   const [state, setState] = useState<ScanState>({ kind: "idle" })
   const [language, setLanguage] = useState<Language>(getInitialLanguage)
+  const [theme, setTheme] = useState<ThemePreference>(getInitialThemePreference)
   const labels = getCopy(language)
   const reportModel = useMemo(() => {
     if (state.kind !== "ready") {
@@ -39,9 +46,18 @@ export const App = () => {
     applyLanguage(language)
   }, [language])
 
+  useEffect(() => {
+    applyThemePreference(theme)
+  }, [theme])
+
   const changeLanguage = (nextLanguage: Language) => {
     persistLanguage(nextLanguage)
     setLanguage(nextLanguage)
+  }
+
+  const changeTheme = (nextTheme: ThemePreference) => {
+    persistThemePreference(nextTheme)
+    setTheme(nextTheme)
   }
 
   const submitScan = async (event: FormEvent<HTMLFormElement>) => {
@@ -104,7 +120,9 @@ export const App = () => {
         currentPath={pathname}
         labels={labels}
         language={language}
+        theme={theme}
         onLanguageChange={changeLanguage}
+        onThemeChange={changeTheme}
       />
       {content}
     </main>

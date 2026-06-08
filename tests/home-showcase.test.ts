@@ -6,6 +6,7 @@ import {
   parseLanguage,
   publicRiskLabel,
 } from "../src/ui/i18n.js"
+import { nextThemePreference, parseThemePreference } from "../src/ui/theme.js"
 
 describe("home showcase preview", () => {
   it("shows the VibeSec launch when no public entries are available", () => {
@@ -55,5 +56,14 @@ describe("home showcase preview", () => {
 
     // Then: the UI uses English as the stable fallback.
     expect(language).toBe("en")
+  })
+
+  it("keeps theme preferences explicit and toggleable", () => {
+    expect(parseThemePreference("light")).toBe("light")
+    expect(parseThemePreference("dark")).toBe("dark")
+    expect(parseThemePreference("system")).toBeUndefined()
+    expect(parseThemePreference("sepia")).toBeUndefined()
+    expect(nextThemePreference("dark")).toBe("light")
+    expect(nextThemePreference("light")).toBe("dark")
   })
 })

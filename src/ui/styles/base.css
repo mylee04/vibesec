@@ -166,6 +166,31 @@ p {
   background: var(--accent);
 }
 
+.app-controls {
+  display: inline-flex;
+  justify-self: end;
+  align-items: center;
+  gap: 8px;
+}
+
+.theme-toggle {
+  min-height: 32px;
+  border: 1px solid var(--border);
+  padding: 0 10px;
+  background: var(--surface-soft);
+  color: var(--text-panel);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.theme-toggle svg {
+  color: var(--accent);
+}
+
+.theme-toggle span {
+  line-height: 1;
+}
+
 .scan-surface,
 .score-panel,
 .issues-panel,
@@ -229,6 +254,10 @@ p {
     order: 3;
   }
 
+  .app-controls {
+    gap: 7px;
+  }
+
   .app-tabs a {
     flex: 1 1 0;
     min-height: 36px;
@@ -238,8 +267,24 @@ p {
   }
 }
 
+@media (max-width: 420px) {
+  .theme-toggle span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  .theme-toggle {
+    width: 34px;
+    padding: 0;
+  }
+}
+
 @media (prefers-color-scheme: light) {
-  :root {
+  :root:not([data-theme]) {
     color-scheme: light;
     --page-bg: #f5faf8;
     --page-bg-end: #eaf2ef;
@@ -276,4 +321,42 @@ p {
     --shadow: 0 24px 60px rgba(21, 52, 46, 0.13);
     --shadow-soft: 0 18px 46px rgba(21, 52, 46, 0.11);
   }
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --page-bg: #f5faf8;
+  --page-bg-end: #eaf2ef;
+  --grid-line-strong: rgba(8, 32, 29, 0.08);
+  --grid-line-soft: rgba(8, 32, 29, 0.055);
+  --grid-glow: rgba(33, 191, 167, 0.16);
+  --surface: rgba(255, 255, 255, 0.9);
+  --surface-raised: rgba(255, 255, 255, 0.82);
+  --surface-soft: rgba(8, 32, 29, 0.055);
+  --surface-softer: rgba(8, 32, 29, 0.04);
+  --surface-input: rgba(255, 255, 255, 0.9);
+  --surface-field: rgba(255, 255, 255, 0.72);
+  --surface-muted: rgba(8, 32, 29, 0.07);
+  --border: rgba(8, 32, 29, 0.14);
+  --border-strong: rgba(8, 32, 29, 0.2);
+  --border-soft: rgba(8, 32, 29, 0.1);
+  --text: #11211e;
+  --text-strong: #07100f;
+  --text-muted: #5f716c;
+  --text-subtle: #6b7e79;
+  --text-panel: #3d4f4a;
+  --accent: #25c8ae;
+  --accent-strong: #149b89;
+  --accent-soft: rgba(37, 200, 174, 0.12);
+  --accent-softer: rgba(37, 200, 174, 0.1);
+  --accent-border: rgba(20, 155, 137, 0.28);
+  --accent-text: #041b18;
+  --link: #295fcc;
+  --warning: #9b7a0c;
+  --warning-text: #fff8d5;
+  --danger: #a3382f;
+  --danger-strong: #b83737;
+  --danger-soft: rgba(207, 66, 56, 0.12);
+  --shadow: 0 24px 60px rgba(21, 52, 46, 0.13);
+  --shadow-soft: 0 18px 46px rgba(21, 52, 46, 0.11);
 }

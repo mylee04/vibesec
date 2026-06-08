@@ -4,10 +4,8 @@
 
 .language-select {
   display: flex;
-  justify-content: flex-end;
   align-items: center;
   gap: 9px;
-  margin-bottom: 12px;
   color: var(--text-subtle);
   font-size: 0.78rem;
   font-weight: 800;
