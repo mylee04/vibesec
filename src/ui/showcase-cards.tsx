@@ -41,10 +41,12 @@ export const ShowcaseCard = ({
           <h2>{entry.appName}</h2>
           <a href={entry.appUrl}>{formatShowcaseHost(entry.appUrl)}</a>
         </div>
-        <div className="showcase-score-pill">
-          <strong>{entry.score}</strong>
-          <span>{entry.grade}</span>
-        </div>
+        {isScannedEntry(entry) ? (
+          <div className="showcase-score-pill">
+            <strong>{entry.score}</strong>
+            <span>{entry.grade}</span>
+          </div>
+        ) : null}
       </div>
       <p>{publicTaglineFor(entry, labels)}</p>
       <LaunchBoardStats entry={entry} labels={labels} />
@@ -75,14 +77,18 @@ export const ShowcaseHero = ({
   readonly onEntryUpdate: EntryUpdateHandler
 }) => (
   <section className="showcase-detail">
-    <div className="showcase-score large">
-      <span>{entry.score}</span>
-      <strong>{entry.grade}</strong>
-    </div>
+    {isScannedEntry(entry) ? (
+      <div className="showcase-score large">
+        <span>{entry.score}</span>
+        <strong>{entry.grade}</strong>
+      </div>
+    ) : null}
     <div>
-      <p className="eyebrow">{labels.showcase.scannedBy}</p>
+      <p className="eyebrow">
+        {isScannedEntry(entry) ? labels.showcase.scannedBy : labels.showcase.title}
+      </p>
       <h1>{entry.appName}</h1>
-      <p>{publicTaglineFor(entry, labels)}</p>
+      <p className="showcase-body">{publicTaglineFor(entry, labels)}</p>
       <div className="tag-row">
         <span>{publicCategoryFor(entry, labels)}</span>
         {entry.stack.map((item) => (
@@ -90,14 +96,16 @@ export const ShowcaseHero = ({
         ))}
       </div>
       <LaunchBoardStats entry={entry} labels={labels} />
-      <p className="badge-line">
-        <ShieldCheck size={17} aria-hidden="true" />
-        {labels.showcase.scoreLine(
-          entry.score,
-          publicRiskLabel(entry.risk, labels),
-          formatPublicScanDate(entry.lastScannedAt, language),
-        )}
-      </p>
+      {isScannedEntry(entry) ? (
+        <p className="badge-line">
+          <ShieldCheck size={17} aria-hidden="true" />
+          {labels.showcase.scoreLine(
+            entry.score,
+            publicRiskLabel(entry.risk, labels),
+            formatPublicScanDate(entry.lastScannedAt, language),
+          )}
+        </p>
+      ) : null}
       <div className="showcase-actions">
         <a className="showcase-link" href={entry.appUrl}>
           {labels.showcase.visitApp}
@@ -114,6 +122,8 @@ const publicTaglineFor = (entry: ShowcaseEntry, labels: UiCopy): string =>
 
 const publicCategoryFor = (entry: ShowcaseEntry, labels: UiCopy): string =>
   entry.id === "vibesec-vibesec-bymyleslee-com" ? labels.showcase.securityCategory : entry.category
+
+const isScannedEntry = (entry: ShowcaseEntry): boolean => entry.grade !== "Post"
 
 const formatPublicScanDate = (value: string, language: Language): string =>
   new Intl.DateTimeFormat(language === "en" ? "en" : language === "ko" ? "ko-KR" : "ru-RU").format(

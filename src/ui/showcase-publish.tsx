@@ -20,7 +20,7 @@ export const ShowcasePublish = ({
 }) => {
   const [appName, setAppName] = useState("")
   const [tagline, setTagline] = useState("")
-  const [category, setCategory] = useState(labels.publish.defaultCategory)
+  const [category, setCategory] = useState(labels.publish.categories[0] ?? labels.publish.category)
   const [stack, setStack] = useState(report.detected.join(", "))
   const [state, setState] = useState<PublishState>({ kind: "idle" })
 
@@ -57,22 +57,27 @@ export const ShowcasePublish = ({
       <form className="showcase-form" onSubmit={submit}>
         <input
           value={appName}
-          placeholder={labels.publish.appName}
+          placeholder={labels.publish.postTitle}
           onChange={(event) => setAppName(event.currentTarget.value)}
           required
         />
-        <input
+        <textarea
           value={tagline}
-          placeholder={labels.publish.tagline}
+          placeholder={labels.publish.body}
           onChange={(event) => setTagline(event.currentTarget.value)}
           required
         />
-        <input
+        <select
           value={category}
-          placeholder={labels.publish.category}
+          aria-label={labels.publish.category}
           onChange={(event) => setCategory(event.currentTarget.value)}
-          required
-        />
+        >
+          {labels.publish.categories.map((item) => (
+            <option value={item} key={item}>
+              {item}
+            </option>
+          ))}
+        </select>
         <input
           value={stack}
           placeholder={labels.publish.stack}

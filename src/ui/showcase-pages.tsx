@@ -2,6 +2,7 @@ import { ArrowLeft } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { CommunityPostList } from "./community-post-list.js"
+import { CommunitySubmitForm } from "./community-submit-form.js"
 import { fallbackShowcaseEntries } from "./home-showcase-data.js"
 import type { Language, UiCopy } from "./i18n.js"
 import { CommentPanel, LaunchBoardTabs } from "./launch-board-actions.js"
@@ -17,6 +18,7 @@ type ShowcaseState =
 const useShowcaseEntries = (): {
   readonly state: ShowcaseState
   readonly updateEntry: (entry: ShowcaseEntry) => void
+  readonly addEntry: (entry: ShowcaseEntry) => void
 } => {
   const [state, setState] = useState<ShowcaseState>({ kind: "loading" })
   useEffect(() => {
@@ -53,8 +55,19 @@ const useShowcaseEntries = (): {
       }
     })
   }
+  const addEntry = (entry: ShowcaseEntry) => {
+    setState((current) => {
+      if (current.kind !== "ready") {
+        return { kind: "ready", entries: [entry] }
+      }
+      return {
+        kind: "ready",
+        entries: [entry, ...current.entries.filter((item) => item.id !== entry.id)],
+      }
+    })
+  }
 
-  return { state, updateEntry }
+  return { state, updateEntry, addEntry }
 }
 
 type ShowcasePageProps = {
@@ -62,7 +75,7 @@ type ShowcasePageProps = {
 }
 
 export const ShowcasePage = ({ labels }: ShowcasePageProps) => {
-  const { state, updateEntry } = useShowcaseEntries()
+  const { state, updateEntry, addEntry } = useShowcaseEntries()
   const [sort, setSort] = useState<LaunchBoardSort>("hot")
   const entries = useMemo(
     () => (state.kind === "ready" ? sortLaunchBoardEntries(state.entries, sort) : []),
@@ -71,6 +84,7 @@ export const ShowcasePage = ({ labels }: ShowcasePageProps) => {
   return (
     <>
       <ShowcaseHeader labels={labels} />
+      <CommunitySubmitForm labels={labels} onEntryCreated={addEntry} />
       <LaunchBoardTabs labels={labels} sort={sort} onSortChange={setSort} />
       {state.kind === "loading" ? (
         <section className="empty-report">{labels.showcase.loading}</section>

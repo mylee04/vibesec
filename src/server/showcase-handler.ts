@@ -1,7 +1,5 @@
 import { randomUUID } from "node:crypto"
 import { z } from "zod"
-import { scanTarget } from "../scanner/scan.js"
-import type { ScanReport } from "../scanner/types.js"
 import type { ShowcaseComment, ShowcaseEntry } from "../showcase/types.js"
 import { createConfiguredShowcaseStore, type ShowcaseStore } from "./showcase-store.js"
 
@@ -12,21 +10,38 @@ export type ShowcaseHttpResult = {
   readonly body: unknown
 }
 
-type ShowcaseScanner = {
-  readonly scanTarget: (input: { readonly url: string }) => Promise<ScanReport> | ScanReport
-}
-
 export type ShowcaseHandlerOptions = {
   readonly store?: ShowcaseStore
-  readonly scanner?: ShowcaseScanner
 }
 
 const defaultStore = createConfiguredShowcaseStore()
 
+const schemelessDomainPattern =
+  /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+(?:[/?#].*)?$/iu
+
+const normalizeShowcaseUrlInput = (value: string): string => {
+  const trimmed = value.trim()
+  const candidate = URL.canParse(trimmed)
+    ? trimmed
+    : schemelessDomainPattern.test(trimmed)
+      ? `https://${trimmed}`
+      : trimmed
+  return URL.canParse(candidate) ? new URL(candidate).toString() : candidate
+}
+
 const ShowcaseRequestSchema = z.object({
   appName: z.string().trim().min(2).max(80),
-  appUrl: z.url(),
-  tagline: z.string().trim().min(8).max(160),
+  appUrl: z
+    .string()
+    .transform(normalizeShowcaseUrlInput)
+    .refine((value) => {
+      if (!URL.canParse(value)) {
+        return false
+      }
+      const parsed = new URL(value)
+      return parsed.protocol === "http:" || parsed.protocol === "https:"
+    }),
+  tagline: z.string().trim().min(8).max(700),
   category: z.string().trim().min(2).max(40),
   stack: z.array(z.string().trim().min(1).max(32)).max(8),
 })
@@ -44,7 +59,8 @@ const ShowcaseCommentRequestSchema = z.object({
 const slugFor = (value: string): string =>
   value
     .toLowerCase()
-    .replace(/[^a-z0-9]+/g, "-")
+    .normalize("NFKC")
+    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
     .replace(/^-|-$/g, "")
     .slice(0, 54)
 
@@ -53,24 +69,24 @@ const idFor = (appName: string, appUrl: string): string => {
   return `${slugFor(appName)}-${slugFor(hostname)}`.slice(0, 80)
 }
 
-const publicEntryFrom = (
-  input: z.infer<typeof ShowcaseRequestSchema>,
-  report: ScanReport,
-): ShowcaseEntry => ({
-  id: idFor(input.appName, report.targetUrl),
-  appName: input.appName,
-  appUrl: report.targetUrl,
-  tagline: input.tagline,
-  category: input.category,
-  stack: input.stack,
-  score: report.score,
-  grade: report.grade,
-  risk: report.risk,
-  upvotes: 0,
-  comments: [],
-  createdAt: new Date().toISOString(),
-  lastScannedAt: report.scannedAt,
-})
+const publicEntryFrom = (input: z.infer<typeof ShowcaseRequestSchema>): ShowcaseEntry => {
+  const createdAt = new Date().toISOString()
+  return {
+    id: idFor(input.appName, input.appUrl),
+    appName: input.appName,
+    appUrl: input.appUrl,
+    tagline: input.tagline,
+    category: input.category,
+    stack: input.stack,
+    score: 0,
+    grade: "Post",
+    risk: "Community",
+    upvotes: 0,
+    comments: [],
+    createdAt,
+    lastScannedAt: createdAt,
+  }
+}
 
 const commentFrom = (input: z.infer<typeof ShowcaseCommentRequestSchema>): ShowcaseComment => ({
   id: randomUUID(),
@@ -94,10 +110,8 @@ export const createShowcaseEntry = async (
   if (!parsed.success) {
     return { status: 400, body: { error: { code: "invalid_showcase_entry" } } }
   }
-  const scanner = options.scanner ?? { scanTarget }
   const store = options.store ?? defaultStore
-  const report = await scanner.scanTarget({ url: parsed.data.appUrl })
-  const entry = publicEntryFrom(parsed.data, report)
+  const entry = publicEntryFrom(parsed.data)
   await store.saveEntry(entry)
   return { status: 201, body: { entry } }
 }

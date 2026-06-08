@@ -2,6 +2,7 @@
   display: inline-flex;
   gap: 6px;
   align-self: flex-start;
+  margin-top: 12px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 8px;
   padding: 5px;
@@ -10,12 +11,59 @@
 
 .launch-board-tabs button,
 .launch-board-vote button,
-.launch-board-comment-form button {
+.launch-board-comment-form button,
+.community-submit-form button {
   border: 0;
   border-radius: 7px;
   font: inherit;
   font-weight: 900;
   cursor: pointer;
+}
+
+.community-submit {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  padding: 16px;
+  background: rgba(14, 19, 21, 0.9);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.community-submit-form {
+  display: grid;
+  gap: 10px;
+}
+
+.community-submit-row {
+  display: grid;
+  grid-template-columns: minmax(150px, 0.4fr) minmax(180px, 1fr);
+  gap: 10px;
+}
+
+.community-submit-form input,
+.community-submit-form textarea,
+.community-submit-form select {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  border-radius: 8px;
+  padding: 12px 13px;
+  color: #f6fbfa;
+  background: rgba(0, 0, 0, 0.25);
+  font: inherit;
+}
+
+.community-submit-form textarea {
+  min-height: 92px;
+  resize: vertical;
+}
+
+.community-submit-form button {
+  min-height: 44px;
+  color: #07100f;
+  background: #72e0ca;
 }
 
 .launch-board-tabs button {
@@ -250,6 +298,10 @@
   }
 
   .launch-board-comment-form {
+    grid-template-columns: 1fr;
+  }
+
+  .community-submit-row {
     grid-template-columns: 1fr;
   }
 

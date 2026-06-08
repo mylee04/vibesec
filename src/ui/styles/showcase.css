@@ -24,7 +24,7 @@
 
 .showcase-detail {
   display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 22px;
   margin-top: 16px;
   padding: 26px;
@@ -43,6 +43,10 @@
 .showcase-score.large {
   width: 126px;
   height: 126px;
+}
+
+.showcase-detail:has(.showcase-score) {
+  grid-template-columns: 150px minmax(0, 1fr);
 }
 
 .showcase-score span {
@@ -110,6 +114,11 @@
   flex-wrap: wrap;
   gap: 8px;
   align-items: center;
+}
+
+.showcase-body {
+  max-width: 760px;
+  white-space: pre-wrap;
 }
 
 .tag-row span {

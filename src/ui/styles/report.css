@@ -156,11 +156,20 @@ dd {
   margin: 8px 0 0;
 }
 
-.showcase-form > input {
+.showcase-form > input,
+.showcase-form > textarea,
+.showcase-form > select {
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 8px;
   padding: 14px 15px;
   background: #070b0d;
+  color: #f6fbfa;
+  font: inherit;
+}
+
+.showcase-form > textarea {
+  min-height: 96px;
+  resize: vertical;
 }
 
 .showcase-link {

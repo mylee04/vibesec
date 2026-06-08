@@ -69,7 +69,7 @@ const CommunityPostRow = ({
         <div className="community-post-line">
           <span className="community-badge">{publicCategoryFor(entry, labels)}</span>
           <a className="community-title" href={`/s/${entry.id}`}>
-            {entry.appName}: {publicTaglineFor(entry, labels)}
+            {publicTitleFor(entry, labels)}
           </a>
           <a className="community-comments" href={`/s/${entry.id}#launch-board-comments-title`}>
             [{entry.comments.length}]
@@ -84,8 +84,10 @@ const CommunityPostRow = ({
   )
 }
 
-const publicTaglineFor = (entry: ShowcaseEntry, labels: UiCopy): string =>
-  entry.id === "vibesec-vibesec-bymyleslee-com" ? labels.showcase.vibesecTagline : entry.tagline
+const publicTitleFor = (entry: ShowcaseEntry, labels: UiCopy): string =>
+  entry.id === "vibesec-vibesec-bymyleslee-com"
+    ? `VibeSec: ${labels.showcase.vibesecTagline}`
+    : entry.appName
 
 const publicCategoryFor = (entry: ShowcaseEntry, labels: UiCopy): string =>
   entry.id === "vibesec-vibesec-bymyleslee-com" ? labels.showcase.securityCategory : entry.category
