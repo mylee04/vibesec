@@ -62,6 +62,8 @@ export const esCopy = {
     scanned: "Escaneado",
     detected: "Detectado",
     noFingerprint: "No se detectaron proveedores",
+    riskRules:
+      "Bandas de riesgo: Bajo 90-100, Medio 75-89, Alto 0-74. Cualquier hallazgo peligroso fuerza Alto.",
     findings: "Hallazgos",
     counts: {
       dangerous: "peligrosos",

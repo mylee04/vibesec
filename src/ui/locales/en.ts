@@ -60,6 +60,8 @@ export const enCopy = {
     scanned: "Scanned",
     detected: "Detected",
     noFingerprint: "No provider fingerprint",
+    riskRules:
+      "Risk bands: Low 90-100, Medium 75-89, High 0-74. Any Dangerous finding forces High.",
     findings: "Findings",
     counts: {
       dangerous: "dangerous",

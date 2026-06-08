@@ -61,6 +61,8 @@ export const jaCopy = {
     scanned: "スキャン日時",
     detected: "検出",
     noFingerprint: "プロバイダーの痕跡は検出されませんでした",
+    riskRules:
+      "リスク基準: 低 90-100、中 75-89、高 0-74。危険項目がある場合はスコアに関係なく高になります。",
     findings: "検出事項",
     counts: {
       dangerous: "危険",

@@ -76,6 +76,7 @@ const ScorePanel = ({ report, model, labels }: ReportProps) => (
     </div>
     <div className={`risk risk-${report.risk.toLowerCase()}`}>{riskLabel(report.risk, labels)}</div>
     <p>{scanSummary(model.issueCounts, labels)}</p>
+    <p className="risk-rules">{labels.report.riskRules}</p>
     <dl className="report-meta">
       <div>
         <dt>{labels.report.target}</dt>

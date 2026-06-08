@@ -63,6 +63,12 @@
   padding: 7px 11px;
 }
 
+.risk-rules {
+  margin: -6px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .risk-high {
   background: var(--danger-soft);
   color: var(--danger);

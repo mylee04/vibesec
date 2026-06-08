@@ -22,11 +22,14 @@ export const gradeForScore = (score: number): Grade => {
 }
 
 export const riskForScore = (score: number, issues: readonly SecurityIssue[]): Risk => {
-  if (score < 75 || issues.some((issue) => issue.severity === "Dangerous")) {
+  if (issues.some((issue) => issue.severity === "Dangerous")) {
     return "High"
   }
-  if (score < 90 || issues.some((issue) => issue.severity === "Needs attention")) {
+  if (score >= 90) {
+    return "Low"
+  }
+  if (score >= 75) {
     return "Medium"
   }
-  return "Low"
+  return "High"
 }

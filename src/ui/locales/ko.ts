@@ -61,6 +61,8 @@ export const koCopy = {
     scanned: "스캔 시간",
     detected: "감지된 스택",
     noFingerprint: "감지된 제공자 흔적 없음",
+    riskRules:
+      "위험도 기준: 낮음 90-100, 중간 75-89, 높음 0-74. 위험 항목이 있으면 점수와 상관없이 높음.",
     findings: "발견 사항",
     counts: {
       dangerous: "위험",
