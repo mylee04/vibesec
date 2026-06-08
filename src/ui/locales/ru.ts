@@ -47,13 +47,13 @@ export const ruCopy = {
     voteError: "Не удалось рекомендовать публикацию.",
     commentError: "Не удалось отправить комментарий.",
     scannedBy: "Проверено VibeSec",
-    scoreLine: (score: number, risk: string, date: string) =>
-      `Оценка ${score}/100, риск: ${risk}, последняя проверка ${date}`,
+    gradeLine: (grade: string, risk: string, date: string) =>
+      `Класс ${grade}, риск: ${risk}, последняя проверка ${date}`,
     vibesecTagline: "Проверка безопасности AI-веб-приложений перед публикацией.",
     securityCategory: "Безопасность",
   },
   report: {
-    securityScore: "Оценка безопасности",
+    securityScore: "Класс безопасности",
     risk: { Low: "Низкий риск", Medium: "Средний риск", High: "Высокий риск" },
     noBlocking: "Критичных препятствий для публикации нет",
     summary: (issues: number, groups: number) =>

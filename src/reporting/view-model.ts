@@ -1,7 +1,6 @@
 import type { FixPanel, ScanReport, SecurityIssue } from "../scanner/types.js"
 
 export type ReportViewModel = {
-  readonly scoreLabel: string
   readonly riskLabel: string
   readonly topIssues: readonly SecurityIssue[]
   readonly groupedIssues: Readonly<Record<SecurityIssue["severity"], readonly SecurityIssue[]>>
@@ -42,7 +41,6 @@ export const buildReportViewModel = (report: ScanReport): ReportViewModel => {
   }
 
   return {
-    scoreLabel: `${report.score} / 100`,
     riskLabel: `${report.risk} Risk`,
     topIssues: report.issues.slice(0, 5),
     groupedIssues,

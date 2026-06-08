@@ -32,17 +32,18 @@
 
 .showcase-score {
   display: grid;
-  width: 76px;
-  height: 76px;
+  width: 86px;
+  min-height: 76px;
   place-items: center;
   border: 1px solid var(--accent-border);
   border-radius: 8px;
+  padding: 10px;
   background: var(--accent-soft);
 }
 
 .showcase-score.large {
-  width: 126px;
-  height: 126px;
+  width: 138px;
+  min-height: 126px;
 }
 
 .showcase-detail:has(.showcase-score) {
@@ -60,12 +61,14 @@
 }
 
 .showcase-score strong {
-  color: var(--warning);
+  color: var(--accent);
+  font-size: 0.82rem;
+  text-align: center;
 }
 
 .showcase-score-pill {
   display: grid;
-  min-width: 66px;
+  min-width: 86px;
   min-height: 58px;
   place-items: center;
   border: 1px solid var(--accent-border);
@@ -76,15 +79,16 @@
 
 .showcase-score-pill strong {
   color: var(--text-strong);
-  font-size: 1.65rem;
+  font-size: 1.8rem;
   font-weight: 950;
   line-height: 1;
 }
 
 .showcase-score-pill span {
-  color: var(--warning);
-  font-size: 0.86rem;
+  color: var(--accent);
+  font-size: 0.72rem;
   font-weight: 950;
+  text-align: center;
 }
 
 .showcase-card-top {

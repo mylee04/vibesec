@@ -31,40 +31,38 @@
 }
 
 .score-row {
+  flex-wrap: wrap;
   justify-content: space-between;
-  gap: 14px;
+  gap: 12px;
 }
 
-.score {
-  font-size: 4.6rem;
-  font-weight: 950;
-  line-height: 0.92;
-}
-
-.grade-badge,
+.grade-display,
 .risk {
   display: inline-flex;
   align-items: center;
-  border-radius: 999px;
   font-weight: 850;
 }
 
-.grade-badge {
+.grade-display {
   justify-content: center;
-  width: 54px;
-  height: 54px;
-  background: var(--warning);
-  color: var(--warning-text);
-  font-size: 1.5rem;
+  width: 92px;
+  height: 92px;
+  border: 1px solid var(--accent-border);
+  border-radius: 8px;
+  background: var(--accent-soft);
+  color: var(--text-strong);
+  font-size: 4.4rem;
+  font-weight: 950;
+  line-height: 1;
 }
 
 .risk {
-  margin: 14px 0 16px;
+  border-radius: 999px;
   padding: 7px 11px;
 }
 
 .risk-rules {
-  margin: -6px 0 0;
+  margin: -2px 0 0;
   font-size: 0.82rem;
   line-height: 1.45;
 }
@@ -257,8 +255,10 @@ pre {
     grid-column: auto;
   }
 
-  .score {
-    font-size: 2.9rem;
+  .grade-display {
+    width: 78px;
+    height: 78px;
+    font-size: 3.6rem;
   }
 
   .fix-heading {

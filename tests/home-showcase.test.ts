@@ -34,6 +34,9 @@ describe("home showcase preview", () => {
     expect(getCopy("es").scanner.runScan).toBe("Revisar gratis")
     expect(getCopy("ja").scanner.runScan).toBe("無料でチェック")
     expect(publicRiskLabel("Low", getCopy("ru"))).toBe("Низкий риск")
+    expect(getCopy("en").showcase.gradeLine("A", "Low Risk", "Jun 8, 2026")).toBe(
+      "Grade A, Low Risk, last scanned Jun 8, 2026",
+    )
   })
 
   it("detects the first supported browser language preference", () => {

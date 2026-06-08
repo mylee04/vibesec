@@ -45,13 +45,13 @@ export const enCopy = {
     voteError: "Could not upvote this launch.",
     commentError: "Could not post this comment.",
     scannedBy: "Scanned by VibeSec",
-    scoreLine: (score: number, risk: string, date: string) =>
-      `Score ${score}/100, ${risk}, last scanned ${date}`,
+    gradeLine: (grade: string, risk: string, date: string) =>
+      `Grade ${grade}, ${risk}, last scanned ${date}`,
     vibesecTagline: "Launch security checker for AI-built web apps.",
     securityCategory: "Security",
   },
   report: {
-    securityScore: "Security Score",
+    securityScore: "Security Grade",
     risk: { Low: "Low Risk", Medium: "Medium Risk", High: "High Risk" },
     noBlocking: "No launch-blocking findings",
     summary: (issues: number, groups: number) =>

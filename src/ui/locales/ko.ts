@@ -47,13 +47,13 @@ export const koCopy = {
     voteError: "추천에 실패했습니다.",
     commentError: "댓글 등록에 실패했습니다.",
     scannedBy: "VibeSec 검사 완료",
-    scoreLine: (score: number, risk: string, date: string) =>
-      `점수 ${score}/100, ${risk}, 마지막 검사 ${date}`,
+    gradeLine: (grade: string, risk: string, date: string) =>
+      `등급 ${grade}, ${risk}, 마지막 검사 ${date}`,
     vibesecTagline: "AI 웹앱을 위한 출시 전 보안 점검 도구.",
     securityCategory: "보안",
   },
   report: {
-    securityScore: "보안 점수",
+    securityScore: "보안 등급",
     risk: { Low: "낮은 위험", Medium: "중간 위험", High: "높은 위험" },
     noBlocking: "출시를 막을 만한 발견 사항 없음",
     summary: (issues: number, groups: number) => `${groups}개 그룹에서 ${issues}개 발견`,

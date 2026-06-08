@@ -6,7 +6,7 @@ import { buildAgentRepairPrompt } from "../src/ui/report-prompt.js"
 import { fixNoteFor, issueTextFor } from "../src/ui/report-text.js"
 
 describe("buildReportViewModel", () => {
-  it("report view model keeps score top issues checklist and provider fixes visible", () => {
+  it("report view model keeps top issues checklist and provider fixes visible", () => {
     // Given: a scan result with critical launch risks and provider-specific fixes.
     const report: ScanReport = {
       targetUrl: "https://demo.example",
@@ -49,7 +49,6 @@ describe("buildReportViewModel", () => {
     const model = buildReportViewModel(report)
 
     // Then: the report preserves the user-facing sections required by the MVP.
-    expect(model.scoreLabel).toBe("62 / 100")
     expect(model.topIssues.map((issue) => issue.id)).toEqual(["wildcard-cors", "missing-csp"])
     expect(model.issueCounts).toEqual({
       dangerous: 1,

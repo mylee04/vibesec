@@ -43,8 +43,8 @@ export const ShowcaseCard = ({
         </div>
         {isScannedEntry(entry) ? (
           <div className="showcase-score-pill">
-            <strong>{entry.score}</strong>
-            <span>{entry.grade}</span>
+            <strong>{entry.grade}</strong>
+            <span>{publicRiskLabel(entry.risk, labels)}</span>
           </div>
         ) : null}
       </div>
@@ -79,8 +79,8 @@ export const ShowcaseHero = ({
   <section className="showcase-detail">
     {isScannedEntry(entry) ? (
       <div className="showcase-score large">
-        <span>{entry.score}</span>
-        <strong>{entry.grade}</strong>
+        <span>{entry.grade}</span>
+        <strong>{publicRiskLabel(entry.risk, labels)}</strong>
       </div>
     ) : null}
     <div>
@@ -99,8 +99,8 @@ export const ShowcaseHero = ({
       {isScannedEntry(entry) ? (
         <p className="badge-line">
           <ShieldCheck size={17} aria-hidden="true" />
-          {labels.showcase.scoreLine(
-            entry.score,
+          {labels.showcase.gradeLine(
+            entry.grade,
             publicRiskLabel(entry.risk, labels),
             formatPublicScanDate(entry.lastScannedAt, language),
           )}

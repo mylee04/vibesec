@@ -47,13 +47,13 @@ export const esCopy = {
     voteError: "No se pudo recomendar esta publicación.",
     commentError: "No se pudo publicar el comentario.",
     scannedBy: "Escaneado por VibeSec",
-    scoreLine: (score: number, risk: string, date: string) =>
-      `Puntuación ${score}/100, ${risk}, último escaneo ${date}`,
+    gradeLine: (grade: string, risk: string, date: string) =>
+      `Grado ${grade}, ${risk}, último escaneo ${date}`,
     vibesecTagline: "Verificador de seguridad antes de publicar apps web con IA.",
     securityCategory: "Seguridad",
   },
   report: {
-    securityScore: "Puntuación de seguridad",
+    securityScore: "Grado de seguridad",
     risk: { Low: "Riesgo bajo", Medium: "Riesgo medio", High: "Riesgo alto" },
     noBlocking: "No hay hallazgos que bloqueen el lanzamiento",
     summary: (issues: number, groups: number) =>

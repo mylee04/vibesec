@@ -71,10 +71,11 @@ const ScorePanel = ({ report, model, labels }: ReportProps) => (
       <span>{labels.report.securityScore}</span>
     </div>
     <div className="score-row">
-      <div className="score">{model.scoreLabel}</div>
-      <div className="grade-badge">{report.grade}</div>
+      <div className="grade-display">{report.grade}</div>
+      <div className={`risk risk-${report.risk.toLowerCase()}`}>
+        {riskLabel(report.risk, labels)}
+      </div>
     </div>
-    <div className={`risk risk-${report.risk.toLowerCase()}`}>{riskLabel(report.risk, labels)}</div>
     <p>{scanSummary(model.issueCounts, labels)}</p>
     <p className="risk-rules">{labels.report.riskRules}</p>
     <dl className="report-meta">

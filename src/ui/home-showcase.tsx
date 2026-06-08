@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { formatShowcaseHost, selectHomeShowcaseEntries } from "./home-showcase-data.js"
 import type { UiCopy } from "./i18n.js"
+import { publicRiskLabel } from "./i18n.js"
 import { LaunchBoardStats } from "./launch-board-actions.js"
 import { listShowcaseEntries } from "./showcase-api.js"
 
@@ -90,8 +91,8 @@ const HomeShowcaseCard = ({
         <a href={entry.appUrl}>{formatShowcaseHost(entry.appUrl)}</a>
       </div>
       <div className="showcase-score-pill">
-        <strong>{entry.score}</strong>
-        <span>{entry.grade}</span>
+        <strong>{entry.grade}</strong>
+        <span>{publicRiskLabel(entry.risk, labels)}</span>
       </div>
     </div>
     <div className="home-showcase-copy">

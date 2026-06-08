@@ -47,13 +47,13 @@ export const jaCopy = {
     voteError: "おすすめに失敗しました。",
     commentError: "コメントを投稿できませんでした。",
     scannedBy: "VibeSecで検査済み",
-    scoreLine: (score: number, risk: string, date: string) =>
-      `スコア ${score}/100、${risk}、最終スキャン ${date}`,
+    gradeLine: (grade: string, risk: string, date: string) =>
+      `グレード ${grade}、${risk}、最終スキャン ${date}`,
     vibesecTagline: "AI Webアプリ向けの公開前セキュリティチェックツール。",
     securityCategory: "セキュリティ",
   },
   report: {
-    securityScore: "セキュリティスコア",
+    securityScore: "セキュリティグレード",
     risk: { Low: "低リスク", Medium: "中リスク", High: "高リスク" },
     noBlocking: "公開を妨げる検出事項はありません",
     summary: (issues: number, groups: number) => `${groups}グループで${issues}件の検出`,
