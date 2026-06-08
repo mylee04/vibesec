@@ -1,17 +1,25 @@
 import { randomUUID } from "node:crypto"
 import { z } from "zod"
+import { UnsafeTargetError } from "../scanner/safety.js"
+import { ScanFailedError, scanTarget } from "../scanner/scan.js"
+import type { ScanReport } from "../scanner/types.js"
 import type { ShowcaseComment, ShowcaseEntry } from "../showcase/types.js"
 import { createConfiguredShowcaseStore, type ShowcaseStore } from "./showcase-store.js"
 
-export type ShowcaseHttpStatus = 200 | 201 | 400 | 404 | 502
+export type ShowcaseHttpStatus = 200 | 201 | 400 | 403 | 404 | 502
 
 export type ShowcaseHttpResult = {
   readonly status: ShowcaseHttpStatus
   readonly body: unknown
 }
 
+type ShowcaseScanner = {
+  readonly scanTarget: (input: { readonly url: string }) => Promise<ScanReport> | ScanReport
+}
+
 export type ShowcaseHandlerOptions = {
   readonly store?: ShowcaseStore
+  readonly scanner?: ShowcaseScanner
 }
 
 const defaultStore = createConfiguredShowcaseStore()
@@ -69,22 +77,25 @@ const idFor = (appName: string, appUrl: string): string => {
   return `${slugFor(appName)}-${slugFor(hostname)}`.slice(0, 80)
 }
 
-const publicEntryFrom = (input: z.infer<typeof ShowcaseRequestSchema>): ShowcaseEntry => {
+const publicEntryFrom = (
+  input: z.infer<typeof ShowcaseRequestSchema>,
+  report: ScanReport,
+): ShowcaseEntry => {
   const createdAt = new Date().toISOString()
   return {
-    id: idFor(input.appName, input.appUrl),
+    id: idFor(input.appName, report.targetUrl),
     appName: input.appName,
-    appUrl: input.appUrl,
+    appUrl: report.targetUrl,
     tagline: input.tagline,
     category: input.category,
     stack: input.stack,
-    score: 0,
-    grade: "Post",
-    risk: "Community",
+    score: report.score,
+    grade: report.grade,
+    risk: report.risk,
     upvotes: 0,
     comments: [],
     createdAt,
-    lastScannedAt: createdAt,
+    lastScannedAt: report.scannedAt,
   }
 }
 
@@ -111,7 +122,20 @@ export const createShowcaseEntry = async (
     return { status: 400, body: { error: { code: "invalid_showcase_entry" } } }
   }
   const store = options.store ?? defaultStore
-  const entry = publicEntryFrom(parsed.data)
+  const scanner = options.scanner ?? { scanTarget }
+  let report: ScanReport
+  try {
+    report = await scanner.scanTarget({ url: parsed.data.appUrl })
+  } catch (error) {
+    if (error instanceof UnsafeTargetError) {
+      return { status: 403, body: { error: { code: error.code, message: error.message } } }
+    }
+    if (error instanceof ScanFailedError) {
+      return { status: 502, body: { error: { code: error.code, message: error.message } } }
+    }
+    throw error
+  }
+  const entry = publicEntryFrom(parsed.data, report)
   await store.saveEntry(entry)
   return { status: 201, body: { entry } }
 }

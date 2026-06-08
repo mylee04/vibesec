@@ -1,4 +1,6 @@
 import { describe, expect, it } from "bun:test"
+import { ScanFailedError } from "../src/scanner/scan.js"
+import type { ScanReport } from "../src/scanner/types.js"
 import {
   addShowcaseComment,
   createShowcaseEntry,
@@ -6,6 +8,19 @@ import {
   upvoteShowcaseEntry,
 } from "../src/server/showcase-handler.js"
 import { createMemoryShowcaseStore } from "../src/server/showcase-store.js"
+
+const reportWithScore = (score: number): ScanReport => ({
+  targetUrl: "https://listed.example/",
+  scannedAt: "2026-06-06T00:00:00.000Z",
+  score,
+  grade: score >= 90 ? "A" : "B",
+  risk: "Low",
+  summary: "Baseline launch posture looks healthy",
+  issues: [],
+  checks: [],
+  fixes: [],
+  detected: ["Vercel"],
+})
 
 const validPayload = {
   appName: "Listed App",
@@ -16,15 +31,16 @@ const validPayload = {
 }
 
 describe("showcase entries", () => {
-  it("publishes community posts without requiring a scan score", async () => {
+  it("publishes community posts only after a successful scan", async () => {
     // Given: a free community submission with a schemeless app URL.
     const store = createMemoryShowcaseStore()
+    const scanner = { scanTarget: () => reportWithScore(97) }
 
     // When: the submission is created and then listed.
-    const created = await createShowcaseEntry(validPayload, { store })
+    const created = await createShowcaseEntry(validPayload, { store, scanner })
     const listed = await listShowcaseEntries(store)
 
-    // Then: the public entry contains the post fields and no scan evidence is required.
+    // Then: the public entry contains the post fields and scan summary.
     expect(created.status).toBe(201)
     expect(listed.body).toEqual({
       entries: [
@@ -35,13 +51,13 @@ describe("showcase entries", () => {
           tagline: "A secure AI launch worth sharing with a useful community post.",
           category: "AI Tools",
           stack: ["Vercel", "OpenAI"],
-          score: 0,
-          grade: "Post",
-          risk: "Community",
+          score: 97,
+          grade: "A",
+          risk: "Low",
           upvotes: 0,
           comments: [],
           createdAt: expect.any(String),
-          lastScannedAt: expect.any(String),
+          lastScannedAt: "2026-06-06T00:00:00.000Z",
         },
       ],
     })
@@ -65,9 +81,27 @@ describe("showcase entries", () => {
     expect(await store.listEntries()).toHaveLength(0)
   })
 
+  it("does not publish when the required scan fails", async () => {
+    // Given: a community submission whose URL cannot be scanned.
+    const store = createMemoryShowcaseStore()
+    const scanner = {
+      scanTarget: () => {
+        throw new ScanFailedError("Could not scan target")
+      },
+    }
+
+    // When: the user tries to publish it.
+    const result = await createShowcaseEntry(validPayload, { store, scanner })
+
+    // Then: no community entry is stored.
+    expect(result.status).toBe(502)
+    expect(await store.listEntries()).toHaveLength(0)
+  })
+
   it("keeps Korean post titles readable in public URLs", async () => {
     // Given: a Korean community post title.
     const store = createMemoryShowcaseStore()
+    const scanner = { scanTarget: () => reportWithScore(91) }
 
     // When: the post is published.
     const result = await createShowcaseEntry(
@@ -75,7 +109,7 @@ describe("showcase entries", () => {
         ...validPayload,
         appName: "테스트 AI 랜딩페이지 빌더",
       },
-      { store },
+      { store, scanner },
     )
 
     // Then: the public id keeps the readable Korean title.
@@ -86,7 +120,10 @@ describe("showcase entries", () => {
   it("increments public launch board upvotes", async () => {
     // Given: a published launch board entry.
     const store = createMemoryShowcaseStore()
-    await createShowcaseEntry(validPayload, { store })
+    await createShowcaseEntry(validPayload, {
+      store,
+      scanner: { scanTarget: () => reportWithScore(91) },
+    })
 
     // When: a visitor upvotes the app.
     const result = await upvoteShowcaseEntry({ entryId: "listed-app-listed-example" }, store)
@@ -104,7 +141,10 @@ describe("showcase entries", () => {
   it("adds public launch board comments", async () => {
     // Given: a published launch board entry.
     const store = createMemoryShowcaseStore()
-    await createShowcaseEntry(validPayload, { store })
+    await createShowcaseEntry(validPayload, {
+      store,
+      scanner: { scanTarget: () => reportWithScore(91) },
+    })
 
     // When: a visitor comments on the app.
     const result = await addShowcaseComment(
