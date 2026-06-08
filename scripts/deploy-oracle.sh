@@ -22,4 +22,4 @@ rsync -az --delete \
   -e "ssh -i $DEPLOY_KEY" \
   ./ "$DEPLOY_USER@$DEPLOY_HOST:$APP_DIR/"
 
-ssh -i "$DEPLOY_KEY" "$DEPLOY_USER@$DEPLOY_HOST" "sudo chown -R vibesec:vibesec /srv/vibesec && sudo -u vibesec bash -lc 'cd $APP_DIR && /home/vibesec/.bun/bin/bun install --frozen-lockfile && /home/vibesec/.bun/bin/bun run build' && sudo systemctl restart vibesec.service"
+ssh -i "$DEPLOY_KEY" "$DEPLOY_USER@$DEPLOY_HOST" "sudo cp '$APP_DIR/deploy/oracle/vibesec.service' /etc/systemd/system/vibesec.service && sudo cp '$APP_DIR/deploy/oracle/nginx-vibesec.conf' /etc/nginx/sites-available/vibesec.conf && sudo ln -sf /etc/nginx/sites-available/vibesec.conf /etc/nginx/sites-enabled/vibesec.conf && sudo nginx -t && sudo systemctl reload-or-restart nginx && sudo systemctl daemon-reload && sudo chown -R vibesec:vibesec /srv/vibesec && sudo -u vibesec bash -lc 'export BUN_INSTALL=/home/vibesec/.bun; export PATH=\$BUN_INSTALL/bin:\$PATH; cd $APP_DIR && bun install --frozen-lockfile && bun run build' && sudo systemctl enable --now vibesec.service && sudo systemctl restart vibesec.service"

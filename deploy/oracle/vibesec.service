@@ -10,7 +10,7 @@ Group=vibesec
 WorkingDirectory=/srv/vibesec/app
 EnvironmentFile=/etc/vibesec/vibesec.env
 Environment=NODE_ENV=production
-ExecStart=/home/vibesec/.bun/bin/bun run start
+ExecStart=/home/vibesec/.bun/bin/bun /srv/vibesec/app/dist/server/index.js
 Restart=always
 RestartSec=5
 NoNewPrivileges=true
