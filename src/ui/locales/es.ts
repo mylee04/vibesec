@@ -202,6 +202,7 @@ export const esCopy = {
     stack: "Stack: Vercel, Supabase, OpenAI",
     publishing: "Escaneando",
     publish: "Escanear y publicar",
+    cancel: "Cerrar",
     viewPublicPage: "Ver página pública",
     defaultCategory: "Herramientas AI",
   },

@@ -200,6 +200,7 @@ export const ruCopy = {
     stack: "Стек: Vercel, Supabase, OpenAI",
     publishing: "Сканирование",
     publish: "Проверить и опубликовать",
+    cancel: "Закрыть",
     viewPublicPage: "Открыть публичную страницу",
     defaultCategory: "AI-инструменты",
   },

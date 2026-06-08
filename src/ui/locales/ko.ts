@@ -196,6 +196,7 @@ export const koCopy = {
     stack: "스택: Vercel, Supabase, OpenAI",
     publishing: "스캔 중",
     publish: "스캔하고 글 올리기",
+    cancel: "닫기",
     viewPublicPage: "공개 페이지 보기",
     defaultCategory: "AI 도구",
   },

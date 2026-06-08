@@ -202,6 +202,7 @@ export const jaCopy = {
     stack: "スタック: Vercel, Supabase, OpenAI",
     publishing: "スキャン中",
     publish: "スキャンして投稿",
+    cancel: "閉じる",
     viewPublicPage: "公開ページを見る",
     defaultCategory: "AIツール",
   },

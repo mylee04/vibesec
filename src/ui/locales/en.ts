@@ -197,6 +197,7 @@ export const enCopy = {
     stack: "Stack: Vercel, Supabase, OpenAI",
     publishing: "Scanning",
     publish: "Scan and post",
+    cancel: "Close",
     viewPublicPage: "View public page",
     defaultCategory: "AI Tools",
   },

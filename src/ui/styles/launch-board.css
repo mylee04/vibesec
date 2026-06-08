@@ -12,12 +12,30 @@
 .launch-board-tabs button,
 .launch-board-vote button,
 .launch-board-comment-form button,
-.community-submit-form button {
+.community-submit-form button,
+.community-submit-trigger button,
+.community-submit-close {
   border: 0;
   border-radius: 7px;
   font: inherit;
   font-weight: 900;
   cursor: pointer;
+}
+
+.community-submit-trigger {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 12px;
+}
+
+.community-submit-trigger button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 40px;
+  padding: 0 14px;
+  color: #07100f;
+  background: #72e0ca;
 }
 
 .community-submit {
@@ -29,6 +47,28 @@
   padding: 16px;
   background: rgba(14, 19, 21, 0.9);
   box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+}
+
+.community-submit .panel-heading {
+  justify-content: space-between;
+}
+
+.community-submit-heading {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.community-submit-close {
+  min-height: 34px;
+  padding: 0 10px;
+  color: #c4d2ce;
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.community-submit-close:disabled {
+  cursor: wait;
+  opacity: 0.7;
 }
 
 .community-submit-form {

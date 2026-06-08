@@ -17,6 +17,7 @@ export const CommunitySubmitForm = ({
   readonly labels: UiCopy
   readonly onEntryCreated: (entry: ShowcaseEntry) => void
 }) => {
+  const [isOpen, setIsOpen] = useState(false)
   const [title, setTitle] = useState("")
   const [body, setBody] = useState("")
   const [appUrl, setAppUrl] = useState("")
@@ -43,6 +44,7 @@ export const CommunitySubmitForm = ({
       setAppUrl("")
       setStack("")
       onEntryCreated(entry)
+      setIsOpen(false)
       setState({ kind: "idle" })
     } catch (error) {
       if (error instanceof Error) {
@@ -53,11 +55,32 @@ export const CommunitySubmitForm = ({
     }
   }
 
+  if (!isOpen) {
+    return (
+      <div className="community-submit-trigger">
+        <button type="button" aria-expanded="false" onClick={() => setIsOpen(true)}>
+          <Send size={17} aria-hidden="true" />
+          {labels.publish.title}
+        </button>
+      </div>
+    )
+  }
+
   return (
     <section className="community-submit" aria-labelledby="community-submit-title">
       <div className="panel-heading">
-        <Send size={18} aria-hidden="true" />
-        <span id="community-submit-title">{labels.publish.title}</span>
+        <span className="community-submit-heading">
+          <Send size={18} aria-hidden="true" />
+          <span id="community-submit-title">{labels.publish.title}</span>
+        </span>
+        <button
+          type="button"
+          className="community-submit-close"
+          onClick={() => setIsOpen(false)}
+          disabled={state.kind === "saving"}
+        >
+          {labels.publish.cancel}
+        </button>
       </div>
       <form className="community-submit-form" onSubmit={submit}>
         <input
