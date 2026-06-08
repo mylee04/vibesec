@@ -264,8 +264,13 @@
 }
 
 .launch-board-vote button:disabled {
-  cursor: wait;
+  cursor: default;
   opacity: 0.7;
+}
+
+.community-vote:disabled {
+  cursor: default;
+  opacity: 0.68;
 }
 
 .launch-board-vote span,

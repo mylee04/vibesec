@@ -2,6 +2,7 @@ import { describe, expect, it } from "bun:test"
 import { ScanFailedError } from "../src/scanner/scan.js"
 import type { ScanReport } from "../src/scanner/types.js"
 import { createApp } from "../src/server/app.js"
+import { createMemoryShowcaseStore } from "../src/server/showcase-store.js"
 
 describe("createApp", () => {
   it("api rejects malformed scan urls without starting a scan", async () => {
@@ -88,6 +89,67 @@ describe("createApp", () => {
       error: {
         code: "scan_failed",
         message: "lookup failed",
+      },
+    })
+  })
+
+  it("api counts one showcase upvote per visitor cookie", async () => {
+    // Given: a launch board entry published through the API.
+    const store = createMemoryShowcaseStore()
+    const app = createApp({
+      showcaseStore: store,
+      scanner: {
+        scanTarget: () => ({
+          targetUrl: "https://vote.example/",
+          scannedAt: "2026-06-08T00:00:00.000Z",
+          score: 94,
+          grade: "A",
+          risk: "Low",
+          summary: "ok",
+          issues: [],
+          checks: [],
+          fixes: [],
+          detected: [],
+        }),
+      },
+    })
+    await app.request("/api/showcase", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        appName: "Vote App",
+        appUrl: "vote.example",
+        tagline: "A useful launch board test entry for duplicate voting.",
+        category: "AI Tools",
+        stack: [],
+      }),
+    })
+
+    // When: the same visitor cookie upvotes the same entry twice.
+    const firstResponse = await app.request("/api/showcase-upvote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ entryId: "vote-app-vote-example" }),
+    })
+    const visitorCookie = firstResponse.headers.get("set-cookie")?.split(";")[0]
+    const secondResponse = await app.request("/api/showcase-upvote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Cookie: visitorCookie ?? "",
+      },
+      body: JSON.stringify({ entryId: "vote-app-vote-example" }),
+    })
+
+    // Then: only the first request changes the public counter.
+    expect(visitorCookie).toStartWith("vibesec_vote_visitor=")
+    expect(firstResponse.status).toBe(200)
+    expect(secondResponse.status).toBe(200)
+    const payload = await secondResponse.json()
+    expect(payload).toMatchObject({
+      entry: {
+        id: "vote-app-vote-example",
+        upvotes: 1,
       },
     })
   })

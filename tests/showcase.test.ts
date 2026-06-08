@@ -159,7 +159,7 @@ describe("showcase entries", () => {
     expect((await store.listEntries())[0]?.id).toBe("테스트-ai-랜딩페이지-빌더-listed-example")
   })
 
-  it("increments public launch board upvotes", async () => {
+  it("increments public launch board upvotes once per visitor", async () => {
     // Given: a published launch board entry.
     const store = createMemoryShowcaseStore()
     await createShowcaseEntry(validPayload, {
@@ -167,15 +167,51 @@ describe("showcase entries", () => {
       scanner: { scanTarget: () => reportWithScore(91) },
     })
 
-    // When: a visitor upvotes the app.
-    const result = await upvoteShowcaseEntry({ entryId: "listed-app-listed-example" }, store)
+    // When: one visitor upvotes the same app twice.
+    const firstResult = await upvoteShowcaseEntry(
+      { entryId: "listed-app-listed-example" },
+      { store, visitorId: "visitor-one" },
+    )
+    const duplicateResult = await upvoteShowcaseEntry(
+      { entryId: "listed-app-listed-example" },
+      { store, visitorId: "visitor-one" },
+    )
 
-    // Then: the public counter is updated on the entry.
-    expect(result.status).toBe(200)
-    expect(result.body).toMatchObject({
+    // Then: the public counter is updated only once for that visitor.
+    expect(firstResult.status).toBe(200)
+    expect(duplicateResult.status).toBe(200)
+    expect(duplicateResult.body).toMatchObject({
       entry: {
         id: "listed-app-listed-example",
         upvotes: 1,
+      },
+    })
+  })
+
+  it("increments public launch board upvotes for different visitors", async () => {
+    // Given: a published launch board entry.
+    const store = createMemoryShowcaseStore()
+    await createShowcaseEntry(validPayload, {
+      store,
+      scanner: { scanTarget: () => reportWithScore(91) },
+    })
+
+    // When: two different visitors upvote the same app.
+    await upvoteShowcaseEntry(
+      { entryId: "listed-app-listed-example" },
+      { store, visitorId: "visitor-one" },
+    )
+    const secondResult = await upvoteShowcaseEntry(
+      { entryId: "listed-app-listed-example" },
+      { store, visitorId: "visitor-two" },
+    )
+
+    // Then: both visitors count.
+    expect(secondResult.status).toBe(200)
+    expect(secondResult.body).toMatchObject({
+      entry: {
+        id: "listed-app-listed-example",
+        upvotes: 2,
       },
     })
   })

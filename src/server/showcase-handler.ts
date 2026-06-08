@@ -22,6 +22,11 @@ export type ShowcaseHandlerOptions = {
   readonly scanner?: ShowcaseScanner
 }
 
+export type ShowcaseUpvoteOptions = {
+  readonly store?: ShowcaseStore
+  readonly visitorId: string
+}
+
 const defaultStore = createConfiguredShowcaseStore()
 
 const prohibitedShowcasePatterns: readonly RegExp[] = [
@@ -175,17 +180,18 @@ export const createShowcaseEntry = async (
 
 export const upvoteShowcaseEntry = async (
   payload: unknown,
-  store: ShowcaseStore = defaultStore,
+  options: ShowcaseUpvoteOptions,
 ): Promise<ShowcaseHttpResult> => {
   const parsed = ShowcaseUpvoteRequestSchema.safeParse(payload)
   if (!parsed.success) {
     return { status: 400, body: { error: { code: "invalid_showcase_upvote" } } }
   }
-  const entry = await store.upvoteEntry(parsed.data.entryId)
-  if (entry === undefined) {
+  const store = options.store ?? defaultStore
+  const result = await store.upvoteEntry(parsed.data.entryId, options.visitorId)
+  if (result === undefined) {
     return { status: 404, body: { error: { code: "showcase_entry_not_found" } } }
   }
-  return { status: 200, body: { entry } }
+  return { status: 200, body: { entry: result.entry } }
 }
 
 export const addShowcaseComment = async (

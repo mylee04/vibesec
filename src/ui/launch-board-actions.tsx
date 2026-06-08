@@ -1,9 +1,10 @@
 import { ArrowBigUp, MessageCircle, Send } from "lucide-react"
-import { type FormEvent, useMemo, useState } from "react"
+import { type FormEvent, useEffect, useMemo, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import type { UiCopy } from "./i18n.js"
 import type { LaunchBoardSort } from "./launch-board-sort.js"
 import { commentShowcaseEntry, upvoteShowcaseEntry } from "./showcase-api.js"
+import { hasStoredUpvote, storeUpvote } from "./upvote-memory.js"
 
 export const LaunchBoardTabs = ({
   labels,
@@ -68,11 +69,21 @@ export const UpvoteButton = ({
   readonly onEntryUpdate: (entry: ShowcaseEntry) => void
 }) => {
   const [state, setState] = useState<"idle" | "saving" | "error">("idle")
+  const [hasVoted, setHasVoted] = useState(() => hasStoredUpvote(entry.id))
+
+  useEffect(() => {
+    setHasVoted(hasStoredUpvote(entry.id))
+  }, [entry.id])
 
   const upvote = async () => {
+    if (hasVoted) {
+      return
+    }
     setState("saving")
     try {
       onEntryUpdate(await upvoteShowcaseEntry(entry.id))
+      storeUpvote(entry.id)
+      setHasVoted(true)
       setState("idle")
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -85,7 +96,7 @@ export const UpvoteButton = ({
 
   return (
     <div className="launch-board-vote">
-      <button type="button" onClick={upvote} disabled={state === "saving"}>
+      <button type="button" onClick={upvote} disabled={state === "saving" || hasVoted}>
         <ArrowBigUp size={17} aria-hidden="true" />
         {labels.showcase.upvote}
       </button>

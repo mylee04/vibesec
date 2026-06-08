@@ -1,9 +1,10 @@
 import { ArrowBigUp } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { formatShowcaseHost } from "./home-showcase-data.js"
 import type { UiCopy } from "./i18n.js"
 import { upvoteShowcaseEntry } from "./showcase-api.js"
+import { hasStoredUpvote, storeUpvote } from "./upvote-memory.js"
 
 type EntryUpdateHandler = (entry: ShowcaseEntry) => void
 
@@ -38,11 +39,21 @@ const CommunityPostRow = ({
   readonly onEntryUpdate: EntryUpdateHandler
 }) => {
   const [state, setState] = useState<"idle" | "saving" | "error">("idle")
+  const [hasVoted, setHasVoted] = useState(() => hasStoredUpvote(entry.id))
+
+  useEffect(() => {
+    setHasVoted(hasStoredUpvote(entry.id))
+  }, [entry.id])
 
   const upvote = async () => {
+    if (hasVoted) {
+      return
+    }
     setState("saving")
     try {
       onEntryUpdate(await upvoteShowcaseEntry(entry.id))
+      storeUpvote(entry.id)
+      setHasVoted(true)
       setState("idle")
     } catch (error: unknown) {
       if (error instanceof Error) {
@@ -59,7 +70,8 @@ const CommunityPostRow = ({
         type="button"
         className="community-vote"
         onClick={upvote}
-        disabled={state === "saving"}
+        disabled={state === "saving" || hasVoted}
+        aria-pressed={hasVoted}
         aria-label={labels.showcase.upvote}
       >
         <ArrowBigUp size={18} aria-hidden="true" />
