@@ -173,9 +173,6 @@ export const esCopy = {
     publish: "Publicar",
     viewPublicPage: "Ver página pública",
     defaultCategory: "Herramientas AI",
-    lockedTitle: "Showcase se desbloquea con 75+",
-    lockedText:
-      "Corrige los riesgos, vuelve a escanear y luego publica tu app o pide un lugar destacado.",
   },
   dateLocale: "es",
 } satisfies UiCopy

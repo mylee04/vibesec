@@ -167,8 +167,6 @@ export const koCopy = {
     publish: "게시",
     viewPublicPage: "공개 페이지 보기",
     defaultCategory: "AI 도구",
-    lockedTitle: "쇼케이스는 75점 이상부터",
-    lockedText: "런치 위험을 고치고 다시 스캔한 뒤 앱을 공개하거나 상단 노출을 요청하세요.",
   },
   dateLocale: "ko-KR",
 } satisfies UiCopy

@@ -173,8 +173,6 @@ export const jaCopy = {
     publish: "公開",
     viewPublicPage: "公開ページを見る",
     defaultCategory: "AIツール",
-    lockedTitle: "ショーケースは75点以上で解放",
-    lockedText: "リスクを修正して再スキャン後、アプリ公開または上位掲載を申請できます。",
   },
   dateLocale: "ja-JP",
 } satisfies UiCopy

@@ -171,9 +171,6 @@ export const ruCopy = {
     publish: "Опубликовать",
     viewPublicPage: "Открыть публичную страницу",
     defaultCategory: "AI-инструменты",
-    lockedTitle: "Витрина открывается с 75+",
-    lockedText:
-      "Исправьте риски, пересканируйте, затем публикуйте приложение или просите место в топе.",
   },
   dateLocale: "ru-RU",
 } satisfies UiCopy

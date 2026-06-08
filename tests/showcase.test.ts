@@ -58,8 +58,8 @@ describe("showcase entries", () => {
     })
   })
 
-  it("rejects low scoring apps from public showcase listing", async () => {
-    // Given: a submission that can be scanned but does not meet the public score bar.
+  it("publishes low scoring apps to the free showcase", async () => {
+    // Given: a free showcase submission with a low scan score.
     const store = createMemoryShowcaseStore()
 
     // When: the verified scan returns a low score.
@@ -68,8 +68,8 @@ describe("showcase entries", () => {
       scanner: { scanTarget: () => reportWithScore(54) },
     })
 
-    // Then: the public listing is denied.
-    expect(result.status).toBe(422)
-    expect(await store.listEntries()).toEqual([])
+    // Then: the public listing is still created.
+    expect(result.status).toBe(201)
+    expect(await store.listEntries()).toHaveLength(1)
   })
 })

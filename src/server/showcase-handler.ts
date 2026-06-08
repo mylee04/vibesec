@@ -4,7 +4,7 @@ import type { ScanReport } from "../scanner/types.js"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { createConfiguredShowcaseStore, type ShowcaseStore } from "./showcase-store.js"
 
-export type ShowcaseHttpStatus = 200 | 201 | 400 | 422 | 502
+export type ShowcaseHttpStatus = 200 | 201 | 400 | 502
 
 export type ShowcaseHttpResult = {
   readonly status: ShowcaseHttpStatus
@@ -77,17 +77,6 @@ export const createShowcaseEntry = async (
   const scanner = options.scanner ?? { scanTarget }
   const store = options.store ?? defaultStore
   const report = await scanner.scanTarget({ url: parsed.data.appUrl })
-  if (report.score < 75) {
-    return {
-      status: 422,
-      body: {
-        error: {
-          code: "score_too_low",
-          message: "Only apps scoring B or higher can be published to the showcase.",
-        },
-      },
-    }
-  }
   const entry = publicEntryFrom(parsed.data, report)
   await store.saveEntry(entry)
   return { status: 201, body: { entry } }

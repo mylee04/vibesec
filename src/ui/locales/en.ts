@@ -168,8 +168,6 @@ export const enCopy = {
     publish: "Publish",
     viewPublicPage: "View public page",
     defaultCategory: "AI Tools",
-    lockedTitle: "Showcase unlocks at 75+",
-    lockedText: "Fix the launch risks, rescan, then publish your app or request a featured spot.",
   },
   dateLocale: "en",
 } as const

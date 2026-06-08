@@ -1,4 +1,4 @@
-import { ExternalLink, LockKeyhole, Megaphone } from "lucide-react"
+import { ExternalLink, Megaphone } from "lucide-react"
 import { useState } from "react"
 import type { ScanReport } from "../scanner/types.js"
 import type { ShowcaseEntry } from "../showcase/types.js"
@@ -46,18 +46,6 @@ export const ShowcasePublish = ({
       }
       throw error
     }
-  }
-
-  if (report.score < 75) {
-    return (
-      <section className="showcase-publish" id="showcase-publish">
-        <div className="panel-heading">
-          <LockKeyhole size={19} aria-hidden="true" />
-          <span>{labels.publish.lockedTitle}</span>
-        </div>
-        <p className="publish-note">{labels.publish.lockedText}</p>
-      </section>
-    )
   }
 
   return (
