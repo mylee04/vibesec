@@ -12,7 +12,7 @@
   padding: 0 16px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--input-bg);
+  background: var(--surface-input);
   color: var(--accent);
 }
 
@@ -52,7 +52,7 @@
   height: 42px;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background: var(--input-bg);
+  background: var(--surface-input);
   color: var(--text);
   font: inherit;
   font-weight: 800;
@@ -91,6 +91,74 @@
   color: var(--muted);
   font-size: 0.88rem;
   font-weight: 800;
+}
+
+:root[data-theme="light"] .launch-board-controls {
+  --launch-board-control-bg: rgba(255, 253, 248, 0.92);
+  --launch-board-control-bg-strong: rgba(255, 255, 255, 0.96);
+  --launch-board-control-shadow: 0 14px 34px rgba(89, 68, 39, 0.08);
+}
+
+:root[data-theme="light"] .launch-board-search {
+  background: var(--launch-board-control-bg-strong);
+  box-shadow: var(--launch-board-control-shadow);
+}
+
+:root[data-theme="light"] .launch-board-pagination {
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  padding: 12px;
+  background: var(--launch-board-control-bg);
+  box-shadow: var(--launch-board-control-shadow);
+}
+
+:root[data-theme="light"] .launch-board-pagination select,
+:root[data-theme="light"] .launch-board-page-stepper input,
+:root[data-theme="light"] .launch-board-page-stepper button {
+  background: var(--launch-board-control-bg-strong);
+}
+
+:root[data-theme="light"] .launch-board-result-count {
+  border: 1px solid var(--border-soft);
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: var(--launch-board-control-bg-strong);
+  color: var(--text);
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) .launch-board-controls {
+    --launch-board-control-bg: rgba(255, 253, 248, 0.92);
+    --launch-board-control-bg-strong: rgba(255, 255, 255, 0.96);
+    --launch-board-control-shadow: 0 14px 34px rgba(89, 68, 39, 0.08);
+  }
+
+  :root:not([data-theme]) .launch-board-search {
+    background: var(--launch-board-control-bg-strong);
+    box-shadow: var(--launch-board-control-shadow);
+  }
+
+  :root:not([data-theme]) .launch-board-pagination {
+    border: 1px solid var(--border-soft);
+    border-radius: 8px;
+    padding: 12px;
+    background: var(--launch-board-control-bg);
+    box-shadow: var(--launch-board-control-shadow);
+  }
+
+  :root:not([data-theme]) .launch-board-pagination select,
+  :root:not([data-theme]) .launch-board-page-stepper input,
+  :root:not([data-theme]) .launch-board-page-stepper button {
+    background: var(--launch-board-control-bg-strong);
+  }
+
+  :root:not([data-theme]) .launch-board-result-count {
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 8px 12px;
+    background: var(--launch-board-control-bg-strong);
+    color: var(--text);
+  }
 }
 
 @media (max-width: 680px) {
