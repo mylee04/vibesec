@@ -3,10 +3,10 @@
   gap: 6px;
   align-self: flex-start;
   margin-top: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 5px;
-  background: rgba(14, 19, 21, 0.9);
+  background: var(--surface);
 }
 
 .launch-board-tabs button,
@@ -34,36 +34,45 @@
   gap: 7px;
   min-height: 40px;
   padding: 0 14px;
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 .community-submit {
   display: grid;
   gap: 12px;
   margin-top: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 16px;
-  background: rgba(14, 19, 21, 0.9);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.24);
+  background: var(--surface);
+  box-shadow: var(--shadow-soft);
 }
 
 .community-submit .panel-heading {
+  align-items: center;
   justify-content: space-between;
+  gap: 12px;
 }
 
 .community-submit-heading {
   display: inline-flex;
+  min-width: 0;
   align-items: center;
   gap: 8px;
 }
 
+.community-submit-heading span {
+  min-width: 0;
+  line-height: 1.16;
+}
+
 .community-submit-close {
+  flex: 0 0 auto;
   min-height: 34px;
   padding: 0 10px;
-  color: #c4d2ce;
-  background: rgba(255, 255, 255, 0.07);
+  color: var(--text-panel);
+  background: var(--surface-muted);
 }
 
 .community-submit-close:disabled {
@@ -87,11 +96,11 @@
 .community-submit-form select {
   width: 100%;
   min-width: 0;
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 13px;
-  color: #f6fbfa;
-  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-strong);
+  background: var(--surface-field);
   font: inherit;
 }
 
@@ -102,29 +111,29 @@
 
 .community-submit-form button {
   min-height: 44px;
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 .launch-board-tabs button {
   min-height: 34px;
   padding: 0 14px;
-  color: #c4d2ce;
+  color: var(--text-panel);
   background: transparent;
 }
 
 .launch-board-tabs button.active {
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 .community-board {
   margin-top: 12px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(14, 19, 21, 0.9);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .community-post {
@@ -133,7 +142,7 @@
   gap: 8px;
   align-items: center;
   min-height: 54px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid var(--border-soft);
   padding: 8px 12px;
 }
 
@@ -148,14 +157,14 @@
   gap: 4px;
   justify-content: start;
   padding: 0;
-  color: #aebfbb;
+  color: var(--text-muted);
   background: transparent;
   font-size: 0.84rem;
   font-weight: 900;
 }
 
 .community-vote svg {
-  color: rgba(255, 255, 255, 0.32);
+  color: color-mix(in srgb, var(--text-muted) 45%, transparent);
 }
 
 .community-post-main {
@@ -178,8 +187,8 @@
   flex: 0 0 auto;
   border-radius: 999px;
   padding: 3px 7px;
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
   font-size: 0.76rem;
   font-weight: 950;
 }
@@ -187,7 +196,7 @@
 .community-title {
   min-width: 0;
   overflow: hidden;
-  color: #7ea7ff;
+  color: var(--link);
   font-size: 1.02rem;
   font-weight: 950;
   text-decoration: none;
@@ -202,19 +211,19 @@
 
 .community-comments {
   flex: 0 0 auto;
-  color: #7ea7ff;
+  color: var(--link);
   font-weight: 950;
   text-decoration: none;
 }
 
 .community-meta {
   margin-top: 3px;
-  color: #aebfbb;
+  color: var(--text-muted);
   font-size: 0.82rem;
 }
 
 .community-meta a {
-  color: #72e0ca;
+  color: var(--accent);
   font-weight: 800;
   text-decoration: none;
 }
@@ -230,7 +239,7 @@
 
 .launch-board-stats {
   margin: 12px 0 2px;
-  color: #c4d2ce;
+  color: var(--text-panel);
   font-size: 0.86rem;
   font-weight: 800;
 }
@@ -244,14 +253,14 @@
 
 .launch-board-stats svg,
 .launch-board-vote svg {
-  color: #72e0ca;
+  color: var(--accent);
 }
 
 .launch-board-vote button {
   min-height: 30px;
   padding: 0 10px;
-  color: #72e0ca;
-  background: rgba(114, 224, 202, 0.09);
+  color: var(--accent);
+  background: var(--accent-soft);
 }
 
 .launch-board-vote button:disabled {
@@ -261,7 +270,7 @@
 
 .launch-board-vote span,
 .launch-board-error {
-  color: #ff9d9d;
+  color: var(--danger-strong);
   font-size: 0.82rem;
   font-weight: 800;
 }
@@ -270,10 +279,10 @@
   display: grid;
   gap: 14px;
   margin-top: 16px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 18px;
-  background: rgba(14, 19, 21, 0.9);
+  background: var(--surface);
 }
 
 .launch-board-comment-form {
@@ -286,11 +295,11 @@
 .launch-board-comment-form textarea {
   width: 100%;
   min-width: 0;
-  border: 1px solid rgba(255, 255, 255, 0.13);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 11px 12px;
-  color: #f6fbfa;
-  background: rgba(0, 0, 0, 0.25);
+  color: var(--text-strong);
+  background: var(--surface-field);
   font: inherit;
 }
 
@@ -306,8 +315,8 @@
   gap: 7px;
   min-height: 44px;
   padding: 0 14px;
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 .launch-board-comment-list {
@@ -316,12 +325,12 @@
 }
 
 .launch-board-comment-list article {
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-top: 1px solid var(--border-soft);
   padding-top: 10px;
 }
 
 .launch-board-comment-list strong {
-  color: #f6fbfa;
+  color: var(--text-strong);
 }
 
 .launch-board-comment-list p {
@@ -335,6 +344,9 @@
 
   .launch-board-tabs button {
     flex: 1 1 0;
+    min-height: 34px;
+    padding: 0 10px;
+    font-size: 0.86rem;
   }
 
   .launch-board-comment-form {
@@ -345,17 +357,78 @@
     grid-template-columns: 1fr;
   }
 
+  .community-submit {
+    gap: 10px;
+    padding: 13px;
+  }
+
+  .community-submit .panel-heading {
+    margin-bottom: 10px;
+  }
+
+  .community-submit-heading {
+    gap: 7px;
+  }
+
+  .community-submit-heading span {
+    font-size: 0.96rem;
+  }
+
+  .community-submit-close {
+    min-height: 32px;
+    padding: 0 9px;
+    font-size: 0.84rem;
+  }
+
+  .community-submit-form {
+    gap: 9px;
+  }
+
+  .community-submit-form input,
+  .community-submit-form textarea,
+  .community-submit-form select,
+  .launch-board-comment-form input,
+  .launch-board-comment-form textarea {
+    padding: 10px 11px;
+    font-size: 1rem;
+  }
+
+  .community-submit-form textarea {
+    min-height: 82px;
+  }
+
+  .community-submit-form button {
+    min-height: 42px;
+    font-size: 0.95rem;
+  }
+
   .community-post {
-    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-columns: 42px minmax(0, 1fr);
     padding: 8px 9px;
   }
 
   .community-title {
-    font-size: 0.94rem;
+    font-size: 0.86rem;
   }
 
   .community-meta {
     flex-wrap: wrap;
     row-gap: 2px;
+    font-size: 0.76rem;
+  }
+
+  .community-badge {
+    padding: 2px 6px;
+    font-size: 0.68rem;
+  }
+
+  .community-comments {
+    font-size: 0.84rem;
+  }
+
+  .community-vote {
+    grid-template-columns: 16px minmax(0, 1fr);
+    gap: 3px;
+    font-size: 0.78rem;
   }
 }

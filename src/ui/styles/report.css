@@ -40,8 +40,8 @@
   justify-content: center;
   width: 54px;
   height: 54px;
-  background: #f0d36a;
-  color: #171103;
+  background: var(--warning);
+  color: var(--warning-text);
   font-size: 1.5rem;
 }
 
@@ -51,18 +51,18 @@
 }
 
 .risk-high {
-  background: rgba(255, 95, 95, 0.16);
-  color: #ffb1a7;
+  background: var(--danger-soft);
+  color: var(--danger);
 }
 
 .risk-medium {
-  background: rgba(240, 211, 106, 0.16);
-  color: #f0d36a;
+  background: color-mix(in srgb, var(--warning) 16%, transparent);
+  color: var(--warning);
 }
 
 .risk-low {
-  background: rgba(114, 224, 202, 0.16);
-  color: #72e0ca;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
 }
 
 .report-meta {
@@ -76,7 +76,7 @@
 }
 
 dt {
-  color: #8fa39e;
+  color: var(--text-subtle);
   font-size: 0.78rem;
   font-weight: 800;
   text-transform: uppercase;
@@ -96,8 +96,8 @@ dd {
 .issue-counts span {
   border-radius: 999px;
   padding: 6px 9px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #c4d2ce;
+  background: var(--surface-muted);
+  color: var(--text-panel);
   font-size: 0.82rem;
 }
 
@@ -113,7 +113,7 @@ dd {
 
 .issue-group li,
 .checklist-panel li {
-  border-top: 1px solid rgba(255, 255, 255, 0.09);
+  border-top: 1px solid var(--border-soft);
   padding-top: 10px;
 }
 
@@ -125,7 +125,7 @@ dd {
 }
 
 .issue-title-row strong {
-  color: #f0d36a;
+  color: var(--warning);
 }
 
 .checklist-panel li {
@@ -136,7 +136,7 @@ dd {
 }
 
 .checklist-panel svg {
-  color: #72e0ca;
+  color: var(--accent);
 }
 
 .fix-card {
@@ -159,11 +159,11 @@ dd {
 .showcase-form > input,
 .showcase-form > textarea,
 .showcase-form > select {
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid var(--border-strong);
   border-radius: 8px;
   padding: 14px 15px;
-  background: #070b0d;
-  color: #f6fbfa;
+  background: var(--surface-input);
+  color: var(--text-strong);
   font: inherit;
 }
 
@@ -177,14 +177,14 @@ dd {
   align-items: center;
   gap: 7px;
   margin-top: 14px;
-  color: #72e0ca;
+  color: var(--accent);
   font-weight: 850;
   text-decoration: none;
 }
 
 .error-text {
   margin-top: 12px;
-  color: #ffb1a7;
+  color: var(--danger);
 }
 
 .fix-heading {
@@ -198,11 +198,11 @@ dd {
 
 pre {
   overflow-x: auto;
-  border: 1px solid rgba(114, 224, 202, 0.14);
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, transparent);
   border-radius: 8px;
   padding: 14px;
-  background: #070b0d;
-  color: #d8fff8;
+  background: var(--surface-input);
+  color: var(--text);
   font-size: 0.82rem;
   line-height: 1.5;
 }
@@ -218,7 +218,7 @@ pre {
   }
 
   .score {
-    font-size: 3.35rem;
+    font-size: 2.9rem;
   }
 
   .fix-heading {

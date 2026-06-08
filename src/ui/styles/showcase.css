@@ -12,10 +12,10 @@
 
 .showcase-card,
 .showcase-detail {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(14, 19, 21, 0.9);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .showcase-card {
@@ -35,9 +35,9 @@
   width: 76px;
   height: 76px;
   place-items: center;
-  border: 1px solid rgba(114, 224, 202, 0.3);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
-  background: rgba(114, 224, 202, 0.09);
+  background: var(--accent-soft);
 }
 
 .showcase-score.large {
@@ -60,7 +60,7 @@
 }
 
 .showcase-score strong {
-  color: #f0d36a;
+  color: var(--warning);
 }
 
 .showcase-score-pill {
@@ -68,21 +68,21 @@
   min-width: 66px;
   min-height: 58px;
   place-items: center;
-  border: 1px solid rgba(114, 224, 202, 0.3);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   padding: 8px 10px;
-  background: rgba(114, 224, 202, 0.09);
+  background: var(--accent-soft);
 }
 
 .showcase-score-pill strong {
-  color: #f6fbfa;
+  color: var(--text-strong);
   font-size: 1.65rem;
   font-weight: 950;
   line-height: 1;
 }
 
 .showcase-score-pill span {
-  color: #f0d36a;
+  color: var(--warning);
   font-size: 0.86rem;
   font-weight: 950;
 }
@@ -101,7 +101,7 @@
 
 .showcase-card-top a,
 .home-showcase-identity a {
-  color: #72e0ca;
+  color: var(--accent);
   font-size: 0.88rem;
   font-weight: 800;
   text-decoration: none;
@@ -124,8 +124,8 @@
 .tag-row span {
   border-radius: 999px;
   padding: 6px 9px;
-  background: rgba(255, 255, 255, 0.06);
-  color: #c4d2ce;
+  background: var(--surface-muted);
+  color: var(--text-panel);
   font-size: 0.82rem;
 }
 
@@ -137,7 +137,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  color: #72e0ca;
+  color: var(--accent);
   font-weight: 850;
   text-decoration: none;
 }
@@ -147,7 +147,7 @@
 }
 
 .badge-line svg {
-  color: #72e0ca;
+  color: var(--accent);
 }
 
 .home-showcase {
@@ -174,7 +174,7 @@
 }
 
 .home-showcase-title svg {
-  color: #72e0ca;
+  color: var(--accent);
 }
 
 .home-showcase-title h2,
@@ -198,19 +198,19 @@
   display: inline-flex;
   align-items: center;
   min-height: 34px;
-  border: 1px solid rgba(114, 224, 202, 0.28);
+  border: 1px solid var(--accent-border);
   border-radius: 8px;
   padding: 0 12px;
-  color: #72e0ca;
-  background: rgba(114, 224, 202, 0.08);
+  color: var(--accent);
+  background: var(--accent-softer);
   font-size: 0.84rem;
   font-weight: 900;
   text-decoration: none;
 }
 
 .home-showcase-cta a:first-child {
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 .home-showcase-grid {
@@ -223,10 +223,10 @@
   min-width: 0;
   display: grid;
   gap: 13px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--border-soft);
   border-radius: 8px;
   padding: 16px;
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--surface-softer);
 }
 
 .home-showcase-card-main {
@@ -249,7 +249,7 @@
 
 .home-showcase-card-head span {
   flex: 0 0 auto;
-  color: #f0d36a;
+  color: var(--warning);
   font-size: 0.78rem;
   font-weight: 850;
 }

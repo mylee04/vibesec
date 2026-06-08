@@ -1,8 +1,42 @@
 :root {
   color-scheme: dark;
   font-family: "Aptos", "Söhne", "Segoe UI", sans-serif;
-  background: #0d1113;
-  color: #eef4f2;
+  background: var(--page-bg);
+  color: var(--text);
+  --page-bg: #0d1113;
+  --page-bg-end: #14191b;
+  --grid-line-strong: rgba(255, 255, 255, 0.035);
+  --grid-line-soft: rgba(255, 255, 255, 0.03);
+  --grid-glow: rgba(41, 178, 161, 0.18);
+  --surface: rgba(14, 19, 21, 0.9);
+  --surface-raised: rgba(14, 19, 21, 0.78);
+  --surface-soft: rgba(255, 255, 255, 0.05);
+  --surface-softer: rgba(255, 255, 255, 0.04);
+  --surface-input: #070b0d;
+  --surface-field: rgba(0, 0, 0, 0.25);
+  --surface-muted: rgba(255, 255, 255, 0.06);
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-soft: rgba(255, 255, 255, 0.09);
+  --text: #eef4f2;
+  --text-strong: #f6fbfa;
+  --text-muted: #aebfbb;
+  --text-subtle: #8fa39e;
+  --text-panel: #c4d2ce;
+  --accent: #72e0ca;
+  --accent-strong: #5addc7;
+  --accent-soft: rgba(114, 224, 202, 0.1);
+  --accent-softer: rgba(114, 224, 202, 0.08);
+  --accent-border: rgba(114, 224, 202, 0.3);
+  --accent-text: #07100f;
+  --link: #7ea7ff;
+  --warning: #f0d36a;
+  --warning-text: #171103;
+  --danger: #ffb1a7;
+  --danger-strong: #ff9d9d;
+  --danger-soft: rgba(255, 95, 95, 0.16);
+  --shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  --shadow-soft: 0 24px 70px rgba(0, 0, 0, 0.24);
 }
 
 * {
@@ -14,10 +48,10 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    radial-gradient(ellipse at top left, rgba(41, 178, 161, 0.18), transparent 42%),
-    linear-gradient(180deg, #0d1113 0%, #14191b 100%);
+    linear-gradient(90deg, var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(var(--grid-line-soft) 1px, transparent 1px),
+    radial-gradient(ellipse at top left, var(--grid-glow), transparent 42%),
+    linear-gradient(180deg, var(--page-bg) 0%, var(--page-bg-end) 100%);
   background-size:
     44px 44px,
     44px 44px,
@@ -39,8 +73,8 @@ button {
   border: 0;
   border-radius: 8px;
   padding: 0 18px;
-  background: #72e0ca;
-  color: #07100e;
+  background: var(--accent);
+  color: var(--accent-text);
   font-weight: 850;
   cursor: pointer;
 }
@@ -59,9 +93,10 @@ p {
 
 h1 {
   margin-bottom: 0;
-  font-size: 3.7rem;
-  line-height: 0.98;
+  font-size: clamp(2.5rem, 5.4vw, 3.7rem);
+  line-height: 1.01;
   letter-spacing: 0;
+  text-wrap: balance;
 }
 
 h3 {
@@ -82,7 +117,7 @@ li {
 small,
 .muted,
 p {
-  color: #aebfbb;
+  color: var(--text-muted);
 }
 
 .shell {
@@ -100,7 +135,7 @@ p {
 }
 
 .app-wordmark {
-  color: #f6fbfa;
+  color: var(--text-strong);
   font-size: 1rem;
   font-weight: 950;
   text-decoration: none;
@@ -110,25 +145,25 @@ p {
   display: inline-flex;
   justify-self: start;
   gap: 4px;
-  border: 1px solid rgba(255, 255, 255, 0.11);
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 4px;
-  background: rgba(14, 19, 21, 0.78);
+  background: var(--surface-raised);
 }
 
 .app-tabs a {
   min-height: 32px;
   border-radius: 7px;
   padding: 7px 12px;
-  color: #c4d2ce;
+  color: var(--text-panel);
   font-size: 0.86rem;
   font-weight: 900;
   text-decoration: none;
 }
 
 .app-tabs a.active {
-  color: #07100f;
-  background: #72e0ca;
+  color: var(--accent-text);
+  background: var(--accent);
 }
 
 .scan-surface,
@@ -139,10 +174,10 @@ p {
 .empty-report,
 .home-showcase,
 .error-box {
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid var(--border);
   border-radius: 8px;
-  background: rgba(14, 19, 21, 0.9);
-  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.32);
+  background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 .brand-block,
@@ -158,22 +193,34 @@ p {
 .panel-heading {
   gap: 8px;
   margin-bottom: 16px;
-  color: #c4d2ce;
+  color: var(--text-panel);
   font-weight: 800;
 }
 
 .panel-heading svg {
-  color: #72e0ca;
+  color: var(--accent);
 }
 
 @media (max-width: 820px) {
   h1 {
-    font-size: 1.86rem;
-    line-height: 1.08;
+    font-size: clamp(1.72rem, 8vw, 2.18rem);
+    line-height: 1.07;
+    text-wrap: pretty;
+  }
+
+  .shell {
+    width: min(100% - 24px, 1200px);
+    padding: 20px 0 42px;
   }
 
   .app-topbar {
     grid-template-columns: 1fr auto;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+
+  .app-wordmark {
+    font-size: 0.94rem;
   }
 
   .app-tabs {
@@ -184,6 +231,49 @@ p {
 
   .app-tabs a {
     flex: 1 1 0;
+    min-height: 36px;
+    padding: 7px 10px;
+    font-size: 0.82rem;
     text-align: center;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color-scheme: light;
+    --page-bg: #f5faf8;
+    --page-bg-end: #eaf2ef;
+    --grid-line-strong: rgba(8, 32, 29, 0.08);
+    --grid-line-soft: rgba(8, 32, 29, 0.055);
+    --grid-glow: rgba(33, 191, 167, 0.16);
+    --surface: rgba(255, 255, 255, 0.9);
+    --surface-raised: rgba(255, 255, 255, 0.82);
+    --surface-soft: rgba(8, 32, 29, 0.055);
+    --surface-softer: rgba(8, 32, 29, 0.04);
+    --surface-input: rgba(255, 255, 255, 0.9);
+    --surface-field: rgba(255, 255, 255, 0.72);
+    --surface-muted: rgba(8, 32, 29, 0.07);
+    --border: rgba(8, 32, 29, 0.14);
+    --border-strong: rgba(8, 32, 29, 0.2);
+    --border-soft: rgba(8, 32, 29, 0.1);
+    --text: #11211e;
+    --text-strong: #07100f;
+    --text-muted: #5f716c;
+    --text-subtle: #6b7e79;
+    --text-panel: #3d4f4a;
+    --accent: #25c8ae;
+    --accent-strong: #149b89;
+    --accent-soft: rgba(37, 200, 174, 0.12);
+    --accent-softer: rgba(37, 200, 174, 0.1);
+    --accent-border: rgba(20, 155, 137, 0.28);
+    --accent-text: #041b18;
+    --link: #295fcc;
+    --warning: #9b7a0c;
+    --warning-text: #fff8d5;
+    --danger: #a3382f;
+    --danger-strong: #b83737;
+    --danger-soft: rgba(207, 66, 56, 0.12);
+    --shadow: 0 24px 60px rgba(21, 52, 46, 0.13);
+    --shadow-soft: 0 18px 46px rgba(21, 52, 46, 0.11);
   }
 }

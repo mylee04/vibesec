@@ -7,7 +7,7 @@ export const koCopy = {
     title: "AI 웹앱, 배포 전 1분 점검",
     subtitle: "하루 만에 만든 앱도 공개하면 공격 표면이 생깁니다.",
     urlLabel: "웹사이트 URL",
-    placeholder: "your-app.com 또는 https://your-app.vercel.app",
+    placeholder: "your-app.com",
     runScan: "무료로 검사하기",
     scanning: "검사 중",
   },

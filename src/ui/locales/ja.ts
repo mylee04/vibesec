@@ -7,7 +7,7 @@ export const jaCopy = {
     title: "AIアプリはすぐ作れる。公開前にチェック。",
     subtitle: "URLを貼るだけで、公開前のリスクを1分以内に確認できます。",
     urlLabel: "WebサイトURL",
-    placeholder: "your-app.com または https://your-app.vercel.app",
+    placeholder: "your-app.com",
     runScan: "無料でチェック",
     scanning: "スキャン中",
   },

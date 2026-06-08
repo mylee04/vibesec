@@ -7,7 +7,7 @@ export const ruCopy = {
     title: "AI-приложения запускаются быстро. Проверьте их до релиза.",
     subtitle: "Вставьте URL и найдите риски запуска меньше чем за минуту.",
     urlLabel: "URL сайта",
-    placeholder: "your-app.com или https://your-app.vercel.app",
+    placeholder: "your-app.com",
     runScan: "Проверить бесплатно",
     scanning: "Сканирование",
   },

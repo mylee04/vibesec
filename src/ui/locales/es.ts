@@ -7,7 +7,7 @@ export const esCopy = {
     title: "Las apps con IA salen rápido. Revísalas antes de lanzar.",
     subtitle: "Pega una URL y encuentra riesgos de lanzamiento en menos de un minuto.",
     urlLabel: "URL del sitio web",
-    placeholder: "your-app.com o https://your-app.vercel.app",
+    placeholder: "your-app.com",
     runScan: "Revisar gratis",
     scanning: "Escaneando",
   },

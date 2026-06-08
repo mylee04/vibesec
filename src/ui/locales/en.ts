@@ -5,7 +5,7 @@ export const enCopy = {
     title: "AI apps ship fast. Check before launch.",
     subtitle: "Paste a URL and find launch risks in under a minute.",
     urlLabel: "Website URL",
-    placeholder: "your-app.com or https://your-app.vercel.app",
+    placeholder: "your-app.com",
     runScan: "Run free check",
     scanning: "Scanning",
   },
