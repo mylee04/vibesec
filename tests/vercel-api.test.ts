@@ -46,7 +46,7 @@ describe("vercel scan api", () => {
       body: {
         error: {
           code: "invalid_url",
-          message: "Enter a valid http:// or https:// URL.",
+          message: "Enter a valid domain or http:// / https:// URL.",
         },
       },
     })

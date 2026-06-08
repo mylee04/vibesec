@@ -7,7 +7,7 @@ export const esCopy = {
     title: "Escanea. Puntúa. Promociona.",
     subtitle: "Revisa riesgos y consigue un score para compartir.",
     urlLabel: "URL del sitio",
-    placeholder: "https://your-app.vercel.app",
+    placeholder: "your-app.com o https://your-app.vercel.app",
     runScan: "Obtener score",
     scanning: "Escaneando",
   },

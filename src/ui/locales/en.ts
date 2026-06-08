@@ -5,7 +5,7 @@ export const enCopy = {
     title: "Scan. Score. Showcase.",
     subtitle: "Check launch risks and earn a shareable score.",
     urlLabel: "Website URL",
-    placeholder: "https://your-app.vercel.app",
+    placeholder: "your-app.com or https://your-app.vercel.app",
     runScan: "Get score",
     scanning: "Scanning",
   },

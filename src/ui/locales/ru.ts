@@ -7,7 +7,7 @@ export const ruCopy = {
     title: "Скан. Оценка. Витрина.",
     subtitle: "Проверьте риски и получите оценку для публикации.",
     urlLabel: "URL сайта",
-    placeholder: "https://your-app.vercel.app",
+    placeholder: "your-app.com или https://your-app.vercel.app",
     runScan: "Получить оценку",
     scanning: "Сканирование",
   },

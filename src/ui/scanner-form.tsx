@@ -37,7 +37,9 @@ export const ScannerForm = ({
           <input
             id="scan-url"
             name="url"
-            type="url"
+            type="text"
+            inputMode="url"
+            autoCapitalize="none"
             value={url}
             placeholder={labels.scanner.placeholder}
             onChange={(event) => onUrlChange(event.currentTarget.value)}

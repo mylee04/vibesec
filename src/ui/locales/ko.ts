@@ -7,7 +7,7 @@ export const koCopy = {
     title: "스캔. 점수. 홍보.",
     subtitle: "런치 위험을 확인하고 공유할 점수를 받으세요.",
     urlLabel: "웹사이트 URL",
-    placeholder: "https://your-app.vercel.app",
+    placeholder: "your-app.com 또는 https://your-app.vercel.app",
     runScan: "점수 받기",
     scanning: "스캔 중",
   },

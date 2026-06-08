@@ -16,20 +16,36 @@ export type ScanHttpResult = {
   readonly body: unknown
 }
 
+const schemelessDomainPattern =
+  /^[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?(?:\.[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?)+(?:[/?#].*)?$/iu
+
+const normalizeScanUrlInput = (value: string): string => {
+  const trimmed = value.trim()
+  const candidate = URL.canParse(trimmed)
+    ? trimmed
+    : schemelessDomainPattern.test(trimmed)
+      ? `https://${trimmed}`
+      : trimmed
+  return URL.canParse(candidate) ? new URL(candidate).toString() : candidate
+}
+
 const ScanRequestSchema = z.object({
-  url: z.url().refine((value) => {
-    if (!URL.canParse(value)) {
-      return false
-    }
-    const parsed = new URL(value)
-    return parsed.protocol === "http:" || parsed.protocol === "https:"
-  }),
+  url: z
+    .string()
+    .transform(normalizeScanUrlInput)
+    .refine((value) => {
+      if (!URL.canParse(value)) {
+        return false
+      }
+      const parsed = new URL(value)
+      return parsed.protocol === "http:" || parsed.protocol === "https:"
+    }),
 })
 
 const invalidUrlResponse = {
   error: {
     code: "invalid_url",
-    message: "Enter a valid http:// or https:// URL.",
+    message: "Enter a valid domain or http:// / https:// URL.",
   },
 }
 

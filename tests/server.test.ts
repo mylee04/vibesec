@@ -1,5 +1,6 @@
 import { describe, expect, it } from "bun:test"
 import { ScanFailedError } from "../src/scanner/scan.js"
+import type { ScanReport } from "../src/scanner/types.js"
 import { createApp } from "../src/server/app.js"
 
 describe("createApp", () => {
@@ -24,9 +25,45 @@ describe("createApp", () => {
     expect(payload).toEqual({
       error: {
         code: "invalid_url",
-        message: "Enter a valid http:// or https:// URL.",
+        message: "Enter a valid domain or http:// / https:// URL.",
       },
     })
+  })
+
+  it("api normalizes schemeless domains before scanning", async () => {
+    // Given: an app scanner that records the URL it receives.
+    let scannedUrl: string | undefined
+    const report: ScanReport = {
+      targetUrl: "https://bymyleslee.com/",
+      scannedAt: "2026-06-07T00:00:00.000Z",
+      score: 100,
+      grade: "A",
+      risk: "Low",
+      summary: "ok",
+      issues: [],
+      checks: [],
+      fixes: [],
+      detected: [],
+    }
+    const app = createApp({
+      scanTarget: ({ url }) => {
+        scannedUrl = url
+        return report
+      },
+    })
+
+    // When: a user submits a normal domain without typing the scheme.
+    const response = await app.request("/api/scan", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url: "bymyleslee.com" }),
+    })
+
+    // Then: the API scans the HTTPS URL instead of rejecting the request.
+    expect(response.status).toBe(200)
+    expect(scannedUrl).toBe("https://bymyleslee.com/")
+    const payload = await response.json()
+    expect(payload).toEqual(report)
   })
 
   it("api returns scan_failed for expected scanner failures", async () => {

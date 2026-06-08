@@ -7,7 +7,7 @@ export const jaCopy = {
     title: "スキャン。スコア。掲載。",
     subtitle: "リスクを確認し、共有できるスコアを取得。",
     urlLabel: "WebサイトURL",
-    placeholder: "https://your-app.vercel.app",
+    placeholder: "your-app.com または https://your-app.vercel.app",
     runScan: "スコア取得",
     scanning: "スキャン中",
   },
