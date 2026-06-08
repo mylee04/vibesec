@@ -164,7 +164,6 @@ export const enCopy = {
     tagline: "One-line pitch",
     category: "Category",
     stack: "Stack: Vercel, Supabase, OpenAI",
-    accessCode: "Showcase access code",
     publishing: "Publishing",
     publish: "Publish",
     viewPublicPage: "View public page",

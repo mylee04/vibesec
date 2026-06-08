@@ -22,7 +22,6 @@ export const ShowcasePublish = ({
   const [tagline, setTagline] = useState("")
   const [category, setCategory] = useState(labels.publish.defaultCategory)
   const [stack, setStack] = useState(report.detected.join(", "))
-  const [accessCode, setAccessCode] = useState("")
   const [state, setState] = useState<PublishState>({ kind: "idle" })
 
   const submit = async (event: { readonly preventDefault: () => void }) => {
@@ -38,7 +37,6 @@ export const ShowcasePublish = ({
           .split(",")
           .map((item) => item.trim())
           .filter((item) => item.length > 0),
-        accessCode,
       })
       setState({ kind: "saved", entry })
     } catch (error) {
@@ -92,15 +90,6 @@ export const ShowcasePublish = ({
           placeholder={labels.publish.stack}
           onChange={(event) => setStack(event.currentTarget.value)}
         />
-        <div className="input-shell compact">
-          <LockKeyhole size={16} aria-hidden="true" />
-          <input
-            value={accessCode}
-            placeholder={labels.publish.accessCode}
-            onChange={(event) => setAccessCode(event.currentTarget.value)}
-            required
-          />
-        </div>
         <button type="submit" disabled={state.kind === "saving"}>
           {state.kind === "saving" ? labels.publish.publishing : labels.publish.publish}
         </button>

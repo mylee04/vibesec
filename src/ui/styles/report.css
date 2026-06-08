@@ -163,10 +163,6 @@ dd {
   background: #070b0d;
 }
 
-.input-shell.compact {
-  min-height: 48px;
-}
-
 .showcase-link {
   display: inline-flex;
   align-items: center;

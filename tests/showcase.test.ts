@@ -22,12 +22,11 @@ const validPayload = {
   tagline: "A secure AI launch worth sharing.",
   category: "AI Tools",
   stack: ["Vercel", "OpenAI"],
-  accessCode: "paid-code",
 }
 
 describe("showcase entries", () => {
   it("publishes only safe public fields after rescanning the submitted app", async () => {
-    // Given: a paid showcase submission and a scanner that returns a high score.
+    // Given: a free showcase submission and a scanner that returns a high score.
     const store = createMemoryShowcaseStore()
     const scanner = { scanTarget: () => reportWithScore(97) }
 
@@ -35,7 +34,6 @@ describe("showcase entries", () => {
     const created = await createShowcaseEntry(validPayload, {
       store,
       scanner,
-      accessCode: "paid-code",
     })
     const listed = await listShowcaseEntries(store)
 
@@ -60,25 +58,6 @@ describe("showcase entries", () => {
     })
   })
 
-  it("rejects showcase submissions without the paid access code", async () => {
-    // Given: a paid showcase gate.
-    const store = createMemoryShowcaseStore()
-
-    // When: a submission uses the wrong access code.
-    const result = await createShowcaseEntry(
-      { ...validPayload, accessCode: "wrong" },
-      {
-        store,
-        scanner: { scanTarget: () => reportWithScore(97) },
-        accessCode: "paid-code",
-      },
-    )
-
-    // Then: the app is not listed.
-    expect(result.status).toBe(402)
-    expect(await store.listEntries()).toEqual([])
-  })
-
   it("rejects low scoring apps from public showcase listing", async () => {
     // Given: a submission that can be scanned but does not meet the public score bar.
     const store = createMemoryShowcaseStore()
@@ -87,7 +66,6 @@ describe("showcase entries", () => {
     const result = await createShowcaseEntry(validPayload, {
       store,
       scanner: { scanTarget: () => reportWithScore(54) },
-      accessCode: "paid-code",
     })
 
     // Then: the public listing is denied.

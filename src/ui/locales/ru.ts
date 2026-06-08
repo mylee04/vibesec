@@ -167,7 +167,6 @@ export const ruCopy = {
     tagline: "Короткое описание",
     category: "Категория",
     stack: "Стек: Vercel, Supabase, OpenAI",
-    accessCode: "Код доступа к витрине",
     publishing: "Публикация",
     publish: "Опубликовать",
     viewPublicPage: "Открыть публичную страницу",

@@ -11,7 +11,6 @@ export type ShowcaseSubmission = {
   readonly tagline: string
   readonly category: string
   readonly stack: readonly string[]
-  readonly accessCode: string
 }
 
 export const listShowcaseEntries = async (): Promise<readonly ShowcaseEntry[]> => {

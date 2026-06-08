@@ -169,7 +169,6 @@ export const jaCopy = {
     tagline: "一行紹介",
     category: "カテゴリ",
     stack: "スタック: Vercel, Supabase, OpenAI",
-    accessCode: "ショーケースアクセスコード",
     publishing: "公開中",
     publish: "公開",
     viewPublicPage: "公開ページを見る",

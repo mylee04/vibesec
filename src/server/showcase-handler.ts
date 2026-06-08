@@ -1,11 +1,10 @@
-import { env } from "node:process"
 import { z } from "zod"
 import { scanTarget } from "../scanner/scan.js"
 import type { ScanReport } from "../scanner/types.js"
 import type { ShowcaseEntry } from "../showcase/types.js"
 import { createConfiguredShowcaseStore, type ShowcaseStore } from "./showcase-store.js"
 
-export type ShowcaseHttpStatus = 200 | 201 | 400 | 402 | 422 | 502
+export type ShowcaseHttpStatus = 200 | 201 | 400 | 422 | 502
 
 export type ShowcaseHttpResult = {
   readonly status: ShowcaseHttpStatus
@@ -19,7 +18,6 @@ type ShowcaseScanner = {
 export type ShowcaseHandlerOptions = {
   readonly store?: ShowcaseStore
   readonly scanner?: ShowcaseScanner
-  readonly accessCode?: string
 }
 
 const defaultStore = createConfiguredShowcaseStore()
@@ -30,7 +28,6 @@ const ShowcaseRequestSchema = z.object({
   tagline: z.string().trim().min(8).max(160),
   category: z.string().trim().min(2).max(40),
   stack: z.array(z.string().trim().min(1).max(32)).max(8),
-  accessCode: z.string().trim().optional(),
 })
 
 const slugFor = (value: string): string =>
@@ -44,8 +41,6 @@ const idFor = (appName: string, appUrl: string): string => {
   const hostname = new URL(appUrl).hostname.replace(/^www\./, "")
   return `${slugFor(appName)}-${slugFor(hostname)}`.slice(0, 80)
 }
-
-const requiredAccessCode = (): string | undefined => env["VIBESEC_SHOWCASE_ACCESS_CODE"]
 
 const publicEntryFrom = (
   input: z.infer<typeof ShowcaseRequestSchema>,
@@ -78,13 +73,6 @@ export const createShowcaseEntry = async (
   const parsed = ShowcaseRequestSchema.safeParse(payload)
   if (!parsed.success) {
     return { status: 400, body: { error: { code: "invalid_showcase_entry" } } }
-  }
-  const expectedAccessCode = options.accessCode ?? requiredAccessCode()
-  if (expectedAccessCode !== undefined && parsed.data.accessCode !== expectedAccessCode) {
-    return {
-      status: 402,
-      body: { error: { code: "showcase_access_required", message: "Showcase access required." } },
-    }
   }
   const scanner = options.scanner ?? { scanTarget }
   const store = options.store ?? defaultStore

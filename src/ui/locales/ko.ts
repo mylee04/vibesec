@@ -163,7 +163,6 @@ export const koCopy = {
     tagline: "한 줄 소개",
     category: "카테고리",
     stack: "스택: Vercel, Supabase, OpenAI",
-    accessCode: "쇼케이스 접근 코드",
     publishing: "게시 중",
     publish: "게시",
     viewPublicPage: "공개 페이지 보기",

@@ -73,7 +73,6 @@ Do not commit real secrets. Configure these only in the deployment environment w
 
 - `UPSTASH_REDIS_REST_URL`
 - `UPSTASH_REDIS_REST_TOKEN`
-- `VIBESEC_SHOWCASE_ACCESS_CODE`
 - `VIBESEC_ALERT_WEBHOOK_URL`
 
 Without Redis variables, VibeSec falls back to in-memory rate limiting and showcase storage.

@@ -169,7 +169,6 @@ export const esCopy = {
     tagline: "Pitch de una línea",
     category: "Categoría",
     stack: "Stack: Vercel, Supabase, OpenAI",
-    accessCode: "Código de acceso al showcase",
     publishing: "Publicando",
     publish: "Publicar",
     viewPublicPage: "Ver página pública",
