@@ -3,9 +3,9 @@ import type { UiCopy } from "./en.js"
 export const koCopy = {
   language: "언어",
   scanner: {
-    eyebrow: "VibeSec 출시 전 점검",
-    title: "AI 웹앱, 배포 전 1분 점검",
-    subtitle: "하루 만에 만든 앱도 공개하면 공격 표면이 생깁니다.",
+    eyebrow: "공유하기 전 마지막 체크",
+    title: "내 웹앱, 올리기 전에 한 번만 확인",
+    subtitle: "X, Threads, 커뮤니티에 링크 올리기 전 1분만 검사해 보세요.",
     urlLabel: "웹사이트 URL",
     placeholder: "your-app.com",
     runScan: "무료로 검사하기",
