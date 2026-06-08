@@ -14,14 +14,13 @@ export const esCopy = {
   home: {
     eyebrow: "Showcase de VibeSec",
     title: "Quieres tu app aquí?",
-    pitch: "Envía tu app. Quieres el primer lugar? Destácala.",
+    pitch: "Escanea tu app y publícala gratis en el showcase.",
     submitCta: "Enviar app",
-    featureCta: "Destacar",
     viewAll: "Ver todo",
     beta: "Beta pública",
   },
   showcase: {
-    title: "Quieres tu app aquí? Destácala.",
+    title: "Publica tu app en el showcase",
     scanYourApp: "Escanear mi app",
     loading: "Cargando showcase.",
     noPublic: "Aún no hay lanzamientos públicos.",

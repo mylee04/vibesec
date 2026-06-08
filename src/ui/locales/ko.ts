@@ -14,14 +14,13 @@ export const koCopy = {
   home: {
     eyebrow: "VibeSec 쇼케이스",
     title: "여기에 올리고 싶나요?",
-    pitch: "앱을 등록하세요. 첫 번째로 보이고 싶다면 Featured로 올리세요.",
+    pitch: "앱을 스캔하고 무료로 쇼케이스에 등록하세요.",
     submitCta: "앱 등록",
-    featureCta: "상단 노출",
     viewAll: "전체 보기",
     beta: "공개 베타 런치",
   },
   showcase: {
-    title: "여기에 올리고 싶나요? 상단 노출하세요.",
+    title: "쇼케이스에 앱을 등록하세요",
     scanYourApp: "내 앱 스캔",
     loading: "쇼케이스 불러오는 중.",
     noPublic: "아직 공개 런치가 없습니다.",

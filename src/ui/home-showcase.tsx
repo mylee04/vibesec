@@ -54,7 +54,6 @@ export const HomeShowcase = ({
             <p>{labels.home.pitch}</p>
             <div className="home-showcase-cta">
               <a href={ctaHref}>{labels.home.submitCta}</a>
-              <a href={ctaHref}>{labels.home.featureCta}</a>
             </div>
           </div>
         </div>

@@ -14,14 +14,13 @@ export const jaCopy = {
   home: {
     eyebrow: "VibeSec ショーケース",
     title: "ここに載せたいですか?",
-    pitch: "アプリを登録。最上位に見せたいなら Featured へ。",
+    pitch: "アプリをスキャンして、無料でショーケースに公開できます。",
     submitCta: "登録する",
-    featureCta: "上位掲載",
     viewAll: "すべて表示",
     beta: "公開ベータ",
   },
   showcase: {
-    title: "ここに載せたいですか? 上位掲載へ。",
+    title: "ショーケースにアプリを公開",
     scanYourApp: "自分のアプリをスキャン",
     loading: "ショーケースを読み込み中。",
     noPublic: "公開ローンチはまだありません。",
